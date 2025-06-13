@@ -2,6 +2,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import BaseLayout from '@/components/layout/BaseLayout';
 import MainPage from '@/pages/MainPage';
+import LoginPage from '@/pages/LoginPage';
+import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 
 const AppRouter = () => {
   const router = createBrowserRouter([
@@ -12,6 +14,12 @@ const AppRouter = () => {
         {
           path: '',
           element: <MainPage />,
+          loader: requireAuth,
+        },
+        {
+          path: PATH.LOGIN,
+          element: <LoginPage />,
+          loader: redirectIfAuthenticated,
         },
       ],
     },
