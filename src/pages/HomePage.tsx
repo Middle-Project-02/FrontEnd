@@ -1,7 +1,10 @@
-function sample() {
+const HomePage = () => {
   return (
-    <div>sample 페이지 입니다.</div>
-  )
-}
+    <div>
+      {/* <Navbar /> */}
+      <h1>Homepage</h1>
+    </div>
+  );
+};
 
-export default sample
+export default HomePage;
