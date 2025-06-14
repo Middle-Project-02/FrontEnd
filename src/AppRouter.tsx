@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { PATH } from '@/constants/path';
-import BaseLayout from '@/components/layout/BaseLayout';
+import BaseLayout from '@/components/layout/base/BaseLayout';
 import MainPage from '@/pages/MainPage';
 import LoginPage from '@/pages/LoginPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
