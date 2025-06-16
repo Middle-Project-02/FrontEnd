@@ -85,6 +85,10 @@ export default {
         shadowP: '0px 4px 8px rgba(11, 78, 239, 0.16), 0px 0px 4px rgba(11, 78, 239, 0.12)',
         shadowP2: '0px 8px 8px rgba(11, 78, 239, 0.16), 0px 0px 8px rgba(11, 78, 239, 0.12)',
       },
+
+      fontFamily: {
+        sans: ['Pretendard Variable', 'Pretendard', 'sans-serif'],
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
