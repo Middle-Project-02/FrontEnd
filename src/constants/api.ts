@@ -4,6 +4,10 @@ export const END_POINTS = {
   LOGIN: 'auth/login',
   REISSUE: 'auth/reissue',
   USERINFORMATION: 'members/me',
+  FAQ: {
+    GET_CHIPS: 'faq-chips',
+    GET_ANSWER: (id: number) => `faq-chips/${id}/answer`,
+  },
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
