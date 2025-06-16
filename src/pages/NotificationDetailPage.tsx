@@ -12,7 +12,7 @@ const NotificationDetailPage = () => {
   };
 
   if (!notificationDetail) {
-    return <div className="text-lg">로딩 중...</div>;
+    return <p className="text-lg">로딩 중...</p>;
   }
 
   return (
@@ -23,8 +23,8 @@ const NotificationDetailPage = () => {
         </button>
       </div>
       <div className="text-white">
-        <h1>{notificationDetail.title}</h1>
-        <h3>{notificationDetail.tags}</h3>
+        <p>{notificationDetail.title}</p>
+        <p>{notificationDetail.tags?.join(' ')}</p>
         <p>{notificationDetail.issue}</p>
         <p>{notificationDetail.solution}</p>
       </div>

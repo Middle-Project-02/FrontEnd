@@ -10,13 +10,13 @@ const NotificationPage = () => {
   };
 
   if (!notifications) {
-    return <div className="text-lg">로딩 중...</div>;
+    return <p className="text-lg">로딩 중...</p>;
   }
 
   return (
     <div>
       {notifications.length === 0 ? (
-        <div>알림장이 없습니다.</div>
+        <p>알림장이 없습니다.</p>
       ) : (
         <div>
           {notifications.map((notification) => (
@@ -26,8 +26,8 @@ const NotificationPage = () => {
               className="text-white p-4 mb-4"
             >
               <p>{notification.notificationId}</p>
-              <h2>{notification.title}</h2>
-              <h3>{notification.tags}</h3>
+              <p>{notification.title}</p>
+              <p>{notification.tags?.join(' ')}</p>
               <p>{notification.issue.slice(0, 50)}</p>
             </div>
           ))}
