@@ -25,7 +25,9 @@ const NotificationDetailPage = () => {
       <div>
         <p>{notificationDetail.title}</p>
         <p>{notificationDetail.tags?.join(' ')}</p>
+        <p>{notificationDetail.summary}</p>
         <p>{notificationDetail.issue}</p>
+        <p>{notificationDetail.impact}</p>
         <p>{notificationDetail.solution}</p>
       </div>
     </>

@@ -5,7 +5,7 @@ const NotificationPage = () => {
   const { notifications } = useAllNotificationsQuery();
   const navigate = useNavigate();
 
-  const handleNotificationClick = (id: string) => {
+  const handleNotificationClick = (id: number) => {
     navigate(`/notifications/${id}`);
   };
 
@@ -28,7 +28,7 @@ const NotificationPage = () => {
               <p>{notification.notificationId}</p>
               <p>{notification.title}</p>
               <p>{notification.tags?.join(' ')}</p>
-              <p>{notification.issue.slice(0, 50)}</p>
+              <p>{notification.summary.slice(0, 50)}</p>
             </div>
           ))}
         </div>

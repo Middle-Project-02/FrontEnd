@@ -1,11 +1,13 @@
 export interface NotificationSimpleResponse {
-  notificationId: string;
+  notificationId: number;
   title: string;
-  issue: string;
+  summary: string;
   tags?: string[];
   createdAt: string;
 }
 
 export interface NotificationDetailResponse extends NotificationSimpleResponse {
+  issue: string;
+  impact: string;
   solution: string;
 }
