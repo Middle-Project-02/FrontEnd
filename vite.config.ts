@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 
 export default ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  console.log('VITE_API_URL:', env.VITE_API_URL); // 이 부분 꼭 확인
+  console.log('VITE_BASE_URL:', env.VITE_BASE_URL); // 이 부분 꼭 확인
 
   return defineConfig({
     plugins: [react()],

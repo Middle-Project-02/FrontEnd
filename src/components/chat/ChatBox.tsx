@@ -1,11 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
 import './ChatBox.css';
-
-const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
-  withCredentials: true,
-});
+import { useSse } from '@/hooks/sse/useSse';
+import { useSseListener } from '@/hooks/sse/useSseListener';
+import axios from 'axios';
+import { PATH } from '@/constants/path';
 
 type ChatMessage = {
   role: 'user' | 'ai';
@@ -13,84 +11,46 @@ type ChatMessage = {
   time: string;
 };
 
+const apiClient = axios.create({
+  baseURL: import.meta.env.VITE_BASE_URL,
+  withCredentials: true,
+});
+
 const ChatBox = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [aiResponse, setAiResponse] = useState('');
   const [input, setInput] = useState('');
-  const [isConnected, setIsConnected] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const eventSourceRef = useRef<EventSource | null>(null);
   const currentAiResponseRef = useRef('');
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   const getTime = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-  const connectSSE = () => {
-    if (eventSourceRef.current) {
-      eventSourceRef.current.close();
+  useSse(PATH.SSE.SMISHING_CONNECT);
+
+  useSseListener('stream_chat', (chunk) => {
+    currentAiResponseRef.current += chunk;
+    setAiResponse((prev) => prev + chunk);
+  });
+
+  useSseListener('done', () => {
+    const finalResponse = currentAiResponseRef.current;
+    if (finalResponse.trim()) {
+      setMessages((prev) => [...prev, { role: 'ai', content: finalResponse, time: getTime() }]);
     }
-
-    const eventSource = new EventSource(`${import.meta.env.VITE_BASE_URL}smishing/connect`, {
-      withCredentials: true,
-    });
-
-    eventSource.onopen = () => {
-      console.log('SSE connection opened');
-      setIsConnected(true);
-      setError('');
-    };
-
-    eventSource.onmessage = (event) => {
-      console.log('Default SSE message:', event.data);
-    };
-
-    eventSource.addEventListener('stream_chat', (event) => {
-      const chunk = event.data;
-      currentAiResponseRef.current += chunk;
-      setAiResponse((prev) => prev + chunk);
-    });
-
-    eventSource.addEventListener('done', () => {
-      const finalResponse = currentAiResponseRef.current;
-      if (finalResponse.trim()) {
-        setMessages((prev) => [...prev, { role: 'ai', content: finalResponse, time: getTime() }]);
-      }
-      setAiResponse('');
-      currentAiResponseRef.current = '';
-      setIsLoading(false);
-    });
-
-    eventSource.onerror = (error) => {
-      console.error('SSE connection error:', error);
-      setIsConnected(false);
-      setError('연결이 끊겼습니다. 다시 시도 중...');
-      setTimeout(() => {
-        connectSSE();
-      }, 3000);
-    };
-
-    eventSourceRef.current = eventSource;
-  };
+    setAiResponse('');
+    currentAiResponseRef.current = '';
+    setIsLoading(false);
+  });
 
   useEffect(() => {
-    connectSSE();
-    return () => {
-      eventSourceRef.current?.close();
-    };
-  }, []);
-
-  useEffect(() => {
-    scrollToBottom();
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, aiResponse]);
 
   const sendMessage = async () => {
-    if (!input.trim() || !isConnected) return;
+    if (!input.trim()) return;
 
     try {
       const userMessage = input.trim();
@@ -101,7 +61,7 @@ const ChatBox = () => {
       setError('');
       setIsLoading(true);
 
-      await apiClient.post('smishing/message', {
+      await apiClient.post(PATH.SMISHING.MESSAGE, {
         content: userMessage,
       });
     } catch (err) {
@@ -123,8 +83,8 @@ const ChatBox = () => {
       <div className="chat-header">
         <h2>💬 실시간 채팅</h2>
         <div>
-          <span className={`connection-status ${isConnected ? 'connected' : 'disconnected'}`}>
-            {isConnected ? '🟢 연결됨' : '🔴 연결 끊김'}
+          <span className={`connection-status ${error ? 'disconnected' : 'connected'}`}>
+            {error ? '🔴 연결 끊김' : '🟢 연결됨'}
           </span>
           <button onClick={() => setMessages([])} style={{ marginLeft: '10px' }}>
             초기화
@@ -165,9 +125,9 @@ const ChatBox = () => {
           onChange={(e) => setInput(e.target.value)}
           placeholder="메시지를 입력하세요"
           onKeyDown={handleKeyPress}
-          disabled={!isConnected}
+          disabled={Boolean(error)}
         />
-        <button onClick={sendMessage} disabled={!input.trim() || !isConnected}>
+        <button onClick={sendMessage} disabled={!input.trim() || Boolean(error)}>
           전송
         </button>
       </div>
