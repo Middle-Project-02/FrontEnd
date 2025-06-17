@@ -22,7 +22,7 @@ const NotificationDetailPage = () => {
           뒤로가기
         </button>
       </div>
-      <div className="text-white">
+      <div>
         <p>{notificationDetail.title}</p>
         <p>{notificationDetail.tags?.join(' ')}</p>
         <p>{notificationDetail.issue}</p>

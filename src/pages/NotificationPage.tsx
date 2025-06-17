@@ -23,7 +23,7 @@ const NotificationPage = () => {
             <div
               key={notification.notificationId}
               onClick={() => handleNotificationClick(notification.notificationId)}
-              className="text-white p-4 mb-4"
+              className="p-4 mb-4 cursor-pointer"
             >
               <p>{notification.notificationId}</p>
               <p>{notification.title}</p>
