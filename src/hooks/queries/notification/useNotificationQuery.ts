@@ -22,7 +22,7 @@ const useNotificationDetailQuery = (id: string) => {
     staleTime: 5 * 60 * 1000,
   });
 
-  return notificationDetail;
+  return { notificationDetail };
 };
 
 export { useAllNotificationsQuery, useNotificationDetailQuery };

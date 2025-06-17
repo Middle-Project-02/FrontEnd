@@ -4,8 +4,8 @@ import BaseLayout from '@/components/layout/base/BaseLayout';
 import MainPage from '@/pages/MainPage';
 import LoginPage from '@/pages/LoginPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
-import NotificationPage from './pages/NotificationPage';
-import NotificationDetailPage from './pages/NotificationDetailPage';
+import NotificationPage from '@/pages/NotificationPage';
+import NotificationDetailPage from '@/pages/NotificationDetailPage';
 
 const AppRouter = () => {
   const router = createBrowserRouter([

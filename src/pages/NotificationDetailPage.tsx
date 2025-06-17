@@ -1,3 +1,4 @@
+import { PATH } from '@/constants/path';
 import { useNotificationDetailQuery } from '@/hooks/queries/notification/useNotificationQuery';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -5,10 +6,10 @@ const NotificationDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const notificationDetail = useNotificationDetailQuery(id!);
+  const { notificationDetail } = useNotificationDetailQuery(id!);
 
   const handleBackClick = () => {
-    navigate('/notifications');
+    navigate(PATH.NOTIFICATIONS);
   };
 
   if (!notificationDetail) {

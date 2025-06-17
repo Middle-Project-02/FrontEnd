@@ -1,4 +1,4 @@
-import { NotificationDetailResponse, NotificationSimpleResponse } from '@/types/notification';
+import type { NotificationDetailResponse, NotificationSimpleResponse } from '@/types/notification';
 import { axiosInstance } from './axiosInstance';
 import { END_POINTS } from '@/constants/api';
 
