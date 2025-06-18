@@ -5,4 +5,7 @@ export const PATH = {
   SSE: {
     CONNECT: '/chat/connect',
   },
+  HOME: '/home',
+  CHAT: '/chat',
+  MYPAGE: '/mypage',
 } as const;
