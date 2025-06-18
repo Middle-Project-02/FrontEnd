@@ -18,17 +18,17 @@ const AppRouter = () => {
           element: <MainPage />,
           loader: requireAuth,
         },
-        {
-          path: PATH.LOGIN,
-          element: <LoginPage />,
-          loader: redirectIfAuthenticated,
-        },
         { path: PATH.NOTIFICATIONS, element: <NotificationPage /> },
         {
           path: PATH.NOTIFICATION_DETAIL,
           element: <NotificationDetailPage />,
         },
       ],
+    },
+    {
+      path: PATH.LOGIN,
+      element: <LoginPage />,
+      loader: redirectIfAuthenticated,
     },
   ]);
 
