@@ -1,6 +1,6 @@
+import { useNavigate, useParams } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import { useNotificationDetailQuery } from '@/hooks/queries/notification/useNotificationQuery';
-import { useNavigate, useParams } from 'react-router-dom';
 
 const NotificationDetailPage = () => {
   const { id } = useParams<{ id: string }>();

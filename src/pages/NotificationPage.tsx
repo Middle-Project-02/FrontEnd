@@ -1,13 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import { useAllNotificationsQuery } from '@/hooks/queries/notification/useNotificationQuery';
-import { useNavigate } from 'react-router-dom';
 
 const NotificationPage = () => {
   const { notifications } = useAllNotificationsQuery();
   const navigate = useNavigate();
 
   const handleNotificationClick = (id: number) => {
-    navigate(PATH.NOTIFICATION_DETAIL.replace(':id', String(id)));
+    navigate(`${PATH.NOTIFICATIONS}/${id}`);
   };
 
   if (!notifications) {
