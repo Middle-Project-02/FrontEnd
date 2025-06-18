@@ -12,4 +12,7 @@ export const PATH = {
     MESSAGE: '/smishing/message',
     PAGE: '/smishing',
   },
+  HOME: '/home',
+  CHAT: '/chat',
+  MYPAGE: '/mypage',
 } as const;

@@ -20,11 +20,6 @@ const AppRouter = () => {
           loader: requireAuth,
         },
         {
-          path: PATH.LOGIN,
-          element: <LoginPage />,
-          loader: redirectIfAuthenticated,
-        },
-        {
           path: 'smishing',
           element: <SmishingPage />,
           loader: requireAuth,
@@ -35,6 +30,11 @@ const AppRouter = () => {
           element: <NotificationDetailPage />,
         },
       ],
+    },
+    {
+      path: PATH.LOGIN,
+      element: <LoginPage />,
+      loader: redirectIfAuthenticated,
     },
   ]);
 
