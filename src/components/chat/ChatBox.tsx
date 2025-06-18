@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
-import './ChatBox.css';
 import { useSse } from '@/hooks/sse/useSse';
 import { useSseListener } from '@/hooks/sse/useSseListener';
 import axios from 'axios';
 import { PATH } from '@/constants/path';
+import { Button } from '@/components/ui/button';
 
 type ChatMessage = {
   role: 'user' | 'ai';
@@ -28,7 +28,7 @@ const ChatBox = () => {
 
   const getTime = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-  useSse(PATH.SSE.SMISHING_CONNECT);
+  useSse(PATH.SMISHING.CONNECT);
 
   useSseListener('stream_chat', (chunk) => {
     currentAiResponseRef.current += chunk;
@@ -51,7 +51,6 @@ const ChatBox = () => {
 
   const sendMessage = async () => {
     if (!input.trim()) return;
-
     try {
       const userMessage = input.trim();
       setMessages((prev) => [...prev, { role: 'user', content: userMessage, time: getTime() }]);
@@ -79,46 +78,63 @@ const ChatBox = () => {
   };
 
   return (
-    <div className="chat-box">
-      <div className="chat-header">
-        <h2>💬 실시간 채팅</h2>
-        <div>
-          <span className={`connection-status ${error ? 'disconnected' : 'connected'}`}>
+    <div className="flex flex-col max-w-[800px] h-[600px] mx-auto border border-borderSecondary rounded-8 bg-white shadow-shadow8">
+      {/* Header */}
+      <div className="flex justify-between items-center px-20 py-16 border-b border-borderSecondary bg-bgTertiary">
+        <h2 className="text-heading-h4 font-semibold text-black">💬 실시간 채팅</h2>
+        <div className="flex items-center gap-8">
+          <span
+            className={`text-body-xs font-medium px-12 py-4 rounded-12 ${
+              error ? 'text-error bg-red-100' : 'text-success bg-green-100'
+            }`}
+          >
             {error ? '🔴 연결 끊김' : '🟢 연결됨'}
           </span>
-          <button onClick={() => setMessages([])} style={{ marginLeft: '10px' }}>
+          <Button variant="outline" size="sm" onClick={() => setMessages([])}>
             초기화
-          </button>
+          </Button>
         </div>
       </div>
 
-      <div className="chat-messages">
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto px-20 py-20 flex flex-col gap-12 text-body-lg">
         {messages.map((msg, i) => (
-          <div key={i} className={`message ${msg.role === 'ai' ? 'ai-message' : 'user-message'}`}>
-            <div className="message-content" style={{ whiteSpace: 'pre-wrap' }}>
+          <div key={i} className={`flex ${msg.role === 'ai' ? 'self-start' : 'self-end'}`}>
+            <div
+              className={`px-16 py-12 rounded-24 max-w-[80%] whitespace-pre-wrap break-words leading-snug ${
+                msg.role === 'ai'
+                  ? 'bg-bgSecondary text-black rounded-bl-4'
+                  : 'bg-primary text-white rounded-br-4'
+              }`}
+            >
               {msg.content}
             </div>
-            <div className="message-time">{msg.time}</div>
+            <div className="text-body-xxs text-textSecondary ml-4 self-end">{msg.time}</div>
           </div>
         ))}
 
         {aiResponse && (
-          <div className="message ai-message streaming">
-            <div className="message-content" style={{ whiteSpace: 'pre-wrap' }}>
+          <div className="flex self-start">
+            <div className="px-16 py-12 rounded-24 max-w-[80%] bg-blue-100 border border-blue-300 text-black rounded-bl-4 whitespace-pre-wrap break-words leading-snug">
               {aiResponse}
-              <span className="typing-indicator">▋</span>
+              {isLoading && (
+                <div className="text-center text-textSecondary text-body-xs py-4">
+                  AI가 응답 중입니다...
+                </div>
+              )}
+              <span className="animate-pulse text-primary font-bold">▋</span>
             </div>
-            <div className="message-time">{getTime()}</div>
+            <div className="text-body-xxs text-textSecondary ml-4 self-end">{getTime()}</div>
           </div>
         )}
-
         <div ref={messagesEndRef} />
       </div>
 
-      {error && <div className="error-message">{error}</div>}
-      {isLoading && <div className="loading-message">AI가 응답 중입니다...</div>}
+      {/* Error Message */}
+      {error && <div className="text-center text-error text-body-sm py-4">{error}</div>}
 
-      <div className="chat-input">
+      {/* Input */}
+      <div className="flex px-20 py-16 border-t border-borderSecondary bg-bgTertiary">
         <input
           type="text"
           value={input}
@@ -126,10 +142,11 @@ const ChatBox = () => {
           placeholder="메시지를 입력하세요"
           onKeyDown={handleKeyPress}
           disabled={Boolean(error)}
+          className="flex-1 px-16 py-12 rounded-circle border border-borderSecondary text-body-sm outline-none disabled:bg-bgSecondary disabled:text-textSecondary"
         />
-        <button onClick={sendMessage} disabled={!input.trim() || Boolean(error)}>
+        <Button onClick={sendMessage} disabled={!input.trim() || Boolean(error)} className="ml-12">
           전송
-        </button>
+        </Button>
       </div>
     </div>
   );
