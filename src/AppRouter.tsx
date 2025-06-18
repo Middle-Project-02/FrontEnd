@@ -16,12 +16,12 @@ const AppRouter = () => {
           element: <MainPage />,
           loader: requireAuth,
         },
-        {
-          path: PATH.LOGIN,
-          element: <LoginPage />,
-          loader: redirectIfAuthenticated,
-        },
       ],
+    },
+    {
+      path: PATH.LOGIN,
+      element: <LoginPage />,
+      loader: redirectIfAuthenticated,
     },
   ]);
 
