@@ -4,6 +4,10 @@ export const END_POINTS = {
   LOGIN: 'auth/login',
   REISSUE: 'auth/reissue',
   USERINFORMATION: 'members/me',
+  NOTIFICATION: {
+    GET_ALL: 'notifications',
+    GET_DETAIL: (id: string) => `notifications/${id}`,
+  },
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
