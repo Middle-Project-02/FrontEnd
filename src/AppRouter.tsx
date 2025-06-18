@@ -5,6 +5,8 @@ import MainPage from '@/pages/MainPage';
 import LoginPage from '@/pages/LoginPage';
 import SmishingPage from '@/pages/SmishingPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
+import NotificationPage from '@/pages/NotificationPage';
+import NotificationDetailPage from '@/pages/NotificationDetailPage';
 
 const AppRouter = () => {
   const router = createBrowserRouter([
@@ -26,6 +28,11 @@ const AppRouter = () => {
           path: 'smishing',
           element: <SmishingPage />,
           loader: requireAuth,
+        },
+        { path: PATH.NOTIFICATIONS, element: <NotificationPage /> },
+        {
+          path: PATH.NOTIFICATION_DETAIL,
+          element: <NotificationDetailPage />,
         },
       ],
     },
