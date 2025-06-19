@@ -6,6 +6,7 @@ import LoginPage from '@/pages/LoginPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
+import TemplatesPage from './pages/TemplatesPage';
 
 const AppRouter = () => {
   const router = createBrowserRouter([
@@ -23,6 +24,7 @@ const AppRouter = () => {
           path: PATH.NOTIFICATION_DETAIL,
           element: <NotificationDetailPage />,
         },
+        { path: PATH.TEMPLATES, element: <TemplatesPage /> },
       ],
     },
     {

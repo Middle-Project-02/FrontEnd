@@ -8,6 +8,12 @@ export const END_POINTS = {
     GET_ALL: 'notifications',
     GET_DETAIL: (id: string) => `notifications/${id}`,
   },
+  TEMPLATE: {
+    GET_ALL: 'templates',
+    GET_DETAIL: (id: number) => `templates/detail/${id}`,
+    SAVE: 'templates',
+    DELETE: (id: number) => `templates/${id}`,
+  },
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;

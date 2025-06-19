@@ -10,4 +10,6 @@ export const PATH = {
   HOME: '/home',
   CHAT: '/chat',
   MYPAGE: '/mypage',
+  TEMPLATES: '/templates',
+  TEMPLATE_DETAIL: '/templates/:templateId',
 } as const;
