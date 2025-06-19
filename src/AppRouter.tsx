@@ -3,6 +3,7 @@ import { PATH } from '@/constants/path';
 import BaseLayout from '@/components/layout/base/BaseLayout';
 import MainPage from '@/pages/MainPage';
 import LoginPage from '@/pages/LoginPage';
+import SmishingPage from '@/pages/SmishingPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
@@ -19,9 +20,9 @@ const AppRouter = () => {
           loader: requireAuth,
         },
         {
-          path: PATH.LOGIN,
-          element: <LoginPage />,
-          loader: redirectIfAuthenticated,
+          path: PATH.SMISHING,
+          element: <SmishingPage />,
+          loader: requireAuth,
         },
         { path: PATH.NOTIFICATIONS, element: <NotificationPage /> },
         {
@@ -29,6 +30,11 @@ const AppRouter = () => {
           element: <NotificationDetailPage />,
         },
       ],
+    },
+    {
+      path: PATH.LOGIN,
+      element: <LoginPage />,
+      loader: redirectIfAuthenticated,
     },
   ]);
 
