@@ -12,7 +12,7 @@ export const makeToast = (message: string, variant: ToastVariant) => {
       </div>
     ),
     {
-      duration: 1000,
+      duration: 3000,
     },
   );
 };
