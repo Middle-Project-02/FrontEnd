@@ -2,14 +2,23 @@ import { useParams } from 'react-router-dom';
 import { useNotificationDetailQuery } from '@/hooks/queries/notification/useNotificationQuery';
 import BackButton from '@/components/common/BackButton';
 import { Badge } from '@/components/ui/badge';
-import { Impact, Issue, Solution } from '@/assets/svg';
+import { Impact, Issue, LoadingDog, Solution } from '@/assets/svg';
 
 const NotificationDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { notificationDetail } = useNotificationDetailQuery(id!);
 
   if (!notificationDetail) {
-    return <p className="text-lg">로딩 중...</p>;
+    return (
+      <div className="flex flex-col h-full min-h-screen justify-center items-center text-center">
+        <img src={LoadingDog} alt="로딩" className="w-full" />
+        <h3 className="text-heading-h3 font-semibold">
+          정보를 가지고 오고 있어요
+          <br />
+          조금만 기다려주세요!
+        </h3>
+      </div>
+    );
   }
 
   const sections = [
