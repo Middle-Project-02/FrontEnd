@@ -7,7 +7,10 @@ export const PATH = {
   SSE: {
     CONNECT: '/chat/connect',
   },
-  SMISHING: 'smishing',
+  SMISHING: {
+    PAGE: '/smishing',
+    INTRO: '/intro',
+  },
   HOME: '/home',
   CHAT: '/chat',
   MYPAGE: '/mypage',
