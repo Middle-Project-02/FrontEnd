@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSse } from '@/hooks/sse/useSse';
 import { useSseListener } from '@/hooks/sse/useSseListener';
 import { END_POINTS } from '@/constants/api';
@@ -15,6 +16,7 @@ const SmishingPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const navigate = useNavigate();
   const currentAiResponseRef = useRef('');
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<TextareaHandle>(null);
@@ -31,8 +33,7 @@ const SmishingPage = () => {
     if (finalResponse.trim()) {
       setMessages((prev) => [...prev, { role: 'ai', content: finalResponse }]);
     }
-    setAiResponse('');
-    currentAiResponseRef.current = '';
+    resetAiResponse();
     setIsLoading(false);
   });
 
@@ -48,16 +49,37 @@ const SmishingPage = () => {
     },
   );
 
-  const sendMessage = () => {
-    if (!input.trim()) return;
-    const userMessage = input.trim();
-    setMessages((prev) => [...prev, { role: 'user', content: userMessage }]);
+  const resetAiResponse = () => {
     setAiResponse('');
     currentAiResponseRef.current = '';
+  };
+
+  const isInputValid = (input: string) => input.trim().length > 0;
+
+  const appendUserMessage = (content: string) => {
+    setMessages((prev) => [...prev, { role: 'user', content }]);
+  };
+
+  const resetInputState = () => {
     setInput('');
     textareaRef.current?.resetHeight();
+  };
+
+  const prepareForResponse = () => {
+    resetAiResponse();
     setError('');
     setIsLoading(true);
+  };
+
+  const sendMessage = () => {
+    if (!isInputValid(input)) return;
+
+    const userMessage = input.trim();
+
+    appendUserMessage(userMessage);
+    resetInputState();
+    prepareForResponse();
+
     mutation.mutate(userMessage);
   };
 
@@ -68,16 +90,21 @@ const SmishingPage = () => {
     }
   };
 
-  const handlePaste = () => {
-    navigator.clipboard.readText().then((text) => {
+  const handlePaste = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
       setInput(text);
-    });
+    } catch {
+      setError('붙여넣기에 실패했습니다.');
+    }
   };
 
   return (
-    <div className="flex flex-col justify-between h-full mx-auto rounded-8 bg-white px-30 pt-40 pb-24 pd-24">
+    <div className="flex flex-col justify-between h-full mx-auto rounded-8 bg-white px-30 pt-40 pb-24">
       <div className="flex items-center justify-between px-4 py-3 text-body-md font-medium">
-        <button className="text-black">{`← 뒤로가기`}</button>
+        <button className="text-black" onClick={() => navigate(-1)}>
+          ← 뒤로가기
+        </button>
         <ConnectBadge connected={!error} />
       </div>
 
@@ -103,11 +130,13 @@ const SmishingPage = () => {
           <ChatBubble role="ai">
             {aiResponse}
             {isLoading && (
-              <div className="text-center text-textSecondary text-body-xs py-4">
-                AI가 응답 중입니다...
-              </div>
+              <>
+                <div className="text-center text-textSecondary text-body-xs py-4">
+                  AI가 응답 중입니다...
+                </div>
+                <span className="animate-pulse text-primary font-bold">▋</span>
+              </>
             )}
-            <span className="animate-pulse text-primary font-bold">▋</span>
           </ChatBubble>
         )}
         <div ref={messagesEndRef} />

@@ -1,6 +1,6 @@
+import { useEffect } from 'react';
 import useSseEventBusStore from '@/stores/useSseEventBusStore';
 import { BASE_URL } from '@/constants/api';
-import { useEffect } from 'react';
 
 export function useSse(path: string) {
   const emit = useSseEventBusStore((state) => state.emit);
