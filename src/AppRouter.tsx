@@ -20,7 +20,7 @@ const AppRouter = () => {
           loader: requireAuth,
         },
         {
-          path: 'smishing',
+          path: PATH.SMISHING,
           element: <SmishingPage />,
           loader: requireAuth,
         },
