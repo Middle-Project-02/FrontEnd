@@ -4,9 +4,9 @@ import { useSse } from '@/hooks/sse/useSse';
 import { useSseListener } from '@/hooks/sse/useSseListener';
 import { END_POINTS } from '@/constants/api';
 import { Button } from '@/components/ui/button';
-import { Textarea, TextareaHandle } from '@/components/ui/textarea';
-import ConnectBadge from '@/components/ui/ConnectBadge';
-import ChatBubble from '@/components/ui/chatBubble';
+import { Textarea, TextareaHandle } from '@/components/chat/Textarea';
+import ConnectBadge from '@/components/chat/ConnectBadge';
+import ChatBubble from '@/components/chat/ChatBubble';
 import { useSmishingMutation } from '@/hooks/queries/smishing/useSmishingChat';
 
 const SmishingPage = () => {
