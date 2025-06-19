@@ -2,13 +2,13 @@ import { useParams } from 'react-router-dom';
 import { useNotificationDetailQuery } from '@/hooks/queries/notification/useNotificationQuery';
 import BackButton from '@/components/common/BackButton';
 import { Badge } from '@/components/ui/badge';
-import { Impact, Issue, LoadingDog, Solution } from '@/assets/svg';
+import { Impact, Issue, LoadingDog, NoDataDog, Solution } from '@/assets/svg';
 
 const NotificationDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { notificationDetail } = useNotificationDetailQuery(id!);
+  const { notificationDetail, isLoading } = useNotificationDetailQuery(id!);
 
-  if (!notificationDetail) {
+  if (isLoading) {
     return (
       <div className="flex flex-col h-full min-h-screen justify-center items-center text-center">
         <img src={LoadingDog} alt="로딩" className="w-full" />
@@ -17,6 +17,15 @@ const NotificationDetailPage = () => {
           <br />
           조금만 기다려주세요!
         </h3>
+      </div>
+    );
+  }
+
+  if (!notificationDetail) {
+    return (
+      <div className="flex flex-col h-full min-h-screen justify-center items-center text-center">
+        <img src={NoDataDog} alt="no-data" className="w-full" />
+        <h3 className="text-heading-h3 font-semibold">해당 알림장 데이터가 없습니다</h3>
       </div>
     );
   }
@@ -43,10 +52,10 @@ const NotificationDetailPage = () => {
   ];
 
   return (
-    <div className="flex flex-col h-full min-h-screen break-keep">
-      <header className="sticky top-0 bg-white px-[30px] pt-[44px]">
+    <div className="flex flex-col h-full min-h-screen bg-white break-keep">
+      <header className="sticky top-0 px-[30px] pt-[44px]">
         <BackButton />
-        <h3 className="text-heading-h3 font-semibold mb-4">{notificationDetail.title}</h3>
+        <h3 className="text-heading-h3 font-semibold py-4">{notificationDetail.title}</h3>
         <div className="flex flex-wrap gap-3 pb-12">
           {notificationDetail.tags?.map((tag, idx) => (
             <Badge key={idx} variant="outline" color="primary" size="sm">
@@ -55,9 +64,10 @@ const NotificationDetailPage = () => {
           ))}
         </div>
       </header>
-      <main className="p-[30px] bg-bgTertiary flex flex-col">
-        {sections.map((section, index) => (
-          <section key={index} className="mb-[16px]">
+
+      <main className="flex flex-col items-center flex-1 overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
+        {sections.map((section, idx) => (
+          <section key={idx} className="mb-[16px]">
             <div className="flex items-center gap-[6px] mb-[6px]">
               <img src={section.icon} alt={section.alt} />
               <h4 className="text-heading-h4 font-semibold">{section.title}</h4>
