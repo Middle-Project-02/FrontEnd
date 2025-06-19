@@ -19,12 +19,6 @@ const SmishingPage = () => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<TextareaHandle>(null);
 
-  const handlePaste = () => {
-    navigator.clipboard.readText().then((text) => {
-      setInput(text);
-    });
-  };
-
   useSse(END_POINTS.SMISHING.CONNECT);
 
   useSseListener('stream_chat', (chunk) => {
@@ -72,6 +66,12 @@ const SmishingPage = () => {
       e.preventDefault();
       sendMessage();
     }
+  };
+
+  const handlePaste = () => {
+    navigator.clipboard.readText().then((text) => {
+      setInput(text);
+    });
   };
 
   return (
