@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useSse } from '@/hooks/sse/useSse';
 import { useSseListener } from '@/hooks/sse/useSseListener';
-import { PATH } from '@/constants/path';
+import { END_POINTS } from '@/constants/api';
 import { Button } from '@/components/ui/button';
 import { Textarea, TextareaHandle } from '@/components/ui/textarea';
 import ConnectBadge from '@/components/ui/ConnectBadge';
@@ -25,7 +25,7 @@ const SmishingPage = () => {
     });
   };
 
-  useSse(PATH.SMISHING.CONNECT);
+  useSse(END_POINTS.SMISHING.CONNECT);
 
   useSseListener('stream_chat', (chunk) => {
     currentAiResponseRef.current += chunk;

@@ -1,5 +1,5 @@
 import { axiosInstance } from './axiosInstance';
-import { PATH } from '@/constants/path';
+import { END_POINTS } from '@/constants/api';
 
 const apiClient = axiosInstance.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -7,5 +7,5 @@ const apiClient = axiosInstance.create({
 });
 
 export const postSmishingMessage = (content: string) => {
-  return apiClient.post(PATH.SMISHING.MESSAGE, { content });
+  return apiClient.post(END_POINTS.SMISHING.MESSAGE, { content });
 };

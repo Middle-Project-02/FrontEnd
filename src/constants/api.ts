@@ -8,6 +8,10 @@ export const END_POINTS = {
     GET_ALL: 'notifications',
     GET_DETAIL: (id: string) => `notifications/${id}`,
   },
+  SMISHING: {
+    CONNECT: '/smishing/connect',
+    MESSAGE: '/smishing/message',
+  },
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
