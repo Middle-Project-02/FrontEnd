@@ -10,13 +10,18 @@ const useLoginMutation = () => {
 
   const postLoginMutation = useMutation({
     mutationFn: postLogin,
-    onSuccess: () => {
+    onSuccess: (content) => {
       setIsLoggedIn(true);
-      navigate(PATH.ROOT, { replace: true });
+
+      if (content.isFirstLogin) {
+        navigate(PATH.FONTMODE);
+      } else {
+        navigate(PATH.HOME, { replace: true });
+      }
     },
   });
 
-  return { mutatePostLogin: postLoginMutation.mutate };
+  return { mutatePostLogin: postLoginMutation.mutateAsync };
 };
 
 export default useLoginMutation;
