@@ -53,7 +53,7 @@ const NotificationDetailPage = () => {
         <BackButton />
         <h3 className="text-heading-h3 font-semibold py-4">{notificationDetail.title}</h3>
         <div className="flex flex-wrap gap-3 pb-12">
-          {notificationDetail?.tags?.map((tag, idx) => (
+          {notificationDetail.tags?.map((tag, idx) => (
             <Badge key={idx} variant="outline" color="primary" size="sm">
               {tag}
             </Badge>
