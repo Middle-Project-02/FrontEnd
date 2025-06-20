@@ -4,6 +4,7 @@ import BaseLayout from '@/components/layout/base/BaseLayout';
 import MainPage from '@/pages/MainPage';
 import LoginPage from '@/pages/LoginPage';
 import SmishingPage from '@/pages/SmishingPage';
+import PlanChatBotPage from '@/pages/PlanChatBotPage'; 
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
@@ -28,6 +29,11 @@ const AppRouter = () => {
         {
           path: PATH.NOTIFICATION_DETAIL,
           element: <NotificationDetailPage />,
+        },
+        {
+          path: PATH.CHAT,
+          element: <PlanChatBotPage />,
+          loader: requireAuth,
         },
       ],
     },

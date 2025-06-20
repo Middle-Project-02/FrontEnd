@@ -12,6 +12,11 @@ export const END_POINTS = {
     CONNECT: '/smishing/connect',
     MESSAGE: '/smishing/message',
   },
+  CHAT: {
+    CONNECT: 'chat/connect',
+  },
+  CHAT_MESSAGE: 'chat/message',
+  CHAT_TEMPLATE: 'chat/template',
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
