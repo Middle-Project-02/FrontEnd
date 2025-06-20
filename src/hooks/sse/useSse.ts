@@ -1,18 +1,17 @@
-
-import useSseEventBusStore from "@/stores/useSseEventBusStore";
+import { useEffect } from 'react';
+import useSseEventBusStore from '@/stores/useSseEventBusStore';
 import { BASE_URL } from '@/constants/api';
-import { PATH } from '@/constants/path';
-import { useEffect } from "react";
 
-export function useSse() {
+export function useSse(path: string) {
   const emit = useSseEventBusStore((state) => state.emit);
 
   useEffect(() => {
-    const eventSource = new EventSource(`${BASE_URL}${PATH.SSE.CONNECT}`, {
+    const fullPath = `${BASE_URL}${path}`;
+    const eventSource = new EventSource(fullPath, {
       withCredentials: true,
     });
 
-    const sseEvents = ["question", "answer", "summary", "stream_chat", "done"];
+    const sseEvents = ['question', 'answer', 'summary', 'stream_chat', 'done'];
 
     sseEvents.forEach((event) => {
       eventSource.addEventListener(event, (e) => {
@@ -21,13 +20,13 @@ export function useSse() {
     });
 
     eventSource.onerror = (err) => {
-      console.error("SSE error", err);
+      console.error('SSE error', err);
     };
 
     return () => {
       eventSource.close();
     };
-  }, [emit]);
+  }, [emit, path]);
 }
 
 export default useSse;

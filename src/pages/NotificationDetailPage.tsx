@@ -1,37 +1,50 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { PATH } from '@/constants/path';
+import { useParams } from 'react-router-dom';
 import { useNotificationDetailQuery } from '@/hooks/queries/notification/useNotificationQuery';
+import { NOTIFICATION_DETAIL_SECTIONS } from '@/constants/notification';
+import BackButton from '@/components/common/BackButton';
+import { Badge } from '@/components/ui/badge';
+import Loading from '@/components/common/Loading';
+import NotificationSection from '@/components/notification/NotificationSection';
+import NotFoundPage from './NotFoundPage';
 
 const NotificationDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
+  const { notificationDetail, isLoading } = useNotificationDetailQuery(id!);
 
-  const { notificationDetail } = useNotificationDetailQuery(id!);
-
-  const handleBackClick = () => {
-    navigate(PATH.NOTIFICATIONS);
-  };
+  if (isLoading) {
+    return <Loading />;
+  }
 
   if (!notificationDetail) {
-    return <p className="text-lg">로딩 중...</p>;
+    return <NotFoundPage />;
   }
 
   return (
-    <>
-      <div>
-        <button className="bg-pink-200 w-20" onClick={handleBackClick}>
-          뒤로가기
-        </button>
-      </div>
-      <div>
-        <p>{notificationDetail.title}</p>
-        <p>{notificationDetail.tags?.join(' ')}</p>
-        <p>{notificationDetail.summary}</p>
-        <p>{notificationDetail.issue}</p>
-        <p>{notificationDetail.impact}</p>
-        <p>{notificationDetail.solution}</p>
-      </div>
-    </>
+    <div className="flex flex-col h-full min-h-screen bg-white break-keep">
+      <header className="sticky top-0 px-[30px] pt-[44px]">
+        <BackButton />
+        <h3 className="text-heading-h3 font-semibold py-4">{notificationDetail.title}</h3>
+        <div className="flex flex-wrap gap-3 pb-12">
+          {notificationDetail.tags?.map((tag, idx) => (
+            <Badge key={idx} variant="outline" color="primary" size="sm">
+              {tag}
+            </Badge>
+          ))}
+        </div>
+      </header>
+
+      <main className="flex flex-col items-center flex-1 overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
+        {NOTIFICATION_DETAIL_SECTIONS.map((section) => (
+          <NotificationSection
+            key={section.key}
+            title={section.title}
+            content={notificationDetail[section.key]}
+            icon={section.icon}
+            alt={section.alt}
+          />
+        ))}
+      </main>
+    </div>
   );
 };
 

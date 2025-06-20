@@ -14,6 +14,10 @@ export const END_POINTS = {
     SAVE: 'templates',
     DELETE: (id: number) => `templates/${id}`,
   },
+  SMISHING: {
+    CONNECT: '/smishing/connect',
+    MESSAGE: '/smishing/message',
+  },
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;

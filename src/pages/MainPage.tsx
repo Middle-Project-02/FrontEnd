@@ -1,27 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import useUserInfoQuery from '@/hooks/queries/user/useUserInfoQuery';
-import { axiosInstance } from '@/apis/axiosInstance';
-import useAuthStore from '@/stores/authStore';
+import { Button } from '@/components/ui/button';
+import { PATH } from '@/constants/path';
 
 const MainPage = () => {
-  const { userInformation } = useUserInfoQuery();
-  const { setIsLoggedIn } = useAuthStore();
   const navigate = useNavigate();
 
-  const logout = async () => {
-    const response = await axiosInstance.post('auth/logout', {});
-
-    setIsLoggedIn(false);
-    navigate('/login');
-  };
-
   return (
-    <div>
-      MainPage 입니다.
-      <button className="bg-green-400 w-20" onClick={logout}>
-        로그아웃
-      </button>
-      <div>{userInformation && userInformation.nickname}</div>
+    <div className="flex flex-col items-center justify-center h-full gap-20 bg-bgSecondary px-20">
+      <h1 className="text-heading-h3 font-semibold text-black">투게더에 오신 걸 환영합니다 👋</h1>
+      <Button size="lg" onClick={() => navigate(PATH.SMISHING.INTRO)}>
+        스미싱 챗봇 페이지 가기
+      </Button>
     </div>
   );
 };
