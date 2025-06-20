@@ -3,7 +3,8 @@ import { PATH } from '@/constants/path';
 import { useAllNotificationsQuery } from '@/hooks/queries/notification/useNotificationQuery';
 import NotificationCard from '@/components/notification/NotificationCard';
 import BackButton from '@/components/common/BackButton';
-import { LoadingDog, NoDataDog } from '@/assets/svg';
+import { LoadingDog } from '@/assets/svg';
+import NotFoundPage from './NotFoundPage';
 
 const NotificationPage = () => {
   const { notifications, isLoading } = useAllNotificationsQuery();
@@ -26,13 +27,8 @@ const NotificationPage = () => {
     );
   }
 
-  if (!notifications || notifications.length === 0) {
-    return (
-      <div className="flex flex-col h-full min-h-screen justify-center items-center text-center">
-        <img src={NoDataDog} alt="no-data" className="w-full" />
-        <h3 className="text-heading-h3 font-semibold">등록된 알림장이 없습니다</h3>
-      </div>
-    );
+  if (!notifications) {
+    return <NotFoundPage />;
   }
 
   return (
@@ -47,7 +43,7 @@ const NotificationPage = () => {
       </header>
 
       <main className="flex flex-col items-center flex-1 overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
-        {notifications.map((notification) => (
+        {notifications?.map((notification) => (
           <NotificationCard
             key={notification.notificationId}
             title={notification.title}

@@ -2,7 +2,8 @@ import { useParams } from 'react-router-dom';
 import { useNotificationDetailQuery } from '@/hooks/queries/notification/useNotificationQuery';
 import BackButton from '@/components/common/BackButton';
 import { Badge } from '@/components/ui/badge';
-import { Impact, Issue, LoadingDog, NoDataDog, Solution } from '@/assets/svg';
+import { Impact, Issue, LoadingDog, Solution } from '@/assets/svg';
+import NotFoundPage from './NotFoundPage';
 
 const NotificationDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -22,12 +23,7 @@ const NotificationDetailPage = () => {
   }
 
   if (!notificationDetail) {
-    return (
-      <div className="flex flex-col h-full min-h-screen justify-center items-center text-center">
-        <img src={NoDataDog} alt="no-data" className="w-full" />
-        <h3 className="text-heading-h3 font-semibold">해당 알림장 데이터가 없습니다</h3>
-      </div>
-    );
+    return <NotFoundPage />;
   }
 
   const sections = [
@@ -57,7 +53,7 @@ const NotificationDetailPage = () => {
         <BackButton />
         <h3 className="text-heading-h3 font-semibold py-4">{notificationDetail.title}</h3>
         <div className="flex flex-wrap gap-3 pb-12">
-          {notificationDetail.tags?.map((tag, idx) => (
+          {notificationDetail?.tags?.map((tag, idx) => (
             <Badge key={idx} variant="outline" color="primary" size="sm">
               {tag}
             </Badge>
