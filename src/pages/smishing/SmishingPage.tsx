@@ -1,12 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useSse } from '@/hooks/sse/useSse';
 import { useSseListener } from '@/hooks/sse/useSseListener';
 import { END_POINTS } from '@/constants/api';
 import { Button } from '@/components/ui/button';
+import BackButton from '@/components/common/BackButton';
 import { Textarea, TextareaHandle } from '@/components/chat/Textarea';
 import ConnectBadge from '@/components/chat/ConnectBadge';
 import ChatBubble from '@/components/chat/ChatBubble';
+import { makeToast } from '@/utils/makeToast';
 import { useSmishingMutation } from '@/hooks/queries/smishing/useSmishingChat';
 
 const SmishingPage = () => {
@@ -16,7 +17,6 @@ const SmishingPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const navigate = useNavigate();
   const currentAiResponseRef = useRef('');
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<TextareaHandle>(null);
@@ -44,7 +44,7 @@ const SmishingPage = () => {
   const mutation = useSmishingMutation(
     () => {},
     () => {
-      setError('메시지 전송에 실패했습니다.');
+      makeToast('메시지 전송에 실패했습니다.', 'warning');
       setIsLoading(false);
     },
   );
@@ -95,16 +95,14 @@ const SmishingPage = () => {
       const text = await navigator.clipboard.readText();
       setInput(text);
     } catch {
-      setError('붙여넣기에 실패했습니다.');
+      makeToast('메시지 전송에 실패했습니다.', 'warning');
     }
   };
 
   return (
     <div className="flex flex-col justify-between h-full mx-auto rounded-8 bg-white px-30 pt-40 pb-24">
       <div className="flex items-center justify-between px-4 py-3 text-body-md font-medium">
-        <button className="text-black" onClick={() => navigate(-1)}>
-          ← 뒤로가기
-        </button>
+        <BackButton />
         <ConnectBadge connected={!error} />
       </div>
 
