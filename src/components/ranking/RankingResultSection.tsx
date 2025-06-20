@@ -39,7 +39,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
         </div>
       </div>
       <div className="bg-bgTertiary h-full overflow-y-auto">
-        <ul className="flex flex-col gap-8 px-30 mt-16">
+        <ul className="flex flex-col gap-8 px-30 my-16">
           {RankingPlanListResponse.plans.map((plan) => (
             <div key={plan.id}>
               {selectedPlanId === plan.id ? (

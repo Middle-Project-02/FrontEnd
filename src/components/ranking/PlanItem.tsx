@@ -15,7 +15,7 @@ const PlanItem = ({ plan, onClick }: PlanItemProps) => {
     <li>
       <button
         onClick={handlePlanClick}
-        className="w-full bg-white shadow-shadow2 rounded-16 px-12 py-20 flex justify-between items-center hover:bg-gray-50 transition-colors border-0 outline-none"
+        className="w-full bg-white shadow-shadow2 rounded-16 px-12 py-16 flex justify-between items-center"
       >
         <div className="w-full h-full text-left">
           <p className="font-semibold text-body-md">
