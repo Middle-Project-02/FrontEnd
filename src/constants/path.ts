@@ -14,4 +14,5 @@ export const PATH = {
   HOME: '/home',
   CHAT: '/chat',
   MYPAGE: '/mypage',
+  MAIN: '/main',
 } as const;

@@ -1,5 +1,6 @@
 export { default as Success } from './check-circle.svg';
 export { default as Warning } from './warning-circle.svg';
+export { default as LandingDog } from './Landing.svg';
 export { default as Issue } from './alert-circle.svg';
 export { default as Impact } from './help-circle.svg';
 export { default as Solution } from './check-circle-2.svg';
