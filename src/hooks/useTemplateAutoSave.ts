@@ -1,23 +1,29 @@
 import { useRef } from 'react';
 import useSseListener from './sse/useSseListener';
-import { saveTemplate } from '@/apis/template';
+import { useSaveTemplateMutation } from './queries/template/useTemplateQueries';
 
 export function useTemplateAutoSave() {
   const summaryRef = useRef('');
 
+  const { mutate: save, isPending } = useSaveTemplateMutation({
+    onSuccess: () => {
+      console.log('템플릿 저장 완료');
+      summaryRef.current = '';
+    },
+    onError: () => {
+      console.error('템플릿 저장 실패');
+      summaryRef.current = '';
+    },
+  });
+
+  // 템플릿 수신 시 저장
   useSseListener('summary', (data) => {
     summaryRef.current = data;
   });
 
-  useSseListener('done', async () => {
-    if (!summaryRef.current) return;
-    try {
-      await saveTemplate(summaryRef.current);
-      console.log('템플릿 저장 완료');
-    } catch (err) {
-      console.error('템플릿 저장 실패', err);
-    } finally {
-      summaryRef.current = '';
-    }
+  // 완료 이벤트 시 저장 트리거
+  useSseListener('done', () => {
+    if (!summaryRef.current || isPending) return;
+    save(summaryRef.current);
   });
 }

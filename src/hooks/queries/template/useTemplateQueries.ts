@@ -2,52 +2,52 @@ import { deleteTemplate, getTemplateDetail, getTemplates, saveTemplate } from '@
 import { Template } from '@/types/template';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-const useTemplatesQuery = () => {
-  const { data: templates } = useQuery<Template[]>({
+export const useTemplatesQuery = () => {
+  const { data: templates, isLoading } = useQuery<Template[]>({
     queryKey: ['templates'],
     queryFn: getTemplates,
   });
 
-  return { templates };
+  return { templates, isLoading };
 };
 
-const useTemplateDetailQuery = (templateId: number) => {
-  const { data: templateDetail } = useQuery<Template>({
+export const useTemplateDetailQuery = (templateId: number) => {
+  const { data: templateDetail, isLoading } = useQuery<Template>({
     queryKey: ['template', templateId],
     queryFn: () => getTemplateDetail(templateId),
     enabled: !!templateId,
   });
 
-  return { templateDetail };
+  return { templateDetail, isLoading };
 };
 
-const useSaveTemplateMutation = () => {
+type MutationHandler = {
+  onSuccess?: () => void;
+  onError?: () => void;
+};
+
+export const useSaveTemplateMutation = ({ onSuccess, onError }: MutationHandler) => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
+  return useMutation({
     mutationFn: (rawContent: string) => saveTemplate(rawContent),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['templates'] });
+      onSuccess?.();
     },
+    onError,
   });
-  return { mutateSaveTemplate: mutation.mutate };
 };
 
-const useDeleteTemplateMutation = () => {
+export const useDeleteTemplateMutation = ({ onSuccess, onError }: MutationHandler) => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
+  return useMutation({
     mutationFn: (id: number) => deleteTemplate(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['templates'] });
+      onSuccess?.();
     },
+    onError,
   });
-  return { mutateDeleteTemplate: mutation.mutate };
-};
-
-export {
-  useTemplatesQuery,
-  useTemplateDetailQuery,
-  useSaveTemplateMutation,
-  useDeleteTemplateMutation,
 };
