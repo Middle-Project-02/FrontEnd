@@ -3,7 +3,7 @@ import { PATH } from '@/constants/path';
 import { useAllNotificationsQuery } from '@/hooks/queries/notification/useNotificationQuery';
 import NotificationCard from '@/components/notification/NotificationCard';
 import BackButton from '@/components/common/BackButton';
-import { LoadingDog } from '@/assets/svg';
+import Loading from '@/components/common/Loading';
 import NotFoundPage from './NotFoundPage';
 
 const NotificationPage = () => {
@@ -15,16 +15,7 @@ const NotificationPage = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex flex-col h-full min-h-screen justify-center items-center text-center">
-        <img src={LoadingDog} alt="로딩" className="w-full" />
-        <h3 className="text-heading-h3 font-semibold">
-          정보를 가지고 오고 있어요
-          <br />
-          조금만 기다려주세요!
-        </h3>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (!notifications) {
