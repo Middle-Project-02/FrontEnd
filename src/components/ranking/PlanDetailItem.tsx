@@ -1,22 +1,3 @@
-// import useRankDetailQuery from '@/hooks/queries/ranking/useRankDetailQuery';
-
-// interface Props {
-//   planId: number;
-// }
-
-// const PlanDetailItem = ({ planId }: Props) => {
-//   const { rankDetailResponse } = useRankDetailQuery(planId);
-
-//   if (!rankDetailResponse) return <p>불러오는 중...</p>;
-
-//   return (
-//     <div>
-//       <div>메롱~</div>
-//     </div>
-//   );
-// };
-
-// export default PlanDetailItem;
 import useRankDetailQuery from '@/hooks/queries/ranking/useRankDetailQuery';
 
 interface PlanDetailItemProps {
@@ -36,49 +17,31 @@ const PlanDetailItem = ({ planId, onBack }: PlanDetailItemProps) => {
   }
 
   return (
-    <li className="bg-white shadow-shadow2 rounded-16 px-12 py-20">
-      {/* 🎯 뒤로가기 버튼 */}
-      <button onClick={onBack} className="text-primary font-bold mb-12 text-sm">
-        ← 목록으로 돌아가기
-      </button>
-
-      {/* 🎯 상세 정보 */}
-      <div className="space-y-12">
-        {/* 제목 및 가격 */}
-        <div className="border-b pb-12">
-          <h3 className="font-bold text-lg mb-4">
-            {rankDetailResponse.rank}위 : {rankDetailResponse.name}
-          </h3>
-          <p className="text-sm text-gray-600 mb-4">{rankDetailResponse.description}</p>
-          <p className="text-primary font-bold text-xl">{rankDetailResponse.regularPrice}</p>
-        </div>
-
-        {/* 데이터 정보 */}
-        <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="bg-gray-100 rounded-full px-3 py-1 text-xs">데이터</span>
-          </div>
-          <p className="font-bold">
-            {rankDetailResponse.dataAmount}
-            {/* {rankDetailResponse.speedLimit && ` + ${rankDetailResponse.speedLimit}`} */}
-          </p>
-        </div>
-
-        {/* 상세 혜택들 */}
-        {rankDetailResponse.allBenefits && (
-          <div className="space-y-8">
-            {Object.entries(rankDetailResponse.allBenefits).map(([key, value]) => (
-              <div key={key} className="border-b pb-8">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="bg-gray-100 rounded-full px-3 py-1 text-xs">{key}</span>
+    <div className="flex flex-col bg-white border-primary border-2 rounded-16 px-12 py-16 gap-8">
+      <div className="flex justify-between items-center">
+        <p className="font-semibold text-body-md">
+          {rankDetailResponse.rank}위 : {rankDetailResponse.name}
+        </p>
+        <p className="text-primary text-body-sm">{rankDetailResponse.regularPrice}</p>
+      </div>
+      <p className="text-body-sm text-semibold">{rankDetailResponse.description}</p>
+      <div className="space-y-8">
+        {rankDetailResponse.allBenefits &&
+          Object.entries(rankDetailResponse.allBenefits)
+            .filter(([key, value]) => value !== null && value !== undefined && value !== '') // null, undefined, 빈 문자열 제외
+            .map(([key, value]) => (
+              <div
+                key={key}
+                className="flex flex-col border-borderSecondary border-1 rounded-16 p-8 shadow-shadow2"
+              >
+                <div className="flex items-center">
+                  <span className="text-body-sm">{key}</span>
                 </div>
-                <p className="font-bold">{value}</p>
+                <p className="text-body-sm font-semibold">{value}</p>
               </div>
             ))}
-          </div>
-        )}
       </div>
-    </li>
+    </div>
   );
 };
 
