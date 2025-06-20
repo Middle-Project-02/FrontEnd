@@ -7,3 +7,4 @@ export { default as Solution } from './check-circle-2.svg';
 export { default as LoadingDog } from './loading-dog.svg';
 export { default as Smishing } from './smishing-1.svg';
 export { default as GlassesDog } from './smishing-2.svg';
+export { default as KakaoLogin } from './kakao-login.svg';
