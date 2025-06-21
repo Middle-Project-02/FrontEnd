@@ -5,11 +5,11 @@ import { SuccessModalIcon } from '@/assets/svg';
 
 interface SuccessModalProps {
   title: string;
-  successText: string;
+  buttonText: string;
   onSuccess: () => void;
 }
 
-const SuccessModal = ({ title, successText, onSuccess }: SuccessModalProps) => {
+const SuccessModal = ({ title, buttonText, onSuccess }: SuccessModalProps) => {
   const { removeModal } = useModalStore();
 
   const handleSuccess = () => {
@@ -20,7 +20,7 @@ const SuccessModal = ({ title, successText, onSuccess }: SuccessModalProps) => {
   return (
     <BaseModalLayout icon={SuccessModalIcon} title={title}>
       <Button variant="default" onClick={handleSuccess}>
-        {successText}
+        {buttonText}
       </Button>
     </BaseModalLayout>
   );

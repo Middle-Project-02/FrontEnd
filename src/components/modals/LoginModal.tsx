@@ -9,7 +9,7 @@ interface LoginModalProps {
   primaryText: string;
   secondaryText: string;
   onPrimary: () => void;
-  onSecondary: () => void;
+  onSecondary?: () => void;
 }
 
 const LoginModal = ({
@@ -21,10 +21,12 @@ const LoginModal = ({
   onSecondary,
 }: LoginModalProps) => {
   const { removeModal } = useModalStore();
+
   const handleSecondary = () => {
-    onSecondary();
+    onSecondary?.();
     removeModal();
   };
+
   return (
     <BaseModalLayout icon={LoginModalIcon} title={title} description={description}>
       <Button variant="secondary" onClick={handleSecondary}>

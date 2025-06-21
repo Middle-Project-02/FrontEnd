@@ -9,7 +9,7 @@ interface ConfirmModalProps {
   primaryText: string;
   secondaryText: string;
   onPrimary: () => void;
-  onSecondary: () => void;
+  onSecondary?: () => void;
 }
 
 const ConfirmModal = ({
@@ -22,13 +22,8 @@ const ConfirmModal = ({
 }: ConfirmModalProps) => {
   const { removeModal } = useModalStore();
 
-  const handlePrimary = () => {
-    onPrimary();
-    removeModal();
-  };
-
   const handleSecondary = () => {
-    onSecondary();
+    onSecondary?.();
     removeModal();
   };
 
@@ -37,7 +32,7 @@ const ConfirmModal = ({
       <Button variant="secondary" onClick={handleSecondary}>
         {secondaryText}
       </Button>
-      <Button variant="destructive" onClick={handlePrimary}>
+      <Button variant="destructive" onClick={onPrimary}>
         {primaryText}
       </Button>
     </BaseModalLayout>
