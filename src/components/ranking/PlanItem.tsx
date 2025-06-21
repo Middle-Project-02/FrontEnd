@@ -29,7 +29,7 @@ const PlanItem = ({ plan, onClick }: PlanItemProps) => {
           {plan.targetTypes && <p className="text-body-sm">{plan.targetTypes}</p>}
         </div>
         <div>
-          <p className="text-primary">{plan.regularPrice}</p>
+          <p className="text-primary text-body-xs">{plan.regularPrice}</p>
         </div>
       </button>
     </li>

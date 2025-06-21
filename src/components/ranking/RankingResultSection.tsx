@@ -3,6 +3,8 @@ import { getAgeGroupLabel } from '@/constants/ageGroup';
 import PlanItem from '@/components/ranking/PlanItem';
 import PlanDetailItem from '@/components/ranking/PlanDetailItem';
 import { useState } from 'react';
+import { Button } from '../ui/button';
+import { ChevronLeft } from 'lucide-react';
 
 interface Props {
   ageGroup: number;
@@ -26,9 +28,15 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
   return (
     <div className="flex flex-col overflow-y-auto">
       <div className="flex flex-col w-full px-30 mb-12 ">
-        <button onClick={onBack} className="text-left text-primary font-bold">
-          ← 다시 선택
-        </button>
+        <Button
+          className="flex items-center py-8 pr-8 gap-8 w-fit"
+          variant="ghost"
+          size="md"
+          onClick={onBack}
+        >
+          <ChevronLeft />
+          <span className="font-medium">뒤로가기</span>
+        </Button>
         <div className="flex flex-col">
           <h1 className="text-heading-h2 font-bold">
             {getAgeGroupLabel(ageGroup)} 인기 요금제 20위

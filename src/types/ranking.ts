@@ -1,3 +1,5 @@
+export type DataType = 'FIXED' | 'UNLIMITED' | 'DAILY' | 'CHARGED_PER_KB';
+
 /** 연령대 요금제 목록 조회 응답 */
 export interface RankingPlanListResponse {
   currentAgeGroup: number;
@@ -24,7 +26,7 @@ export interface RankingPlanDetailResponse {
   regularPrice: string;
   dataAmount: string;
   dataAmountGb: number | null;
-  dataType: 'FIXED' | 'UNLIMITED' | 'DAILY' | 'CHARGED_PER_KB'; // ENUM으로 고정
+  dataType: DataType;
   allBenefits: PlanBenefits;
 }
 
