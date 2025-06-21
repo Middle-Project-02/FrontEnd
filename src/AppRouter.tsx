@@ -8,6 +8,7 @@ import SmishingPage from '@/pages/smishing/SmishingPage';
 import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
+import RedirectPage from '@/pages/RedirectPage';
 import TemplatesPage from './pages/TemplatesPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 
@@ -21,6 +22,10 @@ const AppRouter = () => {
       path: PATH.LOGIN,
       element: <LoginPage />,
       loader: redirectIfAuthenticated,
+    },
+    {
+      path: PATH.REDIRECT,
+      element: <RedirectPage />,
     },
     {
       path: '',

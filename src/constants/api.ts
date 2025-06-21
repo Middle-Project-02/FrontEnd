@@ -18,6 +18,7 @@ export const END_POINTS = {
     CONNECT: '/smishing/connect',
     MESSAGE: '/smishing/message',
   },
+  KAKAOLOGIN: 'auth/login/kakao',
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
@@ -31,3 +32,5 @@ export const AUTH_ERROR_CODE = {
   EXPIRED_ACCESS_TOKEN: 40116,
   EXPIRED_REFRESH_TOKEN: 40118,
 } as const;
+
+export const KAKAO_API_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${import.meta.env.VITE_KAKAO_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URL}`;
