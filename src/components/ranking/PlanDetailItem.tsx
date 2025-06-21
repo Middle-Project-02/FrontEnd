@@ -1,10 +1,9 @@
+import PlanBenefitItem from '@/components/ranking/PlanBenefitItem';
+import PlanTooltip from '@/components/ranking/PlanTooltip';
+import { Button } from '@/components/ui/button';
 import useRankDetailQuery from '@/hooks/queries/ranking/useRankDetailQuery';
 import { usePlanTooltip } from '@/hooks/ranking/usePlanTooltip';
 import { calculateDataComment } from '@/utils/planHelpers';
-import PlanTooltip from '@/components/ranking/planTooltip';
-import PlanBenefitItem from '@/components/ranking/PlanBenefitItem';
-import { Button } from '../ui/button';
-
 interface PlanDetailItemProps {
   planId: number;
   onBack: () => void;

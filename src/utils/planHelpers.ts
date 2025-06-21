@@ -1,10 +1,10 @@
-import { getDataComment } from '@/utils/dataUsage';
 import {
-  BENEFIT_DESCRIPTIONS,
   getBasicBenefitDescription,
+  BENEFIT_DESCRIPTIONS,
   DescriptionLine,
-} from '@/constants/benefitDescriptions'; // 🆕 DescriptionLine 타입 import
+} from '@/constants/benefitDescriptions';
 import { RankingPlanDetailResponse } from '@/types/ranking';
+import { getDataComment } from '@/utils/dataUsage';
 
 // 데이터 코멘트 계산
 export const calculateDataComment = (planData: RankingPlanDetailResponse) => {

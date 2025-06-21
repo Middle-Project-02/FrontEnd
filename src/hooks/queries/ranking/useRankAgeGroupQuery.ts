@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { RankingPlanListResponse } from '@/types/ranking';
 import { getRankingByAgeGroup } from '@/apis/ranking';
+import { RankingPlanListResponse } from '@/types/ranking';
 
 const useRankAgeGroupQuery = (ageGroup: number) => {
   const { data: RankingPlanListResponse } = useQuery<RankingPlanListResponse>({

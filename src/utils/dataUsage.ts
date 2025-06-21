@@ -1,5 +1,5 @@
-import { DataType } from '@/types/ranking'; // 🆕 기존 타입 재사용
-import { DataUsageLevel, DATA_USAGE_MESSAGES } from '@/constants/dataUsage';
+import { DATA_USAGE_MESSAGES, DataUsageLevel } from '@/constants/dataUsage';
+import { DataType } from '@/types/ranking';
 
 /**
  * GB 용량에 따라 데이터 사용량 레벨을 계산합니다.

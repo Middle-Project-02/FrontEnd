@@ -1,11 +1,10 @@
-import useRankAgeGroupQuery from '@/hooks/queries/ranking/useRankAgeGroupQuery';
-import { getAgeGroupLabel } from '@/constants/ageGroup';
-import PlanItem from '@/components/ranking/PlanItem';
-import PlanDetailItem from '@/components/ranking/PlanDetailItem';
 import { useState } from 'react';
-import { Button } from '../ui/button';
 import { ChevronLeft } from 'lucide-react';
-
+import PlanDetailItem from '@/components/ranking/PlanDetailItem';
+import PlanItem from '@/components/ranking/PlanItem';
+import { Button } from '@/components/ui/button';
+import { getAgeGroupLabel } from '@/constants/ageGroup';
+import useRankAgeGroupQuery from '@/hooks/queries/ranking/useRankAgeGroupQuery';
 interface Props {
   ageGroup: number;
   onBack: () => void;
