@@ -4,43 +4,45 @@ import BaseLayout from '@/components/layout/base/BaseLayout';
 import MainPage from '@/pages/MainPage';
 import LoginPage from '@/pages/LoginPage';
 import SmishingPage from '@/pages/SmishingPage';
-import PlanChatBotPage from '@/pages/PlanChatBotPage'; 
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
+
 
 const AppRouter = () => {
   const router = createBrowserRouter([
     {
       path: PATH.ROOT,
-      element: <BaseLayout />,
-      children: [
-        {
-          path: '',
-          element: <MainPage />,
-          loader: requireAuth,
-        },
-        {
-          path: PATH.SMISHING,
-          element: <SmishingPage />,
-          loader: requireAuth,
-        },
-        { path: PATH.NOTIFICATIONS, element: <NotificationPage /> },
-        {
-          path: PATH.NOTIFICATION_DETAIL,
-          element: <NotificationDetailPage />,
-        },
-        {
-          path: PATH.CHAT,
-          element: <PlanChatBotPage />,
-          loader: requireAuth,
-        },
-      ],
+      element: <LandingPage />,
     },
     {
       path: PATH.LOGIN,
       element: <LoginPage />,
       loader: redirectIfAuthenticated,
+    },
+    {
+      path: '',
+      element: <BaseLayout />,
+      children: [
+        {
+          path: PATH.SMISHING.INTRO,
+          element: <SmishingIntroPage />,
+          loader: requireAuth,
+        },
+        {
+          path: PATH.SMISHING.PAGE,
+          element: <SmishingPage />,
+          loader: requireAuth,
+        },
+        {
+          path: PATH.NOTIFICATIONS,
+          element: <NotificationPage />,
+        },
+        {
+          path: PATH.NOTIFICATION_DETAIL,
+          element: <NotificationDetailPage />,
+        },
+      ],
     },
   ]);
 

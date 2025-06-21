@@ -4,8 +4,15 @@ export const PATH = {
   UNAUTHORIZED: '/unauthorized',
   NOTIFICATIONS: '/notifications',
   NOTIFICATION_DETAIL: '/notifications/:id',
-  SMISHING: 'smishing',
+  SSE: {
+    CONNECT: '/chat/connect',
+  },
+  SMISHING: {
+    PAGE: '/smishing',
+    INTRO: '/intro',
+  },
   HOME: '/home',
   CHAT: '/chat',
   MYPAGE: '/mypage',
+  MAIN: '/main',
 } as const;

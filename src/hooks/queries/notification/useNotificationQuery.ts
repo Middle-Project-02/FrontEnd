@@ -3,18 +3,18 @@ import { NotificationDetailResponse, NotificationSimpleResponse } from '@/types/
 import { useQuery } from '@tanstack/react-query';
 
 const useAllNotificationsQuery = () => {
-  const { data: notifications } = useQuery<NotificationSimpleResponse[]>({
+  const { data: notifications, isLoading } = useQuery<NotificationSimpleResponse[]>({
     queryKey: ['notifications'],
     queryFn: getAllNotifications,
     gcTime: 5 * 60 * 1000,
     staleTime: 5 * 60 * 1000,
   });
 
-  return { notifications };
+  return { notifications, isLoading };
 };
 
 const useNotificationDetailQuery = (id: string) => {
-  const { data: notificationDetail } = useQuery<NotificationDetailResponse>({
+  const { data: notificationDetail, isLoading } = useQuery<NotificationDetailResponse>({
     queryKey: ['notification', id],
     queryFn: () => getNotificationDetail(id),
     enabled: !!id,
@@ -22,7 +22,7 @@ const useNotificationDetailQuery = (id: string) => {
     staleTime: 5 * 60 * 1000,
   });
 
-  return { notificationDetail };
+  return { notificationDetail, isLoading };
 };
 
 export { useAllNotificationsQuery, useNotificationDetailQuery };
