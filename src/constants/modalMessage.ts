@@ -1,8 +1,6 @@
 export const LOGIN_MODAL = {
   TITLE: '로그인 후 이용이 가능해요',
   DESCRIPTION: '로그인 후 계속 이용하시겠어요?',
-  PRIMARY_TEXT: '로그인하기',
-  SECONDARY_TEXT: '돌아가기',
 };
 
 export const CONFIRM_TITLES = {
@@ -26,4 +24,5 @@ export const BUTTON_TEXTS = {
   WITHDRAW: '탈퇴하기',
   CONFIRM: '확인',
   CANCEL: '돌아가기',
+  LOGIN: '로그인하기',
 };
