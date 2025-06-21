@@ -6,13 +6,13 @@ import { TemplateSaveRequest } from '@/types/template';
 export function useTemplateAutoSave() {
   const summaryRef = useRef<TemplateSaveRequest | null>(null);
 
+  const resetSummary = () => {
+    summaryRef.current = null;
+  };
+
   const { mutate: save, isPending } = useSaveTemplateMutation({
-    onSuccess: () => {
-      summaryRef.current = null;
-    },
-    onError: () => {
-      summaryRef.current = null;
-    },
+    onSuccess: resetSummary,
+    onError: resetSummary,
   });
 
   useSseListener('summary', (data) => {
