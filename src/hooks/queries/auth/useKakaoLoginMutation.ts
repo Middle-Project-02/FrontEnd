@@ -1,15 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { postLogin } from '@/apis/auth';
+import { postKakaoLogin } from '@/apis/auth';
 import { PATH } from '@/constants/path';
 import useAuthStore from '@/stores/authStore';
 
-const useLoginMutation = () => {
+const useKakaoLoginMutation = () => {
   const { setIsLoggedIn } = useAuthStore();
   const navigate = useNavigate();
 
-  const postLoginMutation = useMutation({
-    mutationFn: postLogin,
+  const postKakaoLoginMutation = useMutation({
+    mutationFn: postKakaoLogin,
     onSuccess: (content) => {
       setIsLoggedIn(true);
 
@@ -21,7 +21,7 @@ const useLoginMutation = () => {
     },
   });
 
-  return { mutatePostLogin: postLoginMutation.mutateAsync };
+  return { mutatePostKakaoLogin: postKakaoLoginMutation.mutate };
 };
 
-export default useLoginMutation;
+export default useKakaoLoginMutation;

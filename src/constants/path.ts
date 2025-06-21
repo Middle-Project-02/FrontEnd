@@ -16,4 +16,7 @@ export const PATH = {
   MYPAGE: '/mypage',
   MAIN: '/main',
   QUIZ: '/quiz',
+  FONTMODE: '/fontmode',
+  REDIRECT: '/redirect',
+  SIGNUP: '/signup',
 } as const;
