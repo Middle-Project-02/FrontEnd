@@ -9,6 +9,7 @@ import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
+import QuizPage from './pages/QuizPage';
 
 const AppRouter = () => {
   const router = createBrowserRouter([
@@ -28,12 +29,14 @@ const AppRouter = () => {
         {
           path: PATH.SMISHING.INTRO,
           element: <SmishingIntroPage />,
-          loader: requireAuth,
         },
         {
           path: PATH.SMISHING.PAGE,
           element: <SmishingPage />,
-          loader: requireAuth,
+        },
+        {
+          path: PATH.QUIZ,
+          element: <QuizPage />,
         },
         {
           path: PATH.NOTIFICATIONS,
@@ -46,7 +49,6 @@ const AppRouter = () => {
         {
           path: PATH.MAIN,
           element: <MainPage />,
-          loader: requireAuth,
         },
       ],
     },

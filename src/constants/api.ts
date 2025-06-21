@@ -12,6 +12,11 @@ export const END_POINTS = {
     CONNECT: '/smishing/connect',
     MESSAGE: '/smishing/message',
   },
+  QUIZ: {
+    RANDOM: '/quiz/random',
+    SUBMIT: '/quiz/submit',
+    SCORE: '/quiz/score',
+  },
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
