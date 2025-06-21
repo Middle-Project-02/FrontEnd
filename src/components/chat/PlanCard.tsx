@@ -40,6 +40,8 @@
 // };
 // export default PlanCard;
 // src/components/chat/PlanCard.tsx
+ import { Button } from '../ui/button';
+
 const PlanCard = ({ plan }: PlanCardProps) => {
   const infoItems = [
     { label: '데이터', value: plan.data },
@@ -64,6 +66,9 @@ const PlanCard = ({ plan }: PlanCardProps) => {
       <footer className="self-end text-body-lg font-semibold text-primary">
         월 {plan.price.toLocaleString()}원
       </footer>
+
+      <Button variant="outline" outlineColor="primary" className="w-full">         요금제 공유하기
+      </Button>
     </div>
   );
 };

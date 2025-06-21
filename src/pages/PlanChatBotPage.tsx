@@ -334,6 +334,15 @@ return (
       <div className="flex items-center justify-between px-2 py-3 text-base font-medium">
         <BackButton />
         <div className="flex items-center gap-3">
+          {/* <Button
+            onClick={handleCreatePlanGuide}
+            disabled={isCreatingPlanGuide || isAiResponding}
+            variant="outline"
+            outlineColor="primary"
+            size="sm"
+          >
+            {isCreatingPlanGuide ? '생성중...' : '가이드 템플릿'}
+          </Button> */}
           <ConnectBadge connected />
         </div>
       </div>
