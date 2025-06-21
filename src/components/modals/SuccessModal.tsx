@@ -1,4 +1,5 @@
 import useModalStore from '@/stores/modalStore';
+import BaseModalLayout from '@/components/common/BaseModalLayout';
 import { Button } from '@/components/ui/button';
 import { SuccessModalIcon } from '@/assets/svg';
 
@@ -17,17 +18,11 @@ const SuccessModal = ({ title, successText, onSuccess }: SuccessModalProps) => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center text-center gap-[16px] break-keep">
-      <img src={SuccessModalIcon} alt="success" />
-      <div className="flex flex-col gap-3">
-        <h4 className="text-heading-h4 font-semibold">{title}</h4>
-      </div>
-      <div className="flex flex-row gap-5">
-        <Button variant="default" onClick={handleSuccess}>
-          {successText}
-        </Button>
-      </div>
-    </div>
+    <BaseModalLayout icon={SuccessModalIcon} title={title}>
+      <Button variant="default" onClick={handleSuccess}>
+        {successText}
+      </Button>
+    </BaseModalLayout>
   );
 };
 

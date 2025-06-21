@@ -1,37 +1,37 @@
+import useModalStore from '@/stores/modalStore';
+import BaseModalLayout from '@/components/common/BaseModalLayout';
 import { Button } from '@/components/ui/button';
 import { LoginModalIcon } from '@/assets/svg';
 
 interface LoginModalProps {
   title: string;
   description: string;
-  loginText: string;
-  cancelText?: string;
-  onLogin: () => void;
-  onCancel?: () => void;
+  primaryText: string;
+  secondaryText: string;
+  onPrimary: () => void;
+  onSecondary: () => void;
 }
 
 const LoginModal = ({
   title,
   description,
-  loginText,
-  cancelText = '돌아가기',
-  onLogin,
-  onCancel,
+  primaryText,
+  secondaryText = '돌아가기',
+  onPrimary,
+  onSecondary,
 }: LoginModalProps) => {
+  const { removeModal } = useModalStore();
+  const handleSecondary = () => {
+    onSecondary();
+    removeModal();
+  };
   return (
-    <div className="flex flex-col justify-center items-center text-center gap-[16px] break-keep">
-      <img src={LoginModalIcon} alt="login" />
-      <div className="flex flex-col gap-3">
-        <h4 className="text-heading-h4 font-semibold">{title}</h4>
-        <p className="text-body-md">{description}</p>
-      </div>
-      <div className="flex flex-row gap-5">
-        <Button variant="secondary" onClick={onCancel}>
-          {cancelText}
-        </Button>
-        <Button onClick={onLogin}>{loginText}</Button>
-      </div>
-    </div>
+    <BaseModalLayout icon={LoginModalIcon} title={title} description={description}>
+      <Button variant="secondary" onClick={handleSecondary}>
+        {secondaryText}
+      </Button>
+      <Button onClick={onPrimary}>{primaryText}</Button>
+    </BaseModalLayout>
   );
 };
 
