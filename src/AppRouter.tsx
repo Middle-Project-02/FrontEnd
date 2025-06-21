@@ -9,6 +9,9 @@ import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
 import RedirectPage from '@/pages/RedirectPage';
+import ServerErrorPage from '@/pages/errorBoundary/ServerErrorPage';
+import NotFoundPage from '@/pages/errorBoundary/NotFoundPage';
+import UnauthorizedPage from '@/pages/errorBoundary/UnauthorizedPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 
 const AppRouter = () => {
@@ -25,6 +28,18 @@ const AppRouter = () => {
     {
       path: PATH.REDIRECT,
       element: <RedirectPage />,
+    },
+    {
+      path: PATH.SERVER_ERROR,
+      element: <ServerErrorPage />,
+    },
+    {
+      path: PATH.NOT_FOUND,
+      element: <NotFoundPage />,
+    },
+    {
+      path: PATH.UNAUTHORIZED,
+      element: <UnauthorizedPage />,
     },
     {
       path: '',
@@ -54,6 +69,10 @@ const AppRouter = () => {
           loader: requireAuth,
         },
       ],
+    },
+    {
+      path: '*', // 잘못된 모든 경로는 404로
+      element: <NotFoundPage />,
     },
   ]);
 

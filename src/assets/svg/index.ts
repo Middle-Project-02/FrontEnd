@@ -8,3 +8,4 @@ export { default as LoadingDog } from './loading-dog.svg';
 export { default as Smishing } from './smishing-1.svg';
 export { default as GlassesDog } from './smishing-2.svg';
 export { default as KakaoLogin } from './kakao-login.svg';
+export { default as serverError } from './server.png';
