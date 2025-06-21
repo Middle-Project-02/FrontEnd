@@ -15,4 +15,7 @@ export const PATH = {
   CHAT: '/chat',
   MYPAGE: '/mypage',
   MAIN: '/main',
+  FONTMODE: '/fontmode',
+  REDIRECT: '/redirect',
+  SIGNUP: '/signup',
 } as const;
