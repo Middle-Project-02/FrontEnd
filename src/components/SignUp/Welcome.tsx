@@ -9,7 +9,7 @@ const Welcome = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col w-full pt-84 gap-30">
+    <div className="flex flex-col w-full pt-84 pb-24 gap-30">
       <div className="flex flex-col text-center gap-8">
         <h3 className="text-heading-h3 font-semibold">가입이 완료되었어요!</h3>
         <h1 className="text-heading-h1 font-semibold leading-tight">
