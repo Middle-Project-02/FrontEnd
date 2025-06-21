@@ -17,4 +17,5 @@ export const PATH = {
   MAIN: '/main',
   FONTMODE: '/fontmode',
   REDIRECT: '/redirect',
+  SIGNUP: '/signup',
 } as const;
