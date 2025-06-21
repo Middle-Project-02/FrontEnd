@@ -3,3 +3,8 @@ export interface Template {
   title: string;
   content: string;
 }
+
+export interface TemplateSaveRequest {
+  title: string;
+  content: string;
+}

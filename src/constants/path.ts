@@ -15,7 +15,7 @@ export const PATH = {
   CHAT: '/chat',
   MYPAGE: '/mypage',
   TEMPLATES: '/templates',
-  TEMPLATE_DETAIL: '/templates/:templateId',
+  TEMPLATE_DETAIL: '/templates/detail/:id',
   MAIN: '/main',
   FONTMODE: '/fontmode',
   REDIRECT: '/redirect',

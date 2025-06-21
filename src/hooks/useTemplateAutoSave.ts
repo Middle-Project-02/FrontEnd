@@ -1,27 +1,25 @@
 import { useRef } from 'react';
-import useSseListener from './sse/useSseListener';
-import { useSaveTemplateMutation } from './queries/template/useTemplateQueries';
+import useSseListener from '@/hooks/sse/useSseListener';
+import { useSaveTemplateMutation } from '@/hooks/queries/template/useTemplateQueries';
+import { TemplateSaveRequest } from '@/types/template';
 
 export function useTemplateAutoSave() {
-  const summaryRef = useRef('');
+  const summaryRef = useRef<TemplateSaveRequest | null>(null);
 
   const { mutate: save, isPending } = useSaveTemplateMutation({
     onSuccess: () => {
-      console.log('템플릿 저장 완료');
-      summaryRef.current = '';
+      summaryRef.current = null;
     },
     onError: () => {
-      console.error('템플릿 저장 실패');
-      summaryRef.current = '';
+      summaryRef.current = null;
     },
   });
 
-  // 템플릿 수신 시 저장
   useSseListener('summary', (data) => {
-    summaryRef.current = data;
+    const parsed = JSON.parse(data);
+    summaryRef.current = parsed;
   });
 
-  // 완료 이벤트 시 저장 트리거
   useSseListener('done', () => {
     if (!summaryRef.current || isPending) return;
     save(summaryRef.current);

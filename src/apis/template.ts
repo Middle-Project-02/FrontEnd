@@ -1,5 +1,5 @@
-import { Template } from '@/types/template';
 import { axiosInstance } from './axiosInstance';
+import { Template } from '@/types/template';
 import { END_POINTS } from '@/constants/api';
 
 export const getTemplates = async (): Promise<Template[]> => {
@@ -12,9 +12,9 @@ export const getTemplateDetail = async (id: number): Promise<Template> => {
   return response.data.content;
 };
 
-export const saveTemplate = async (rawContent: string): Promise<void> => {
-  await axiosInstance.post(END_POINTS.TEMPLATE.SAVE, rawContent, {
-    headers: { 'Content-Type': 'text/plain' },
+export const saveTemplate = async (data: { title: string; content: string }): Promise<void> => {
+  await axiosInstance.post(END_POINTS.TEMPLATE.SAVE, data, {
+    headers: { 'Content-Type': 'application/json' },
   });
 };
 

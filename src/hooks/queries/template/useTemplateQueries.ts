@@ -1,6 +1,6 @@
-import { deleteTemplate, getTemplateDetail, getTemplates, saveTemplate } from '@/apis/template';
-import { Template } from '@/types/template';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { deleteTemplate, getTemplateDetail, getTemplates, saveTemplate } from '@/apis/template';
+import { Template, TemplateSaveRequest } from '@/types/template';
 
 export const useTemplatesQuery = () => {
   const { data: templates, isLoading } = useQuery<Template[]>({
@@ -30,7 +30,7 @@ export const useSaveTemplateMutation = ({ onSuccess, onError }: MutationHandler)
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (rawContent: string) => saveTemplate(rawContent),
+    mutationFn: (data: TemplateSaveRequest) => saveTemplate(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['templates'] });
       onSuccess?.();

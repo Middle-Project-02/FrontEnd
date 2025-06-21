@@ -10,7 +10,7 @@ const TemplatesPage = () => {
   const navigate = useNavigate();
 
   const handleTemplateClick = (id: number) => {
-    navigate(`${PATH.TEMPLATES}/${id}`);
+    navigate(`${PATH.TEMPLATES}/detail/${id}`);
   };
 
   if (isLoading) return <Loading />;

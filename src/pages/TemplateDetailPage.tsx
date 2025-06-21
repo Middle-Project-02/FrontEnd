@@ -23,6 +23,8 @@ const TemplateDetailPage = () => {
   if (isLoading) return <Loading />;
   if (!templateDetail) return <NotFoundPage />;
 
+  const paragraphs = templateDetail.content.split(/(?<=\.)\s+/);
+
   return (
     <div className="flex flex-col h-full min-h-screen bg-white break-keep">
       <header className="sticky top-0 px-[30px] pt-[44px]">
@@ -33,12 +35,20 @@ const TemplateDetailPage = () => {
         </p>
       </header>
       <main className="flex flex-col items-center flex-1 overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
-        <h4 className="text-heading-h4 font-semibold">요금제 변경 안내서</h4>
-        <p className="text-body-lg">{templateDetail.content}</p>
+        <div className="bg-white rounded-16 border shadow4 py-20 px-16 mb-5 max-w-[300px]">
+          <h4 className="text-heading-h4 font-semibold mb-4">요금제 변경 안내서</h4>
+          {paragraphs.map((para, idx) => (
+            <p key={idx} className="text-body-lg mb-4">
+              {para}
+            </p>
+          ))}
+        </div>
+        <div className="flex flex-row justify-end">
+          <Button variant="destructive" onClick={() => deleteTemplate(templateId)}>
+            이 안내서 지우기
+          </Button>
+        </div>
       </main>
-      <Button variant="destructive" onClick={() => deleteTemplate(templateId)}>
-        이 안내서 지우기
-      </Button>
     </div>
   );
 };
