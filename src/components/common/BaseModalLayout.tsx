@@ -15,7 +15,7 @@ const BaseModalLayout = ({ icon, title, description, children }: BaseModalLayout
         <h4 className="text-heading-h4 font-semibold">{title}</h4>
         {description && <p className="text-body-md">{description}</p>}
       </div>
-      <div className="flex flex-row gap-5">{children}</div>
+      <div className="flex flex-row justify-center gap-5 w-full">{children}</div>
     </div>
   );
 };

@@ -19,7 +19,7 @@ const SuccessModal = ({ title, buttonText, onSuccess }: SuccessModalProps) => {
 
   return (
     <BaseModalLayout icon={SuccessModalIcon} title={title}>
-      <Button variant="default" onClick={handleSuccess}>
+      <Button variant="default" onClick={handleSuccess} className="w-full">
         {buttonText}
       </Button>
     </BaseModalLayout>
