@@ -4,6 +4,7 @@ import { sendChatMessage } from '@/apis/chatbot';
 import { useSse } from '@/hooks/sse/useSse';
 import { useSseListener } from '@/hooks/sse/useSseListener';
 import { Button } from '@/components/ui/button';
+import BackButton from '@/components/common/BackButton';
 import { END_POINTS } from '@/constants/api';
 import ChatBubble from '@/components/chat/ChatBubble';
 import type { SmartChoicePlanDto } from '@/types/smartChoicePlan';
@@ -13,6 +14,8 @@ import { speak } from '@/utils/tts';
 import { Textarea } from '@/components/chat/Textarea';
 import useCreatePlanGuideMutation from '@/hooks/queries/template/useCreatePlanGuideMutation';
 import PlanCard from '@/components/chat/PlanCard';
+import PlanSummaryCard from '@/components/chat/PlanSummaryCard';
+import { LandingDog } from '@/assets/svg';
 
 type AIResponseState = 'idle' | 'waiting' | 'streaming' | 'done';
 
@@ -25,6 +28,7 @@ const PlanChatBotPage = () => {
   const [streamingMessage, setStreamingMessage] = useState<string | null>(null);
   const [lastUserMessage, setLastUserMessage] = useState<string | null>(null);
   const [summaryMessages, setSummaryMessages] = useState<{ title: string; content: string }[]>([]);
+  const [showMicGuide, setShowMicGuide] = useState(true);//추가
 
   const navigate = useNavigate();
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -41,6 +45,14 @@ const PlanChatBotPage = () => {
     stopListening,
     resetTranscript,
   } = useSpeechRecognition();
+
+  //
+  useEffect(() => {
+  const timer = setTimeout(() => {
+    setShowMicGuide(false);
+  }, 3000); // 3초 후 사라짐
+  return () => clearTimeout(timer);
+}, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -200,38 +212,96 @@ const PlanChatBotPage = () => {
     }
   };
 
-  const handleVoiceToggle = () => {
+    const handleVoiceToggle = () => {
     if (isListening) {
       stopListening();
     } else {
       startListening();
     }
+    // 추가: 가이드를 사용했으면 즉시 닫기
+    if (showMicGuide) {
+      setShowMicGuide(false);
+    }
+  };
+   // 추가: 가이드 수동 닫기 함수
+  const handleCloseGuide = () => {
+    setShowMicGuide(false);
   };
 
-  const handleCreatePlanGuide = () => {
+  // const handleCreatePlanGuide = () => {
+  //   setMessages((prev) => [
+  //     ...prev,
+  //     { sender: 'user', text: '요금제 변경 가이드 템플릿을 생성해주세요.' },
+  //   ]);
+  //   setAiResponseState('waiting');
+  //   mutateCreatePlanGuide();
+  // };
+const handleCreatePlanGuide = (planName?: string) => {
+  // 채팅 메시지에 표시
+  if (planName) {
+    setMessages((prev) => [
+      ...prev,
+      { sender: 'user', text: `"${planName}" 요금제 변경 안내서를 만들어주세요.` },
+    ]);
+  } else {
     setMessages((prev) => [
       ...prev,
       { sender: 'user', text: '요금제 변경 가이드 템플릿을 생성해주세요.' },
     ]);
-    setAiResponseState('waiting');
-    mutateCreatePlanGuide();
-  };
+  }
+
+  setAiResponseState('waiting');
+  mutateCreatePlanGuide();
+};
 
   const isAiResponding = aiResponseState !== 'idle';
-
-  return (
+return (
     <div className="relative flex flex-col justify-between h-full mx-auto rounded bg-white px-6 pt-6 pb-4">
+      {/* 추가: PWA 스타일 가이드 오버레이 */}
+      {showMicGuide && !isListening && (
+        <div className="fixed inset-0 z-40">
+          {/* 수정: 더 진한 배경 블러 (bg-black/20 → bg-black/40) */}
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm opacity-0 animate-fadeInBg" />
+          
+          {/* 수정: 모든 요소를 하나의 중앙 플렉스 컨테이너로 통합 */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative flex flex-col items-center">
+              
+              {/* 말풍선 - 최상위 z-index */}
+              <div className="relative z-30 mb-6 opacity-0 animate-slideUpGuide">
+                <div className="bg-white text-gray-800 text-sm rounded-2xl px-5 py-3 shadow-xl border border-gray-100 min-w-max">
+                  <div className="font-medium text-center">🎤 음성으로 질문해보세요!</div>
+                  <div className="text-xs text-gray-500 text-center mt-1">아래 마이크 버튼을 눌러 시작하세요</div>
+                  
+                  {/* 말풍선 화살표 (아래쪽) */}
+                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
+                    <div className="w-4 h-4 bg-white border-r border-b border-gray-100 rotate-45"></div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* 강아지 이미지 - 중간 z-index */}
+              <div className="relative z-20 w-[220px] h-[180px] mb-20 opacity-0 animate-slideUpGuide">
+                <img src={LandingDog} alt="LandingDog" className="w-full h-full object-contain" />
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* 음성 인식 오버레이 */}
       {isListening && (
         <div className="absolute inset-0 bg-black/50 z-50 flex flex-col items-center justify-center">
           <div className="bg-white rounded-3xl p-8 shadow-2xl flex flex-col items-center">
-            {/* 메인 마이크 버튼 */}
-            <button
-              onClick={handleVoiceToggle}
-              className="w-24 h-24 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-lg mb-6 transform hover:scale-105 transition-transform"
-            >
-              <span className="text-4xl text-white">🎤</span>
-            </button>
+            <div className="relative flex justify-center">
+              <button
+                onClick={handleVoiceToggle}
+                className="w-24 h-24 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-lg transform hover:scale-105 transition-transform animate-pulse"
+              >
+                <span className="text-4xl text-white">🎤</span>
+              </button>
+            </div>
 
             {/* 중앙 음성 파형 */}
             <CenterVoiceWave />
@@ -262,26 +332,16 @@ const PlanChatBotPage = () => {
       )}
 
       <div className="flex items-center justify-between px-2 py-3 text-base font-medium">
-        <button className="text-black" onClick={() => navigate(-1)}>
-          ← 뒤로가기
-        </button>
+        <BackButton />
         <div className="flex items-center gap-3">
-          <Button
-            onClick={handleCreatePlanGuide}
-            disabled={isCreatingPlanGuide || isAiResponding}
-            variant="outline"
-            outlineColor="primary"
-            size="sm"
-          >
-            {isCreatingPlanGuide ? '생성중...' : '가이드 템플릿'}
-          </Button>
           <ConnectBadge connected />
         </div>
       </div>
 
       <h2 className="text-heading-h3 font-semibold text-black">
-        궁금한 요금제나 변경 문의를 입력해보세요!
+        아지가 요금제를 추천해드릴게요!
       </h2>
+      
       <div className="flex-1 overflow-y-auto flex flex-col gap-12 text-body-lg w-[300px] mt-12 mb-12">
         {messages.map((msg, i) => (
           <React.Fragment key={i}>
@@ -292,9 +352,24 @@ const PlanChatBotPage = () => {
                     {msg.text}
                     {msg.cards && (
                       <div className="flex flex-col">
-                        {msg.cards.map((plan, idx) => (
+                        {/* {msg.cards.map((plan, idx) => (
                           <PlanCard key={idx} plan={plan} />
-                        ))}
+                        ))} */}
+                        {msg.cards.map((plan, idx) => (
+  <div key={idx}>
+    <PlanCard plan={plan} />
+    <div className="mt-2 flex flex-col gap-2">
+      <Button
+        onClick={() => handleCreatePlanGuide(plan.planName)}
+        disabled={isCreatingPlanGuide || isAiResponding}
+        className="w-full"
+      >
+        {isCreatingPlanGuide ? '생성중...' : '요금제 변경 안내서 만들기'}
+      </Button>
+    </div>
+  </div>
+))}
+
                       </div>
                     )}
                   </ChatBubble>
@@ -316,7 +391,7 @@ const PlanChatBotPage = () => {
         ))}
 
         {aiResponseState === 'waiting' && <WaitingIndicator />}
-        {summaryMessages.map((summary, i) => (
+        {/* {summaryMessages.map((summary, i) => (
           <div
             key={`summary-${i}`}
             className="flex flex-col items-start gap-2 bg-gray-50 rounded-xl p-4"
@@ -326,7 +401,11 @@ const PlanChatBotPage = () => {
               내용: {summary.content}
             </div>
           </div>
-        ))}
+        ))} */}
+        {summaryMessages.map((summary, i) => (
+  <PlanSummaryCard key={`summary-${i}`} title={summary.title} content={summary.content} />
+))}
+
 
         <div ref={bottomRef} />
       </div>
@@ -334,19 +413,40 @@ const PlanChatBotPage = () => {
       {/* 인풋 영역과 마이크 버튼 */}
       <div className="flex flex-col gap-3">
         {/* 마이크 버튼 - 인풋 위 중앙에 배치 */}
-        <div className="flex justify-center">
+        <div className="relative flex justify-center">
+          {/* 가이드용 하이라이트 링들 - 마이크와 같은 중앙 정렬 */}
+          {showMicGuide && !isListening && (
+            <>
+              {/* 부드럽게 깜빡이는 하이라이트 링 - 마이크 버튼과 정확히 일치 */}
+              <div className="absolute flex justify-center items-center w-20 h-20 rounded-full bg-red-400/20 animate-gentlePulse z-10" />
+              <div className="absolute flex justify-center items-center w-24 h-24 rounded-full bg-blue-300/15 animate-gentlePulse2 z-10" />
+            </>
+          )}
+          
           <button
             onClick={handleVoiceToggle}
             disabled={isAiResponding}
-            className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg text-2xl transition-all duration-300 ${
+            className={`w-20 h-20 rounded-full flex items-center justify-center shadow-xl text-3xl transition-all duration-300 relative z-50 ${
               isListening
                 ? 'bg-gradient-to-br from-red-500 to-red-600 text-white animate-pulse'
                 : isAiResponding
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  : 'bg-gradient-to-br from-blue-500 to-blue-600 text-white hover:scale-105'
+                  : 'bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 text-white hover:scale-105 hover:shadow-2xl'
             }`}
           >
-            🎤
+            <svg 
+              width="54" 
+              height="54" 
+              viewBox="0 0 24 24" 
+              fill="currentColor"
+              className="drop-shadow-sm"
+            >
+              <path d="M12 14C13.66 14 15 12.66 15 11V5C15 3.34 13.66 2 12 2S9 3.34 9 5V11C9 12.66 10.34 14 12 14Z"/>
+              <path d="M17 11C17 14.76 14.76 17 11 17H13C16.31 17 19 14.31 19 11H17Z"/>
+              <path d="M5 11C5 14.31 7.69 17 11 17H13C9.69 17 7 14.31 7 11H5Z"/>
+              <path d="M11 19V22H13V19C13 19 12 19 11 19Z"/>
+              <path d="M9 22H15V20H9V22Z"/>
+            </svg>
           </button>
         </div>
 
@@ -365,6 +465,114 @@ const PlanChatBotPage = () => {
           </Button>
         </form>
       </div>
+
+      {/* 수정: 커스텀 애니메이션 스타일 (기존 애니메이션 대체) */}
+      <style jsx>{`
+        /* 추가: 배경 블러 페이드인 애니메이션 */
+        @keyframes fadeInBg {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+        
+        /* 수정: 말풍선 슬라이드업 애니메이션 개선 */
+        @keyframes slideUpGuide {
+          0% {
+            opacity: 0;
+            transform: translateY(15px) scale(0.95);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+        
+        /* 추가: 지연된 핑 애니메이션 */
+        @keyframes delayedPing {
+          0% {
+            opacity: 0;
+          }
+          50% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+          }
+        }
+        
+        /* 추가: 지연된 펄스 애니메이션 */
+        @keyframes delayedPulse {
+          0% {
+            opacity: 0;
+          }
+          50% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0.7;
+          }
+        }
+        
+        /* 추가: 부드러운 펄스 애니메이션 - 마이크 하이라이트용 */
+        @keyframes gentlePulse {
+          0% {
+            opacity: 0.3;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.6;
+            transform: scale(1.05);
+          }
+          100% {
+            opacity: 0.3;
+            transform: scale(1);
+          }
+        }
+        
+        @keyframes gentlePulse2 {
+          0% {
+            opacity: 0.2;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.4;
+            transform: scale(1.03);
+          }
+          100% {
+            opacity: 0.2;
+            transform: scale(1);
+          }
+        }
+        
+        /* 추가: 애니메이션 클래스들 */
+        .animate-fadeInBg {
+          animation: fadeInBg 1s ease-out forwards;
+        }
+        
+        .animate-slideUpGuide {
+          animation: slideUpGuide 0.8s ease-out 0.5s forwards;
+        }
+        
+        .animate-delayedPing {
+          animation: delayedPing 2s ease-out 0.8s infinite;
+        }
+        
+        .animate-delayedPulse {
+          animation: delayedPulse 2s ease-out 1s infinite;
+        }
+      
+/* ✅ 테스트용으로 매우 느리게 */
+.animate-gentlePulse {
+  animation: gentlePulse 8s ease-in-out 0s infinite;
+}
+
+.animate-gentlePulse2 {
+  animation: gentlePulse2 10s ease-in-out 0s infinite;
+}
+      `}</style>
     </div>
   );
 };
