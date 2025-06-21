@@ -16,4 +16,5 @@ export const PATH = {
   MYPAGE: '/mypage',
   MAIN: '/main',
   FONTMODE: '/fontmode',
+  REDIRECT: '/redirect',
 } as const;
