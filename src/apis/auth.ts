@@ -6,6 +6,12 @@ interface LoginProps {
   password: string;
 }
 
+interface RegisterProps {
+  memberId: string;
+  nickname: string;
+  password: string;
+}
+
 export const postLogin = async (props: LoginProps) => {
   const response = await axiosInstance.post(`${END_POINTS.LOGIN}`, {
     memberId: props.memberId,
@@ -25,6 +31,16 @@ export const postKakaoLogin = async (code: string) => {
 
 export const getNewToken = async () => {
   const response = await axiosInstance.post(`${END_POINTS.REISSUE}`);
+
+  return response.data.content;
+};
+
+export const postRegister = async (props: RegisterProps) => {
+  const response = await axiosInstance.post(`${END_POINTS.REGISTER}`, {
+    memberId: props.memberId,
+    nickname: props.nickname,
+    password: props.password,
+  });
 
   return response.data.content;
 };

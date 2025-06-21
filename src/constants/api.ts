@@ -13,6 +13,7 @@ export const END_POINTS = {
     MESSAGE: '/smishing/message',
   },
   KAKAOLOGIN: 'auth/login/kakao',
+  REGISTER: 'auth/register',
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
