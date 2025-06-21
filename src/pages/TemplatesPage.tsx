@@ -4,9 +4,11 @@ import { PATH } from '@/constants/path';
 import BackButton from '@/components/common/BackButton';
 import Loading from '@/components/common/Loading';
 import TemplateCard from '@/components/template/TemplateCard';
+import useUserInfoQuery from '@/hooks/queries/user/useUserInfoQuery';
 
 const TemplatesPage = () => {
   const { templates = [], isLoading } = useTemplatesQuery();
+  const { userInformation } = useUserInfoQuery();
   const navigate = useNavigate();
 
   const handleTemplateClick = (id: number) => {
@@ -20,7 +22,8 @@ const TemplatesPage = () => {
       <header className="sticky top-0 px-[30px] pt-[44px]">
         <BackButton />
         <h3 className="text-heading-h3 font-semibold py-4">
-          <span className="text-primary">테스트</span> 님이 만들었던 안내서예요.
+          <span className="text-primary">{userInformation?.nickname}</span> 님이 만들었던
+          안내서예요.
         </h3>
 
         <p className="text-body-md text-textSecondary pb-12">
