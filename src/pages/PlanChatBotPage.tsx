@@ -279,36 +279,39 @@ const PlanChatBotPage = () => {
         </div>
       </div>
 
-      <h2 className="text-xl font-semibold text-black px-2 mb-2">
+      <h2 className="text-heading-h3 font-semibold text-black">
         궁금한 요금제나 변경 문의를 입력해보세요!
       </h2>
-
-      <div className="flex-1 overflow-y-auto flex flex-col gap-4 text-base w-full mt-3 mb-4">
+      <div className="flex-1 overflow-y-auto flex flex-col gap-12 text-body-lg w-[300px] mt-12 mb-12">
         {messages.map((msg, i) => (
           <React.Fragment key={i}>
-            {msg.text &&
+            {(msg.text || msg.cards) &&
               (msg.sender === 'ai' ? (
                 <div className="flex flex-col items-start">
-                  <ChatBubble role="ai">{msg.text}</ChatBubble>
-                  <Button
-                    onClick={() => speak(msg.text)}
-                    variant="ghost"
-                    size="sm"
-                    className="mt-1 ml-4 px-8 py-4 text-[1.2rem] h-auto"
-                  >
-                    🔊 읽기
-                  </Button>
+                  <ChatBubble role="ai">
+                    {msg.text}
+                    {msg.cards && (
+                      <div className="flex flex-col">
+                        {msg.cards.map((plan, idx) => (
+                          <PlanCard key={idx} plan={plan} />
+                        ))}
+                      </div>
+                    )}
+                  </ChatBubble>
+                  {msg.text && (
+                    <Button
+                      onClick={() => speak(msg.text)}
+                      variant="ghost"
+                      size="sm"
+                      className="mt-1 ml-4 px-8 py-4 text-[1.2rem] h-auto"
+                    >
+                      🔊 읽기
+                    </Button>
+                  )}
                 </div>
               ) : (
                 <ChatBubble role="user">{msg.text}</ChatBubble>
               ))}
-            {msg.cards && (
-              <div className="flex flex-wrap gap-3 px-4">
-                {msg.cards.map((plan, idx) => (
-                  <PlanCard key={idx} plan={plan} />
-                ))}
-              </div>
-            )}
           </React.Fragment>
         ))}
 
