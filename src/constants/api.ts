@@ -12,6 +12,7 @@ export const END_POINTS = {
     CONNECT: '/smishing/connect',
     MESSAGE: '/smishing/message',
   },
+  KAKAOLOGIN: 'auth/login/kakao',
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
