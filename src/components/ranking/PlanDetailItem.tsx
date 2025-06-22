@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import useRankDetailQuery from '@/hooks/queries/ranking/useRankDetailQuery';
 import { usePlanTooltip } from '@/hooks/ranking/usePlanTooltip';
 import { calculateDataComment } from '@/utils/ranking/formatPlanData';
-import PlanDetailItemSkeleton from '../skeleton/ranking/PlanDetailItemSkeleton';
+import PlanDetailItemSkeleton from '@/components/skeleton/ranking/PlanDetailItemSkeleton';
 
 interface PlanDetailItemProps {
   planId: number;
