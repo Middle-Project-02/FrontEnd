@@ -41,7 +41,8 @@ export const postRegister = async (props: RegisterProps) => {
     nickname: props.nickname,
     password: props.password,
   });
-  
+};
+
 export const patchFontMode = async (fontMode: boolean) => {
   const response = await axiosInstance.patch(`${END_POINTS.ADDITIONALINFORMATION}`, {
     fontMode,
