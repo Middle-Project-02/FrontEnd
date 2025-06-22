@@ -3,8 +3,7 @@ import { PATH } from '@/constants/path';
 import { useAllNotificationsQuery } from '@/hooks/queries/notification/useNotificationQuery';
 import NotificationCard from '@/components/notification/NotificationCard';
 import BackButton from '@/components/common/BackButton';
-import Loading from '@/components/common/Loading';
-import NotFoundPage from './NotFoundPage';
+import NotificationCardSkeleton from '@/components/skeleton/notification/NotificationSkeleton';
 
 const NotificationPage = () => {
   const { notifications, isLoading } = useAllNotificationsQuery();
@@ -14,17 +13,9 @@ const NotificationPage = () => {
     navigate(`${PATH.NOTIFICATIONS}/${id}`);
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (!notifications) {
-    return <NotFoundPage />;
-  }
-
   return (
     <div className="flex flex-col h-full min-h-screen bg-white break-keep">
-      <header className="sticky top-0  px-[30px] pt-[44px]">
+      <header className="sticky top-0 px-[30px] pt-[44px]">
         <BackButton />
         <h3 className="text-heading-h3 font-semibold py-4">알림장</h3>
         <p className="text-body-md text-textSecondary pb-12">
@@ -33,16 +24,18 @@ const NotificationPage = () => {
         </p>
       </header>
 
-      <main className="flex flex-col items-center flex-1 overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
-        {notifications?.map((notification) => (
-          <NotificationCard
-            key={notification.notificationId}
-            title={notification.title}
-            tags={notification.tags || []}
-            summary={notification.summary}
-            onDetailClick={() => handleNotificationClick(notification.notificationId)}
-          />
-        ))}
+      <main className="flex flex-col flex-1 pb-[100px] overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
+        {isLoading
+          ? [...Array(4)].map((_, i) => <NotificationCardSkeleton key={i} />)
+          : notifications?.map((notification) => (
+              <NotificationCard
+                key={notification.notificationId}
+                title={notification.title}
+                tags={notification.tags || []}
+                summary={notification.summary}
+                onDetailClick={() => handleNotificationClick(notification.notificationId)}
+              />
+            ))}
       </main>
     </div>
   );

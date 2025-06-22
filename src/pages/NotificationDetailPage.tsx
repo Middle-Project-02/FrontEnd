@@ -3,7 +3,7 @@ import { useNotificationDetailQuery } from '@/hooks/queries/notification/useNoti
 import { NOTIFICATION_DETAIL_SECTIONS } from '@/constants/notification';
 import BackButton from '@/components/common/BackButton';
 import { Badge } from '@/components/ui/badge';
-import Loading from '@/components/common/Loading';
+import NotificationDetailSkeleton from '@/components/skeleton/notification/NotificationDetailSkeleton';
 import NotificationSection from '@/components/notification/NotificationSection';
 import NotFoundPage from './NotFoundPage';
 
@@ -11,13 +11,9 @@ const NotificationDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { notificationDetail, isLoading } = useNotificationDetailQuery(id!);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <NotificationDetailSkeleton />;
 
-  if (!notificationDetail) {
-    return <NotFoundPage />;
-  }
+  if (!notificationDetail) return <NotFoundPage />;
 
   return (
     <div className="flex flex-col h-full min-h-screen bg-white break-keep">
@@ -33,7 +29,7 @@ const NotificationDetailPage = () => {
         </div>
       </header>
 
-      <main className="flex flex-col items-center flex-1 overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
+      <main className="flex flex-col items-center pb-[100px] flex-1 overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
         {NOTIFICATION_DETAIL_SECTIONS.map((section) => (
           <NotificationSection
             key={section.key}
