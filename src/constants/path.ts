@@ -17,6 +17,7 @@ export const PATH = {
   TEMPLATES: '/templates',
   TEMPLATE_DETAIL: '/templates/detail/:id',
   MAIN: '/main',
+  RANKING: '/ranking',
   FONTMODE: '/fontmode',
   REDIRECT: '/redirect',
   SIGNUP: '/signup',
