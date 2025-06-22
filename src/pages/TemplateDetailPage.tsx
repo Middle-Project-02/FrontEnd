@@ -5,8 +5,8 @@ import {
 } from '@/hooks/queries/template/useTemplateQueries';
 import { PATH } from '@/constants/path';
 import BackButton from '@/components/common/BackButton';
-import Loading from '@/components/common/Loading';
 import { Button } from '@/components/ui/button';
+import TemplateDetailSkeleton from '@/components/skeleton/template/TemplateDetailSkeleton';
 import NotFoundPage from '@/pages/NotFoundPage';
 
 const TemplateDetailPage = () => {
@@ -20,7 +20,7 @@ const TemplateDetailPage = () => {
     onError: () => alert('삭제 실패!'),
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <TemplateDetailSkeleton />;
   if (!templateDetail) return <NotFoundPage />;
 
   const paragraphs = templateDetail.content.split(/(?<=\.)\s+/);
