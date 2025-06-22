@@ -1,7 +1,5 @@
-// useChatReducer.ts
 import { SmartChoicePlanDto } from '@/types/smartChoicePlan';
 
-// 상태 타입
 export interface ChatMessage {
   sender: 'user' | 'ai';
   text: string;
