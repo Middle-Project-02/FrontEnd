@@ -5,10 +5,15 @@ import MainPage from '@/pages/MainPage';
 import LoginPage from '@/pages/LoginPage';
 import LandingPage from '@/pages/LandingPage';
 import SmishingPage from '@/pages/smishing/SmishingPage';
+import RankingPage from '@/pages/RankingPage';
 import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
 import RedirectPage from '@/pages/RedirectPage';
+import SignUpPage from '@/pages/SignUp/SignUpPage';
+import TemplatesPage from '@/pages/TemplatesPage';
+import TemplateDetailPage from '@/pages/TemplateDetailPage';
+import FontModePage from '@/pages/FontModePage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 import QuizPage from '@/pages/quiz/QuizPage';
 import QuizIntroPage from '@/pages/quiz/QuizIntroPage';
@@ -27,6 +32,15 @@ const AppRouter = () => {
     {
       path: PATH.REDIRECT,
       element: <RedirectPage />,
+    },
+    {
+      path: PATH.SIGNUP,
+      element: <SignUpPage />,
+    },
+    {
+      path: PATH.FONTMODE,
+      element: <FontModePage />,
+      loader: requireAuth,
     },
     {
       path: '',
@@ -59,6 +73,12 @@ const AppRouter = () => {
         {
           path: PATH.MAIN,
           element: <MainPage />,
+        },
+        { path: PATH.TEMPLATES, element: <TemplatesPage /> },
+        { path: PATH.TEMPLATE_DETAIL, element: <TemplateDetailPage /> },
+        {
+          path: PATH.RANKING,
+          element: <RankingPage />,
         },
       ],
     },
