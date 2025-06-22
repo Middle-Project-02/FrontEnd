@@ -1,10 +1,10 @@
-import { hasDescription } from '@/utils/planHelpers';
+import { hasDescription } from '@/utils/ranking/formatPlanData';
 
 interface PlanBenefitItemProps {
   benefitKey: string;
   benefitValue: string;
   dataComment?: string;
-  buttonRefs: React.MutableRefObject<{ [key: string]: HTMLButtonElement | null }>;
+  buttonRefs: React.RefObject<Record<string, HTMLButtonElement | null>>;
   onTooltipOpen: (key: string) => void;
 }
 
@@ -23,7 +23,9 @@ const PlanBenefitItem = ({
         {hasDescription(benefitKey, benefitValue) && (
           <button
             ref={(el) => {
-              buttonRefs.current[benefitKey] = el;
+              if (buttonRefs.current) {
+                buttonRefs.current[benefitKey] = el;
+              }
             }}
             onClick={() => onTooltipOpen(benefitKey)}
             className="flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full hover:bg-blue-200 transition-colors"

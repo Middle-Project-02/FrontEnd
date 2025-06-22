@@ -1,9 +1,6 @@
-import { DATA_USAGE_MESSAGES, DataUsageLevel } from '@/constants/dataUsage';
-import { DataType } from '@/types/ranking';
+import type { DataUsageLevel, PlanData } from '@/types/ranking';
+import { DATA_USAGE_MESSAGES } from '@/constants/ranking/dataUsage';
 
-/**
- * GB 용량에 따라 데이터 사용량 레벨을 계산합니다.
- */
 export function calculateDataUsageLevel(dataAmountGb: number | null): DataUsageLevel {
   if (!dataAmountGb || dataAmountGb === null) {
     return 'UNKNOWN';
@@ -22,14 +19,6 @@ export function calculateDataUsageLevel(dataAmountGb: number | null): DataUsageL
   } else {
     return 'UNKNOWN';
   }
-}
-
-/**
- * 요금제 데이터로부터 사용자 친화적인 메시지를 생성합니다.
- */
-interface PlanData {
-  dataType: DataType; // 🆕 기존 타입 재사용
-  dataAmountGb: number | null;
 }
 
 export function getDataComment(planData: PlanData): string {

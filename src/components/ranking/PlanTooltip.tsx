@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button';
-import { getBenefitDescription, getBenefitValue } from '@/utils/planHelpers';
+import { getBenefitValue } from '@/utils/ranking/formatPlanData';
+import { getBenefitDescription } from '@/utils/ranking/getBenefitDescription';
+
 interface PlanTooltipProps {
   showTooltip: string | null;
   tooltipPosition: { top: number; left: number } | null;
