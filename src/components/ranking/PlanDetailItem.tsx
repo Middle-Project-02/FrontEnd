@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import useRankDetailQuery from '@/hooks/queries/ranking/useRankDetailQuery';
 import { usePlanTooltip } from '@/hooks/ranking/usePlanTooltip';
 import { calculateDataComment } from '@/utils/ranking/formatPlanData';
+import PlanDetailItemSkeleton from '../skeleton/ranking/PlanDetailItemSkeleton';
 
 interface PlanDetailItemProps {
   planId: number;
@@ -11,14 +12,23 @@ interface PlanDetailItemProps {
 }
 
 const PlanDetailItem = ({ planId, onBack }: PlanDetailItemProps) => {
-  const { rankDetailResponse } = useRankDetailQuery(planId);
+  const { rankDetailResponse, isLoading } = useRankDetailQuery(planId);
   const { showTooltip, tooltipPosition, buttonRefs, openTooltip, closeTooltip } = usePlanTooltip();
 
+  // 로딩 중일 때 스켈레톤 컴포넌트 반환
+  if (isLoading) {
+    return <PlanDetailItemSkeleton onBack={onBack} />;
+  }
+
+  // 데이터가 없을 때 처리 (에러 상태)
   if (!rankDetailResponse) {
     return (
-      <li className="bg-white shadow-shadow2 rounded-16 px-12 py-20">
-        <p>불러오는 중...</p>
-      </li>
+      <div className="flex flex-col bg-white border-primary border-2 rounded-16 px-12 py-16 gap-8">
+        <p className="text-center text-gray-500">데이터를 불러올 수 없습니다.</p>
+        <Button variant="secondary" size="sm" onClick={onBack}>
+          닫기
+        </Button>
+      </div>
     );
   }
 
