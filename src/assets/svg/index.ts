@@ -7,5 +7,8 @@ export { default as Solution } from './check-circle-2.svg';
 export { default as LoadingDog } from './loading-dog.svg';
 export { default as Smishing } from './smishing-1.svg';
 export { default as GlassesDog } from './smishing-2.svg';
+export { default as ConfirmModalIcon } from './confirm-modal.svg';
+export { default as SuccessModalIcon } from './success-modal.svg';
+export { default as LoginModalIcon } from './login-modal.svg';
 export { default as KakaoLogin } from './kakao-login.svg';
 export { default as WelcomeDog } from './welcome.svg';
