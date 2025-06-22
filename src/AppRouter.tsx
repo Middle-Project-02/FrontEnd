@@ -11,6 +11,8 @@ import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
 import RedirectPage from '@/pages/RedirectPage';
 import SignUpPage from '@/pages/SignUp/SignUpPage';
+import TemplatesPage from '@/pages/TemplatesPage';
+import TemplateDetailPage from '@/pages/TemplateDetailPage';
 import FontModePage from '@/pages/FontModePage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 
@@ -66,10 +68,13 @@ const AppRouter = () => {
           element: <MainPage />,
           loader: requireAuth,
         },
+        { path: PATH.TEMPLATES, element: <TemplatesPage /> },
+        { path: PATH.TEMPLATE_DETAIL, element: <TemplateDetailPage /> },
         {
           path: PATH.RANKING,
           element: <RankingPage />,
         },
+
       ],
     },
   ]);
