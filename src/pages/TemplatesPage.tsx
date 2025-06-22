@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useTemplatesQuery } from '@/hooks/queries/template/useTemplateQueries';
+import useUserInfoQuery from '@/hooks/queries/user/useUserInfoQuery';
 import { PATH } from '@/constants/path';
 import BackButton from '@/components/common/BackButton';
 import Loading from '@/components/common/Loading';
 import TemplateCard from '@/components/template/TemplateCard';
-import useUserInfoQuery from '@/hooks/queries/user/useUserInfoQuery';
 
 const TemplatesPage = () => {
   const { templates = [], isLoading } = useTemplatesQuery();
@@ -33,14 +33,22 @@ const TemplatesPage = () => {
       </header>
 
       <main className="flex flex-col items-center flex-1 overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
-        {templates.map((template) => (
-          <TemplateCard
-            key={template.id}
-            title={template.title}
-            content={template.content}
-            onDetailClick={() => handleTemplateClick(template.id)}
-          />
-        ))}
+        {templates.length === 0 ? (
+          <div className="text-center text-body-lg text-textSecondary mt-12">
+            아직 만들어진 안내서가 없어요.
+            <br />
+            챗봇을 통해 요금제 추천을 받아보세요!
+          </div>
+        ) : (
+          templates.map((template) => (
+            <TemplateCard
+              key={template.id}
+              title={template.title}
+              content={template.content}
+              onDetailClick={() => handleTemplateClick(template.id)}
+            />
+          ))
+        )}
       </main>
     </div>
   );
