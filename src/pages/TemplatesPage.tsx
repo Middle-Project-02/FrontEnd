@@ -3,8 +3,8 @@ import { useTemplatesQuery } from '@/hooks/queries/template/useTemplateQueries';
 import useUserInfoQuery from '@/hooks/queries/user/useUserInfoQuery';
 import { PATH } from '@/constants/path';
 import BackButton from '@/components/common/BackButton';
-import Loading from '@/components/common/Loading';
 import TemplateCard from '@/components/template/TemplateCard';
+import TemplateCardSkeleton from '@/components/skeleton/template/TemplateCardSkeleton';
 
 const TemplatesPage = () => {
   const { templates = [], isLoading } = useTemplatesQuery();
@@ -15,7 +15,27 @@ const TemplatesPage = () => {
     navigate(`${PATH.TEMPLATES}/detail/${id}`);
   };
 
-  if (isLoading) return <Loading />;
+  let mainContent;
+  if (isLoading) {
+    mainContent = [...Array(4)].map((_, i) => <TemplateCardSkeleton key={i} />);
+  } else if (templates.length === 0) {
+    mainContent = (
+      <div className="text-center text-body-lg text-textSecondary mt-12">
+        아직 만들어진 안내서가 없어요.
+        <br />
+        챗봇을 통해 요금제 추천을 받아보세요!
+      </div>
+    );
+  } else {
+    mainContent = templates.map((template) => (
+      <TemplateCard
+        key={template.id}
+        title={template.title}
+        content={template.content}
+        onDetailClick={() => handleTemplateClick(template.id)}
+      />
+    ));
+  }
 
   return (
     <div className="flex flex-col h-full min-h-screen bg-white break-keep">
@@ -33,22 +53,7 @@ const TemplatesPage = () => {
       </header>
 
       <main className="flex flex-col items-center flex-1 overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
-        {templates.length === 0 ? (
-          <div className="text-center text-body-lg text-textSecondary mt-12">
-            아직 만들어진 안내서가 없어요.
-            <br />
-            챗봇을 통해 요금제 추천을 받아보세요!
-          </div>
-        ) : (
-          templates.map((template) => (
-            <TemplateCard
-              key={template.id}
-              title={template.title}
-              content={template.content}
-              onDetailClick={() => handleTemplateClick(template.id)}
-            />
-          ))
-        )}
+        {mainContent}
       </main>
     </div>
   );
