@@ -5,6 +5,7 @@ import MainPage from '@/pages/MainPage';
 import LoginPage from '@/pages/LoginPage';
 import LandingPage from '@/pages/LandingPage';
 import SmishingPage from '@/pages/smishing/SmishingPage';
+import RankingPage from '@/pages/RankingPage';
 import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
@@ -12,6 +13,10 @@ import RedirectPage from '@/pages/RedirectPage';
 import ServerErrorPage from '@/pages/errorBoundary/ServerErrorPage';
 import NotFoundPage from '@/pages/errorBoundary/NotFoundPage';
 import UnauthorizedPage from '@/pages/errorBoundary/UnauthorizedPage';
+import SignUpPage from '@/pages/SignUp/SignUpPage';
+import TemplatesPage from '@/pages/TemplatesPage';
+import TemplateDetailPage from '@/pages/TemplateDetailPage';
+import FontModePage from '@/pages/FontModePage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 
 const AppRouter = () => {
@@ -40,6 +45,15 @@ const AppRouter = () => {
     {
       path: PATH.UNAUTHORIZED,
       element: <UnauthorizedPage />,
+    }
+    {
+      path: PATH.SIGNUP,
+      element: <SignUpPage />,
+    }
+    {
+      path: PATH.FONTMODE,
+      element: <FontModePage />,
+      loader: requireAuth,
     },
     {
       path: '',
@@ -68,6 +82,13 @@ const AppRouter = () => {
           element: <MainPage />,
           loader: requireAuth,
         },
+        { path: PATH.TEMPLATES, element: <TemplatesPage /> },
+        { path: PATH.TEMPLATE_DETAIL, element: <TemplateDetailPage /> },
+        {
+          path: PATH.RANKING,
+          element: <RankingPage />,
+        },
+
       ],
     },
     {
