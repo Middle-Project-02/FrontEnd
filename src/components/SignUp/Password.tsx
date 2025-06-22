@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import BackButton from '@/components/common/BackButton';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,6 +10,8 @@ const Password = () => {
   const { password, setPassword, passwordConfirm, setPasswordConfirm, setStep } =
     useSignUpContext();
   const [errorText, setErrorText] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
   const checkPassword = () => {
     if (password.trim().length < 8) {
@@ -42,27 +45,49 @@ const Password = () => {
         </h2>
       </div>
       <div className="flex flex-col gap-16">
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 relative">
           <Label size="sm">비밀번호</Label>
           <Input
             variant="underline"
             inputSize="lg"
             placeholder="비밀번호"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <button
+            type="button"
+            className="absolute right-12 bottom-12"
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? (
+              <EyeOff size={20} className="text-black" />
+            ) : (
+              <Eye size={20} className="text-textSecondary hover:text-black" />
+            )}
+          </button>
         </div>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 relative">
           <Label size="sm">비밀번호 재확인</Label>
           <Input
             variant="underline"
             inputSize="lg"
             placeholder="비밀번호 재확인"
-            type="password"
+            type={showPasswordConfirm ? 'text' : 'password'}
             value={passwordConfirm}
             onChange={(e) => setPasswordConfirm(e.target.value)}
           />
+          <button
+            type="button"
+            className="absolute right-12 bottom-32"
+            onClick={() => setShowPasswordConfirm((prev) => !prev)}
+          >
+            {showPasswordConfirm ? (
+              <EyeOff size={20} className="text-black" />
+            ) : (
+              <Eye size={20} className="text-textSecondary hover:text-black" />
+            )}
+          </button>
           <p className="h-[16px] text-body-sm text-error">{errorText}</p>
         </div>
       </div>
