@@ -1,4 +1,4 @@
-import { axiosInstance } from './axiosInstance';
+import { axiosInstance } from '@/axiosInstance';
 import { END_POINTS } from '@/constants/api';
 import type { QuizResponse, QuizSubmitResponse } from '@/types/quiz';
 
