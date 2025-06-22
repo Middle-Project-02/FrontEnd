@@ -3,15 +3,16 @@ import { ChevronLeft } from 'lucide-react';
 import PlanDetailItem from '@/components/ranking/PlanDetailItem';
 import PlanItem from '@/components/ranking/PlanItem';
 import { Button } from '@/components/ui/button';
-import { getAgeGroupLabel } from '@/constants/ageGroup';
+import { getAgeGroupLabel } from '@/utils/ranking/getAgeGroupLabel';
 import useRankAgeGroupQuery from '@/hooks/queries/ranking/useRankAgeGroupQuery';
+
 interface Props {
   ageGroup: number;
   onBack: () => void;
 }
 
 const RankingResultSection = ({ ageGroup, onBack }: Props) => {
-  const { RankingPlanListResponse } = useRankAgeGroupQuery(ageGroup);
+  const { rankingListResponse } = useRankAgeGroupQuery(ageGroup);
   const [selectedPlanId, setSelectedPlanId] = useState<number | null>(null);
 
   const handlePlanClick = (planId: number) => {
@@ -22,7 +23,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
     setSelectedPlanId(null);
   };
 
-  if (!RankingPlanListResponse) return <p>불러오는 중...</p>;
+  if (!rankingListResponse) return <p>불러오는 중...</p>;
 
   return (
     <div className="flex flex-col overflow-y-auto">
@@ -47,7 +48,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
       </div>
       <div className="bg-bgTertiary h-full overflow-y-auto">
         <ul className="flex flex-col gap-8 px-30 my-16">
-          {RankingPlanListResponse.plans.map((plan) => (
+          {rankingListResponse.plans.map((plan) => (
             <div key={plan.id}>
               {selectedPlanId === plan.id ? (
                 // 🆕 선택된 요금제는 상세 정보 표시
