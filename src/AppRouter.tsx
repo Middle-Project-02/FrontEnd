@@ -34,12 +34,11 @@ const AppRouter = () => {
     {
       path: PATH.SIGNUP,
       element: <SignUpPage />,
-    }
+    },
     {
       path: PATH.FONTMODE,
       element: <FontModePage />,
       loader: requireAuth,
-
     },
     {
       path: '',
@@ -74,7 +73,6 @@ const AppRouter = () => {
           path: PATH.RANKING,
           element: <RankingPage />,
         },
-
       ],
     },
   ]);
