@@ -10,7 +10,8 @@ import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
 import RedirectPage from '@/pages/RedirectPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
-import QuizPage from './pages/QuizPage';
+import QuizPage from './pages/quiz/QuizPage';
+import QuizIntroPage from './pages/quiz/QuizIntroPage';
 
 const AppRouter = () => {
   const router = createBrowserRouter([
@@ -40,8 +41,12 @@ const AppRouter = () => {
           element: <SmishingPage />,
         },
         {
-          path: PATH.QUIZ,
+          path: PATH.QUIZ.PAGE,
           element: <QuizPage />,
+        },
+        {
+          path: PATH.QUIZ.INTRO,
+          element: <QuizIntroPage />,
         },
         {
           path: PATH.NOTIFICATIONS,

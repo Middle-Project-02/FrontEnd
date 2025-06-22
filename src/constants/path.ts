@@ -15,7 +15,10 @@ export const PATH = {
   CHAT: '/chat',
   MYPAGE: '/mypage',
   MAIN: '/main',
-  QUIZ: '/quiz',
+  QUIZ: {
+    PAGE: '/quiz',
+    INTRO: '/quiz/intro',
+  },
   FONTMODE: '/fontmode',
   REDIRECT: '/redirect',
   SIGNUP: '/signup',
