@@ -9,7 +9,8 @@ import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
 import RedirectPage from '@/pages/RedirectPage';
-import TemplatesPage from './pages/TemplatesPage';
+import TemplatesPage from '@/pages/TemplatesPage';
+import TemplateDetailPage from '@/pages/TemplateDetailPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 
 const AppRouter = () => {
@@ -55,6 +56,7 @@ const AppRouter = () => {
           loader: requireAuth,
         },
         { path: PATH.TEMPLATES, element: <TemplatesPage /> },
+        { path: PATH.TEMPLATE_DETAIL, element: <TemplateDetailPage /> },
       ],
     },
   ]);
