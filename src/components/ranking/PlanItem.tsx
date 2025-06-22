@@ -1,4 +1,4 @@
-import { RankingPlanSummary } from '@/types/ranking';
+import type { RankingPlanSummary } from '@/types/ranking';
 
 interface PlanItemProps {
   plan: RankingPlanSummary;

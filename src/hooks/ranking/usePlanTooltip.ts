@@ -1,11 +1,13 @@
 import { useState, useRef } from 'react';
+import type { ButtonRefsType } from '@/types/ranking';
 
 export const usePlanTooltip = () => {
   const [showTooltip, setShowTooltip] = useState<string | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState<{ top: number; left: number } | null>(
     null,
   );
-  const buttonRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
+
+  const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   const openTooltip = (key: string) => {
     const button = buttonRefs.current[key];
@@ -29,7 +31,7 @@ export const usePlanTooltip = () => {
   return {
     showTooltip,
     tooltipPosition,
-    buttonRefs,
+    buttonRefs: buttonRefs as ButtonRefsType,
     openTooltip,
     closeTooltip,
   };
