@@ -23,6 +23,7 @@ export const END_POINTS = {
     DETAIL: (id: number) => `ranking/${id}`,
   },
   KAKAOLOGIN: 'auth/login/kakao',
+  REGISTER: 'auth/register',
   ADDITIONALINFORMATION: 'auth/firstLogin',
 } as const;
 

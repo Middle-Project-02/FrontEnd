@@ -11,3 +11,4 @@ export { default as ConfirmModalIcon } from './confirm-modal.svg';
 export { default as SuccessModalIcon } from './success-modal.svg';
 export { default as LoginModalIcon } from './login-modal.svg';
 export { default as KakaoLogin } from './kakao-login.svg';
+export { default as WelcomeDog } from './welcome.svg';

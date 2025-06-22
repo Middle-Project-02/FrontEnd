@@ -10,6 +10,7 @@ import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
 import RedirectPage from '@/pages/RedirectPage';
+import SignUpPage from '@/pages/SignUp/SignUpPage';
 import TemplatesPage from '@/pages/TemplatesPage';
 import TemplateDetailPage from '@/pages/TemplateDetailPage';
 import FontModePage from '@/pages/FontModePage';
@@ -31,9 +32,14 @@ const AppRouter = () => {
       element: <RedirectPage />,
     },
     {
+      path: PATH.SIGNUP,
+      element: <SignUpPage />,
+    }
+    {
       path: PATH.FONTMODE,
       element: <FontModePage />,
       loader: requireAuth,
+
     },
     {
       path: '',
