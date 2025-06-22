@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import PlanDetailItem from '@/components/ranking/PlanDetailItem';
 import PlanItem from '@/components/ranking/PlanItem';
+import PlanItemSkeleton from '@/components/skeleton/ranking/PlanItemSkeleton';
 import { Button } from '@/components/ui/button';
 import { getAgeGroupLabel } from '@/utils/ranking/getAgeGroupLabel';
 import useRankAgeGroupQuery from '@/hooks/queries/ranking/useRankAgeGroupQuery';
-import PlanItemSkeleton from '../skeleton/ranking/PlanItemSkeleton';
 
 interface Props {
   ageGroup: number;
