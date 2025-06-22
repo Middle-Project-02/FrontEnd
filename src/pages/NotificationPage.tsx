@@ -4,7 +4,6 @@ import { useAllNotificationsQuery } from '@/hooks/queries/notification/useNotifi
 import NotificationCard from '@/components/notification/NotificationCard';
 import BackButton from '@/components/common/BackButton';
 import NotificationCardSkeleton from '@/components/skeleton/notification/NotificationSkeleton';
-import NotFoundPage from './NotFoundPage';
 
 const NotificationPage = () => {
   const { notifications, isLoading } = useAllNotificationsQuery();
@@ -13,9 +12,6 @@ const NotificationPage = () => {
   const handleNotificationClick = (id: number) => {
     navigate(`${PATH.NOTIFICATIONS}/${id}`);
   };
-  if (!notifications) {
-    return <NotFoundPage />;
-  }
 
   return (
     <div className="flex flex-col h-full min-h-screen bg-white break-keep">
@@ -31,7 +27,7 @@ const NotificationPage = () => {
       <main className="flex flex-col flex-1 pb-[100px] overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
         {isLoading
           ? [...Array(4)].map((_, i) => <NotificationCardSkeleton key={i} />)
-          : notifications.map((notification) => (
+          : notifications?.map((notification) => (
               <NotificationCard
                 key={notification.notificationId}
                 title={notification.title}
