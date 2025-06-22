@@ -5,9 +5,12 @@ import MainPage from '@/pages/MainPage';
 import LoginPage from '@/pages/LoginPage';
 import LandingPage from '@/pages/LandingPage';
 import SmishingPage from '@/pages/smishing/SmishingPage';
+import RankingPage from '@/pages/RankingPage';
 import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
+import RedirectPage from '@/pages/RedirectPage';
+import FontModePage from '@/pages/FontModePage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 
 const AppRouter = () => {
@@ -20,6 +23,15 @@ const AppRouter = () => {
       path: PATH.LOGIN,
       element: <LoginPage />,
       loader: redirectIfAuthenticated,
+    },
+    {
+      path: PATH.REDIRECT,
+      element: <RedirectPage />,
+    },
+    {
+      path: PATH.FONTMODE,
+      element: <FontModePage />,
+      loader: requireAuth,
     },
     {
       path: '',
@@ -47,6 +59,10 @@ const AppRouter = () => {
           path: PATH.MAIN,
           element: <MainPage />,
           loader: requireAuth,
+        },
+        {
+          path: PATH.RANKING,
+          element: <RankingPage />,
         },
       ],
     },

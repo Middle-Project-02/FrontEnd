@@ -15,8 +15,24 @@ export const postLogin = async (props: LoginProps) => {
   return response.data.content;
 };
 
+export const postKakaoLogin = async (code: string) => {
+  const response = await axiosInstance.post(`${END_POINTS.KAKAOLOGIN}`, {
+    code,
+  });
+
+  return response.data.content;
+};
+
 export const getNewToken = async () => {
   const response = await axiosInstance.post(`${END_POINTS.REISSUE}`);
+
+  return response.data.content;
+};
+
+export const patchFontMode = async (fontMode: boolean) => {
+  const response = await axiosInstance.patch(`${END_POINTS.ADDITIONALINFORMATION}`, {
+    fontMode,
+  });
 
   return response.data.content;
 };
