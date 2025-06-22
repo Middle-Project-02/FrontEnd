@@ -15,6 +15,7 @@ export const PATH = {
   CHAT: '/chat',
   MYPAGE: '/mypage',
   MAIN: '/main',
+  RANKING: '/ranking',
   FONTMODE: '/fontmode',
   REDIRECT: '/redirect',
   SIGNUP: '/signup',

@@ -5,6 +5,7 @@ import MainPage from '@/pages/MainPage';
 import LoginPage from '@/pages/LoginPage';
 import LandingPage from '@/pages/LandingPage';
 import SmishingPage from '@/pages/smishing/SmishingPage';
+import RankingPage from '@/pages/RankingPage';
 import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
@@ -58,6 +59,10 @@ const AppRouter = () => {
           path: PATH.MAIN,
           element: <MainPage />,
           loader: requireAuth,
+        },
+        {
+          path: PATH.RANKING,
+          element: <RankingPage />,
         },
       ],
     },
