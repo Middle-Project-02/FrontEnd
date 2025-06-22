@@ -1,36 +1,73 @@
+import { deleteUser, patchUpdateUserInfo } from '@/apis/user';
 import BackButton from '@/components/common/BackButton';
-import { Button } from '@/components/ui/button';
+import EditStep from '@/components/mypage/EditStep';
+import InfoStep from '@/components/mypage/InfoStep';
+import { PATH } from '@/constants/path';
+import { MyPageStep, MyPageUserInfo } from '@/types/user';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const MyPage = () => {
+  const [currentStep, setCurrentStep] = useState<MyPageStep>('info');
+  const [userInfo, setUserInfo] = useState({
+    nickname: '김테스트',
+    memberId: '010-1234-5678',
+    fontMode: false,
+  });
+
+  const navigate = useNavigate();
+
+  // 회원 탈퇴 처리
+  const handleUserDelete = async () => {
+    try {
+      navigate(PATH.LOGIN);
+      console.log('탈퇴 완료');
+    } catch (error) {
+      console.log('탈퇴 처리 중 오류 : ', error);
+    }
+  };
+
+  // 회원정보 수정 처리
+  const handleUserUpdate = async (newInfo: MyPageUserInfo) => {
+    try {
+      await patchUpdateUserInfo({
+        nickname: newInfo.nickname,
+        fontMode: newInfo.fontMode,
+      });
+      setUserInfo(newInfo);
+      setCurrentStep('info');
+      console.log('회원 정보 수정 완료: ', newInfo);
+    } catch (error) {
+      console.log('회원 정보 수정 실패', error);
+    }
+  };
+
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 'info':
+        return (
+          <InfoStep
+            userInfo={userInfo}
+            onEdit={() => setCurrentStep('edit')}
+            onDelete={handleUserDelete}
+          />
+        );
+
+      case 'edit':
+        return (
+          <EditStep
+            userInfo={userInfo}
+            onSave={handleUserUpdate}
+            onCancel={() => setCurrentStep('info')}
+          />
+        );
+    }
+  };
+
   return (
     <main className="pt-44 px-30 flex flex-col gap-24">
       <BackButton />
-      <section className="flex flex-col gap-12">
-        <h1 className="text-heading-h3">내 정보</h1>
-        <article className="flex flex-col px-16 py-20 gap-12 rounded-16 bg-bgTertiary border-borderSecondary border-1">
-          <h2 className="text-body-lg font-semibold">김테스트</h2>
-          <p className="text-body-md">전화번호</p>
-          <p className="text-body-md">글씨 크기</p>
-          <div className="flex justify-end">
-            <Button variant="default" size="md">
-              수정하기
-            </Button>
-          </div>
-        </article>
-      </section>
-      <section className="flex justify-between items-center">
-        <div className="flex flex-col gap-6">
-          <h2 className="text-body-md font-semibold">회원 탈퇴</h2>
-          <p className="text-body-sm text-textSecondary">
-            탈퇴 시 모든 데이터가
-            <br />
-            삭제되며 복구되지 않습니다.
-          </p>
-        </div>
-        <Button variant="secondary" size="md">
-          탈퇴하기
-        </Button>
-      </section>
+      {renderStepContent()}
     </main>
   );
 };
