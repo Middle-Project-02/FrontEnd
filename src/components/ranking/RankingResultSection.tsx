@@ -41,9 +41,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
           <h1 className="text-heading-h2 font-bold">
             {getAgeGroupLabel(ageGroup)} 인기 요금제 20위
           </h1>
-          <h2 className="text-body-md text-textSecondary ">
-            자세한 설명은 요금제를 터치 해보세요!
-          </h2>
+          <h2 className="text-body-md text-textSecondary ">자세한 설명은 요금제를 눌러 보세요!</h2>
         </div>
       </div>
       <div className="bg-bgTertiary h-full overflow-y-auto">
