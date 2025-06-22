@@ -28,3 +28,11 @@ export const getNewToken = async () => {
 
   return response.data.content;
 };
+
+export const patchFontMode = async (fontMode: boolean) => {
+  const response = await axiosInstance.patch(`${END_POINTS.ADDITIONALINFORMATION}`, {
+    fontMode,
+  });
+
+  return response.data.content;
+};
