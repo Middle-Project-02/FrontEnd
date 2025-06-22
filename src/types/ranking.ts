@@ -1,4 +1,25 @@
+// ============================================================================
+// 📊 DATA & ENUM TYPES (데이터 관련 기본 타입들)
+// ============================================================================
+
 export type DataType = 'FIXED' | 'UNLIMITED' | 'DAILY' | 'CHARGED_PER_KB';
+export type DataUsageLevel = 'LEVEL_1' | 'LEVEL_2' | 'LEVEL_3' | 'LEVEL_4' | 'LEVEL_5' | 'UNKNOWN';
+
+// ============================================================================
+// 👥 AGE GROUP TYPES (연령대 관련 타입들)
+// ============================================================================
+
+/** ageGroup.ts에서 이동해온 타입들 */
+export type AgeGroupValue = 1 | 2 | 3 | 4 | 5 | 6;
+
+export interface AgeGroup {
+  label: string;
+  value: AgeGroupValue;
+}
+
+// ============================================================================
+// 📱 PLAN & RANKING TYPES (요금제 및 랭킹 관련 타입들)
+// ============================================================================
 
 /** 연령대 요금제 목록 조회 응답 */
 export interface RankingPlanListResponse {
@@ -38,3 +59,28 @@ export interface PlanBenefits {
   문자메시지?: string;
   '공유 데이터'?: string;
 }
+
+/** 요금제 데이터 처리용 */
+export interface PlanData {
+  dataType: DataType;
+  dataAmountGb: number | null;
+}
+
+// ============================================================================
+// 🎨 UI & DESCRIPTION TYPES (UI 및 설명 관련 타입들)
+// ============================================================================
+
+/** 혜택 설명 라인 */
+export interface DescriptionLine {
+  text: string;
+  isBold?: boolean;
+  isSecondary?: boolean;
+  className?: string;
+}
+
+// ============================================================================
+// 🔗 REF & EVENT TYPES (Ref 및 이벤트 관련 타입들)
+// ============================================================================
+
+/** 버튼 Refs 타입 */
+export type ButtonRefsType = React.RefObject<Record<string, HTMLButtonElement | null>>;
