@@ -1,25 +1,37 @@
-// ============================================================================
-// 📊 DATA & ENUM TYPES (데이터 관련 기본 타입들)
-// ============================================================================
-
+/**
+ * 요금제 데이터 유형
+ *
+ * - FIXED: 고정 용량
+ * - UNLIMITED: 무제한
+ * - DAILY: 일별 제공
+ * - CHARGED_PER_KB: 종량제
+ */
 export type DataType = 'FIXED' | 'UNLIMITED' | 'DAILY' | 'CHARGED_PER_KB';
+
+/**
+ * 데이터 사용량 단계 (설명용)
+ *
+ * LEVEL_1~LEVEL_5: 데이터 크기에 따라 구분
+ * UNKNOWN: 알 수 없음
+ */
 export type DataUsageLevel = 'LEVEL_1' | 'LEVEL_2' | 'LEVEL_3' | 'LEVEL_4' | 'LEVEL_5' | 'UNKNOWN';
 
-// ============================================================================
-// 👥 AGE GROUP TYPES (연령대 관련 타입들)
-// ============================================================================
-
-/** ageGroup.ts에서 이동해온 타입들 */
+/**
+ * 연령대 값 정의
+ *
+ * - 1: 전체
+ * - 2: 20대
+ * - 3: 30대
+ * - 4: 40대
+ * - 5: 50대
+ * - 6: 60대 이상
+ */
 export type AgeGroupValue = 1 | 2 | 3 | 4 | 5 | 6;
 
 export interface AgeGroup {
   label: string;
   value: AgeGroupValue;
 }
-
-// ============================================================================
-// 📱 PLAN & RANKING TYPES (요금제 및 랭킹 관련 타입들)
-// ============================================================================
 
 /** 연령대 요금제 목록 조회 응답 */
 export interface RankingPlanListResponse {
@@ -39,7 +51,7 @@ export interface RankingPlanSummary {
   targetTypes: string | null;
 }
 
-/** 요금제 상세 조회 응답 */
+/** 요금제 상세 정보 응답 */
 export interface RankingPlanDetailResponse {
   rank: number;
   name: string;
@@ -51,7 +63,7 @@ export interface RankingPlanDetailResponse {
   allBenefits: PlanBenefits;
 }
 
-/** 상세 혜택 구조 */
+/** 요금제 혜택 항목 */
 export interface PlanBenefits {
   데이터?: string;
   기본혜택?: string;
@@ -66,21 +78,13 @@ export interface PlanData {
   dataAmountGb: number | null;
 }
 
-// ============================================================================
-// 🎨 UI & DESCRIPTION TYPES (UI 및 설명 관련 타입들)
-// ============================================================================
-
-/** 혜택 설명 라인 */
+/** 혜택 설명 텍스트 스타일 */
 export interface DescriptionLine {
   text: string;
   isBold?: boolean;
   isSecondary?: boolean;
   className?: string;
 }
-
-// ============================================================================
-// 🔗 REF & EVENT TYPES (Ref 및 이벤트 관련 타입들)
-// ============================================================================
 
 /** 버튼 Refs 타입 */
 export type ButtonRefsType = React.RefObject<Record<string, HTMLButtonElement | null>>;
