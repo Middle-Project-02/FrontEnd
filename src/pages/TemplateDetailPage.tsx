@@ -7,7 +7,7 @@ import { PATH } from '@/constants/path';
 import BackButton from '@/components/common/BackButton';
 import Loading from '@/components/common/Loading';
 import { Button } from '@/components/ui/button';
-import NotFoundPage from './NotFoundPage';
+import NotFoundPage from '@/pages/NotFoundPage';
 
 const TemplateDetailPage = () => {
   const { id } = useParams<{ id: string }>();
