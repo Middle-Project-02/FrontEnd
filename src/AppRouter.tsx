@@ -6,7 +6,7 @@ import LoginPage from '@/pages/LoginPage';
 import LandingPage from '@/pages/LandingPage';
 import SmishingPage from '@/pages/smishing/SmishingPage';
 import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
-import PlanChatBotPage from '@/pages/PlanChatBotPage';
+import PlanChatBotPage from '@/pages/chat/PlanChatBotPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';

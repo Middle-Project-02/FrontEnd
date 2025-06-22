@@ -1,10 +1,9 @@
-// //src\components\chat\PlanCard.tsx
-// import { SmartChoicePlanDto } from '@/types/smartChoicePlan';
-// import { Button } from '../ui/button';
+//src\components\chat\PlanCard.tsx
+import { SmartChoicePlanDto } from '@/types/smartChoicePlan';
 
-// interface PlanCardProps {
-//   plan: SmartChoicePlanDto;
-// }
+interface PlanCardProps {
+  plan: SmartChoicePlanDto;
+}
 
 // const PlanCard = ({ plan }: PlanCardProps) => {
 //   const infoItems = [
@@ -40,7 +39,7 @@
 // };
 // export default PlanCard;
 // src/components/chat/PlanCard.tsx
- import { Button } from '../ui/button';
+import { Button } from '../ui/button';
 
 const PlanCard = ({ plan }: PlanCardProps) => {
   const infoItems = [
@@ -67,7 +66,9 @@ const PlanCard = ({ plan }: PlanCardProps) => {
         월 {plan.price.toLocaleString()}원
       </footer>
 
-      <Button variant="outline" outlineColor="primary" className="w-full">         요금제 공유하기
+      <Button variant="outline" outlineColor="primary" className="w-full">
+        {' '}
+        요금제 공유하기
       </Button>
     </div>
   );
