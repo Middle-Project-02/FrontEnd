@@ -7,12 +7,10 @@ interface VoiceMicButtonProps {
 const VoiceMicButton = ({ isListening, isDisabled, onClick }: VoiceMicButtonProps) => {
   return (
     <div className="relative flex items-center justify-center">
-      {/* 🔵 퍼지는 배경 원 */}
       {isListening && (
         <div className="absolute w-52 h-52 rounded-full bg-blue-400 opacity-30 animate-ping" />
       )}
 
-      {/* 🎤 마이크 버튼 */}
       <button
         onClick={onClick}
         disabled={isDisabled}
