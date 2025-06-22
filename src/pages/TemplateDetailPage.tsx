@@ -1,28 +1,34 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-  useDeleteTemplateMutation,
-  useTemplateDetailQuery,
-} from '@/hooks/queries/template/useTemplateQueries';
+
 import { PATH } from '@/constants/path';
-import BackButton from '@/components/common/BackButton';
-import { Button } from '@/components/ui/button';
-import TemplateDetailSkeleton from '@/components/skeleton/template/TemplateDetailSkeleton';
-import NotFoundPage from '@/pages/NotFoundPage';
-import { toast } from 'sonner';
-import SuccessModal from '@/components/modals/SuccessModal';
 import {
   BUTTON_TEXTS,
   CONFIRM_DESCRIPTIONS,
   CONFIRM_TITLES,
   SUCCESS_TITLES,
 } from '@/constants/modalMessage';
+
+import {
+  useDeleteTemplateMutation,
+  useTemplateDetailQuery,
+} from '@/hooks/queries/template/useTemplateQueries';
 import useModalStore from '@/stores/modalStore';
+
+import BackButton from '@/components/common/BackButton';
+import { Button } from '@/components/ui/button';
 import ConfirmModal from '@/components/modals/ConfirmModal';
+import SuccessModal from '@/components/modals/SuccessModal';
+import TemplateDetailSkeleton from '@/components/skeleton/template/TemplateDetailSkeleton';
+import NotFoundPage from '@/pages/NotFoundPage';
+
+import { makeToast } from '@/utils/makeToast';
 
 const TemplateDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const templateId = Number(id);
   const navigate = useNavigate();
+  const { setModal, removeModal } = useModalStore();
+
+  const templateId = Number(id);
   const { templateDetail, isLoading } = useTemplateDetailQuery(templateId);
   const { mutate: deleteTemplate } = useDeleteTemplateMutation({
     onSuccess: () => {
@@ -38,22 +44,16 @@ const TemplateDetailPage = () => {
       );
     },
     onError: () => {
-      toast.error('삭제에 실패했어요. 다시 시도해주세요.');
+      makeToast('안내서 삭제에 실패했어요. 다시 시도해주세요.', 'warning');
       removeModal();
     },
   });
-  const { setModal, removeModal } = useModalStore();
-
-  if (isLoading) return <TemplateDetailSkeleton />;
-  if (!templateDetail) return <NotFoundPage />;
-
-  const paragraphs = templateDetail.content.split(/(?<=\.)\s+/);
 
   const handleDeleteClick = () => {
     setModal(
       <ConfirmModal
         title={CONFIRM_TITLES.DELETE}
-        description={CONFIRM_DESCRIPTIONS.DELETE('요금제 변경 안내서')}
+        description={CONFIRM_DESCRIPTIONS.DELETE(templateDetail!.title)}
         primaryText={BUTTON_TEXTS.DELETE}
         secondaryText={BUTTON_TEXTS.CANCEL}
         onPrimary={async () => {
@@ -63,6 +63,11 @@ const TemplateDetailPage = () => {
       />,
     );
   };
+
+  if (isLoading) return <TemplateDetailSkeleton />;
+  if (!templateDetail) return <NotFoundPage />;
+
+  const paragraphs = templateDetail.content.split(/(?<=\.)\s+/);
 
   return (
     <div className="flex flex-col h-full min-h-screen bg-white break-keep">
