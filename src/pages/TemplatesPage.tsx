@@ -8,15 +8,15 @@ import TemplateCardSkeleton from '@/components/skeleton/template/TemplateCardSke
 
 const TemplatesPage = () => {
   const navigate = useNavigate();
-  const { templates = [], isLoading } = useTemplatesQuery();
-  const { userInformation } = useUserInfoQuery();
+  const { userInformation, isLoading: isUserLoading } = useUserInfoQuery();
+  const { templates = [], isLoading: isTemplateLoading } = useTemplatesQuery(!!userInformation);
 
   const handleTemplateClick = (id: number) => {
     navigate(`${PATH.TEMPLATES}/detail/${id}`);
   };
 
   const renderMainContent = () => {
-    if (isLoading) {
+    if (isUserLoading || isTemplateLoading) {
       return [...Array(4)].map((_, i) => <TemplateCardSkeleton key={i} />);
     }
     if (templates.length === 0) {
