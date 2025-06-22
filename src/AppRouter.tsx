@@ -10,8 +10,8 @@ import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
 import RedirectPage from '@/pages/RedirectPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
-import QuizPage from './pages/quiz/QuizPage';
-import QuizIntroPage from './pages/quiz/QuizIntroPage';
+import QuizPage from '@/pages/quiz/QuizPage';
+import QuizIntroPage from '@/pages/quiz/QuizIntroPage';
 
 const AppRouter = () => {
   const router = createBrowserRouter([

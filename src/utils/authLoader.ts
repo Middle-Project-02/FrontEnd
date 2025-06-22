@@ -4,7 +4,6 @@ import useAuthStore from '@/stores/authStore';
 
 export const requireAuth = () => {
   const { isLoggedIn } = useAuthStore.getState();
-  console.log(isLoggedIn);
   if (!isLoggedIn) {
     return redirect(PATH.UNAUTHORIZED);
   }

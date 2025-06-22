@@ -2,20 +2,10 @@ import { useCallback, useMemo, useState } from 'react';
 import ChatBubble from '@/components/chat/ChatBubble';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/common/BackButton';
+import { QUIZ_STATES, ANSWER_LABELS } from '@/constants/quiz';
 import { useRandomQuizQuery, useSubmitQuizAnswerMutation } from '@/hooks/queries/quiz/useQuizQuery';
 import { makeToast } from '@/utils/makeToast';
 import { Circle, X, AlertCircle, CheckCircle } from 'lucide-react';
-
-const QUIZ_STATES = {
-  LOADING: 'loading',
-  READY: 'ready',
-  SUBMITTED: 'submitted',
-} as const;
-
-const ANSWER_LABELS = {
-  TRUE: 'O',
-  FALSE: 'X',
-} as const;
 
 const QuizPage = () => {
   const { data: quiz, refetch, isFetching } = useRandomQuizQuery();
