@@ -8,11 +8,23 @@ export const END_POINTS = {
     GET_ALL: 'notifications',
     GET_DETAIL: (id: string) => `notifications/${id}`,
   },
+  TEMPLATE: {
+    GET_ALL: 'templates',
+    GET_DETAIL: (id: number) => `templates/detail/${id}`,
+    SAVE: 'templates',
+    DELETE: (id: number) => `templates/${id}`,
+  },
   SMISHING: {
     CONNECT: '/smishing/connect',
     MESSAGE: '/smishing/message',
   },
+  RANKING: {
+    AGE_GROUP: (ageGroup: number) => `ranking?ageGroup=${ageGroup}`,
+    DETAIL: (id: number) => `ranking/${id}`,
+  },
   KAKAOLOGIN: 'auth/login/kakao',
+  REGISTER: 'auth/register',
+  ADDITIONALINFORMATION: 'auth/firstLogin',
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
