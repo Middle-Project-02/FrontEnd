@@ -1,10 +1,4 @@
-// 🆕 타입을 export해서 다른 곳에서 사용 가능하게
-export interface DescriptionLine {
-  text: string;
-  isBold?: boolean;
-  isSecondary?: boolean;
-  className?: string;
-}
+import type { DescriptionLine } from '@/types/ranking';
 
 export const BENEFIT_DESCRIPTIONS: Record<string, DescriptionLine[]> = {
   데이터: [{ text: '인터넷이나 유튜브, 카톡을 쓸 수 있는 데이터 양을 GB(기가바이트)라 해요.' }],
@@ -27,19 +21,4 @@ export const BENEFIT_DESCRIPTIONS: Record<string, DescriptionLine[]> = {
     { text: '18세 이하 자녀가 만 20세가 되는 날까지' },
     { text: '휴대폰 1개 월정액을 최대 33,000원 할인혜택' },
   ],
-};
-
-export const getBasicBenefitDescription = (benefitValue: string): DescriptionLine[] => {
-  if (benefitValue.includes('실버지킴이')) {
-    return [{ text: '1~3시간 마다 문자메시지로 내 위치를 보호자에게 알려주는 서비스' }];
-  } else if (
-    benefitValue.includes('U⁺') ||
-    benefitValue.includes('U+') ||
-    benefitValue.includes('U+ ')
-  ) {
-    return [{ text: '실시간 채널 및 25만여 편의 영화, TV 다시보기 등을 시청 가능' }];
-  } else {
-    console.log('매칭되지 않은 기본혜택:', benefitValue);
-    return [{ text: '요금제에 포함된 기본적인 혜택 서비스입니다' }];
-  }
 };

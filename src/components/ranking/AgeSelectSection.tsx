@@ -1,15 +1,15 @@
 import BackButton from '@/components/common/BackButton';
 import AgeSelectButton from '@/components/ranking/AgeSelectButton';
 import { Button } from '@/components/ui/button';
-import { AGE_GROUPS } from '@/constants/ageGroup';
+import { AGE_GROUPS } from '@/constants/ranking/ageGroups';
 
-interface Props {
+interface AgeSelectSectionProps {
   selectedAge: number | null;
   onSelectAge: (value: number) => void; // 실제로는 부모의 setSelectedAge 함수.
   onNext: () => void;
 }
 
-const AgeSelectSection = ({ selectedAge, onSelectAge, onNext }: Props) => {
+const AgeSelectSection = ({ selectedAge, onSelectAge, onNext }: AgeSelectSectionProps) => {
   return (
     <div className="flex flex-col px-30 h-full">
       <div className="flex flex-col w-full h-[125px] mb-12">
