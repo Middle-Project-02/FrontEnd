@@ -1,6 +1,6 @@
-import { Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import BaseLayout from './components/layout/BaseLayout';
+import AppRouter from './AppRouter';
+import ModalContainer from '@/components/common/ModalContainer';
+import { Toaster } from '@/components/ui/sonner';
 import { useEffect } from 'react';
 import { requestPermissionAndGetToken } from './utils/notification';
 import { onMessage } from 'firebase/messaging';
@@ -20,11 +20,11 @@ function App() {
   }, []);
 
   return (
-    <Routes>
-      <Route element={<BaseLayout />}>
-        <Route path="/" element={<HomePage />} />
-      </Route>
-    </Routes>
+    <>
+      <AppRouter />
+      <ModalContainer />
+      <Toaster />
+    </>
   );
 }
 
