@@ -1,11 +1,13 @@
-import { useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
-import PlanDetailItem from '@/components/ranking/PlanDetailItem';
+
 import PlanItem from '@/components/ranking/PlanItem';
 import PlanItemSkeleton from '@/components/skeleton/ranking/PlanItemSkeleton';
 import { Button } from '@/components/ui/button';
+import FirstPlanCard from '@/components/ranking/FirstPlanCard';
+import RegulerPlanCard from '@/components/ranking/RegulerPlanCard';
 import { getAgeGroupLabel } from '@/utils/ranking/getAgeGroupLabel';
 import useRankAgeGroupQuery from '@/hooks/queries/ranking/useRankAgeGroupQuery';
+import type { RankingPlanSummary } from '@/types/ranking';
 
 interface Props {
   ageGroup: number;
@@ -14,19 +16,50 @@ interface Props {
 
 const RankingResultSection = ({ ageGroup, onBack }: Props) => {
   const { RankingPlanListResponse, isLoading } = useRankAgeGroupQuery(ageGroup);
-  const [selectedPlanId, setSelectedPlanId] = useState<number | null>(null);
 
+  // 요금제 클릭 시 상세 페이지로 이동 (navigate 사용 예정)
   const handlePlanClick = (planId: number) => {
-    setSelectedPlanId(planId);
+    // TODO: navigate(`/ranking/${planId}`); 구현 예정
+    console.log('상세 페이지로 이동:', planId);
   };
 
-  const handleBackToList = () => {
-    setSelectedPlanId(null);
+  // 로딩 중 스켈레톤 UI 렌더링
+  const renderSkeletonItems = () => {
+    return Array.from({ length: 10 }, (_, index) => <PlanItemSkeleton key={index} />);
+  };
+
+  // 개별 요금제 아이템 렌더링
+  const renderPlanItem = (plan: RankingPlanSummary) => {
+    // 1위 요금제라면 큰 카드와 함께 표시
+    if (plan.rank === 1) {
+      return (
+        <div className="flex gap-20 h-full py-12">
+          <div className="flex-[5]">
+            <FirstPlanCard />
+          </div>
+          <div className="flex-[4] h-full">
+            <PlanItem plan={plan} onClick={handlePlanClick} />
+          </div>
+        </div>
+      );
+    }
+
+    // 일반 요금제는 기본 아이템만 표시
+    return (
+      <div className="flex gap-20 mb-12 h-full">
+        <div className="flex-[1]">
+          <RegulerPlanCard />
+        </div>
+        <div className="flex-[2] h-full">
+          <PlanItem plan={plan} onClick={handlePlanClick} />
+        </div>
+      </div>
+    );
   };
 
   return (
     <div className="flex flex-col overflow-y-auto">
-      {/* 헤더는 항상 렌더링 */}
+      {/* 페이지 헤더 */}
       <div className="flex flex-col w-full px-30 mb-12">
         <Button
           className="flex items-center py-8 pr-8 gap-8 w-fit"
@@ -37,6 +70,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
           <ChevronLeft />
           <span className="font-medium">뒤로가기</span>
         </Button>
+
         <div className="flex flex-col">
           <h1 className="text-heading-h2 font-bold">
             {getAgeGroupLabel(ageGroup)} 인기 요금제 20위
@@ -45,20 +79,16 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
         </div>
       </div>
 
-      {/* 컨텐츠 영역 */}
-      <div className="bg-bgTertiary h-full overflow-y-auto">
-        <ul className="flex flex-col gap-8 px-30 my-16">
+      {/* 요금제 목록 */}
+      <div className="h-full overflow-y-auto">
+        <ul className="flex flex-col px-30 h-full">
           {isLoading
-            ? // 스켈레톤 로딩 상태
-              Array.from({ length: 10 }, (_, index) => <PlanItemSkeleton key={index} />)
-            : // 실제 데이터 렌더링
+            ? // 로딩 상태
+              renderSkeletonItems()
+            : // 데이터 로드 완료 상태
               RankingPlanListResponse?.plans.map((plan) => (
-                <div key={plan.id}>
-                  {selectedPlanId === plan.id ? (
-                    <PlanDetailItem planId={plan.id} onBack={handleBackToList} />
-                  ) : (
-                    <PlanItem plan={plan} onClick={handlePlanClick} />
-                  )}
+                <div key={plan.id} className="mb-28">
+                  {renderPlanItem(plan)}
                 </div>
               ))}
         </ul>
