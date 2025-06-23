@@ -23,6 +23,14 @@ export const END_POINTS = {
   },
   CHAT_MESSAGE: 'chat/message',
   CHAT_TEMPLATE: 'chat/template',
+  QUIZ: {
+    RANDOM: '/quiz/random',
+    SUBMIT: '/quiz/submit',
+    SCORE: '/quiz/score',
+  },
+  KAKAOLOGIN: 'auth/login/kakao',
+  REGISTER: 'auth/register',
+  ADDITIONALINFORMATION: 'auth/firstLogin',
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;

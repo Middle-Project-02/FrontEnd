@@ -11,11 +11,15 @@ import PlanChatBotPage from '@/pages/PlanChatBotPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
-import RedirectPage from './pages/RedirectPage';
-import SignUpPage from './pages/SignUp/SignUpPage';
-import FontModePage from './pages/FontModePage';
-import TemplatesPage from './pages/TemplatesPage';
-import TemplateDetailPage from './pages/TemplateDetailPage';
+import RedirectPage from '@/pages/RedirectPage';
+import SignUpPage from '@/pages/SignUp/SignUpPage';
+import TemplatesPage from '@/pages/TemplatesPage';
+import TemplateDetailPage from '@/pages/TemplateDetailPage';
+import FontModePage from '@/pages/FontModePage';
+import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
+import QuizPage from '@/pages/quiz/QuizPage';
+import QuizIntroPage from '@/pages/quiz/QuizIntroPage';
+
 
 const AppRouter = () => {
   const router = createBrowserRouter([
@@ -48,12 +52,18 @@ const AppRouter = () => {
         {
           path: PATH.SMISHING.INTRO,
           element: <SmishingIntroPage />,
-          loader: requireAuth,
         },
         {
           path: PATH.SMISHING.PAGE,
           element: <SmishingPage />,
-          loader: requireAuth,
+        },
+        {
+          path: PATH.QUIZ.PAGE,
+          element: <QuizPage />,
+        },
+        {
+          path: PATH.QUIZ.INTRO,
+          element: <QuizIntroPage />,
         },
         {
           path: PATH.NOTIFICATIONS,
@@ -66,7 +76,7 @@ const AppRouter = () => {
         {
           path: PATH.CHAT,
           element: <PlanChatBotPage />,
-          //loader: requireAuth,
+          loader: requireAuth,
         },
         { path: PATH.TEMPLATES, element: <TemplatesPage /> },
         { path: PATH.TEMPLATE_DETAIL, element: <TemplateDetailPage /> },
