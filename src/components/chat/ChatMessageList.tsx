@@ -5,6 +5,7 @@ import PlanSummaryCard from '@/components/chat/PlanSummaryCard';
 import { Button } from '@/components/ui/button';
 import { speak } from '@/utils/tts';
 import type { SmartChoicePlanDto } from '@/types/smartChoicePlan';
+import { Volume2 } from 'lucide-react';
 
 interface ChatMessageListProps {
   messages: {
@@ -58,9 +59,10 @@ const ChatMessageList = ({
                     onClick={() => speak(msg.text)}
                     variant="ghost"
                     size="sm"
-                    className="mt-1 ml-4 px-8 py-4 text-[1.2rem] h-auto"
+                    className="mt-1 ml-4 px-8 py-4 h-auto flex items-center gap-2 text-primary"
                   >
-                    🔊 읽기
+                    <Volume2 size={18} strokeWidth={1.8} />
+                    듣기
                   </Button>
                 )}
               </div>
