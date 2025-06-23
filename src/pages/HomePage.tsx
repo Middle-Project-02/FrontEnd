@@ -40,6 +40,7 @@ const HomePage = () => {
             primaryText={BUTTON_TEXTS.LOGIN}
             secondaryText={BUTTON_TEXTS.CANCEL}
             onPrimary={() => {
+              localStorage.setItem('redirectAfterLogin', path);
               removeModal();
               navigate(PATH.LOGIN);
             }}

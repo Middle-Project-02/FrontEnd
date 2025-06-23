@@ -13,9 +13,14 @@ const useLoginMutation = () => {
   const postLoginMutation = useMutation({
     mutationFn: postLogin,
     onSuccess: (content) => {
+      const redirectPath = localStorage.getItem('redirectAfterLogin');
+
       setIsLoggedIn(true);
 
-      if (content.isFirstLogin) {
+      if (redirectPath) {
+        localStorage.removeItem('redirectAfterLogin');
+        navigate(redirectPath, { replace: true });
+      } else if (content.isFirstLogin) {
         navigate(PATH.FONTMODE);
       } else {
         setFontMode(content.fontMode);
