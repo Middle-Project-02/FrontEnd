@@ -114,6 +114,13 @@ export default {
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
+      backgroundImage: {
+        'primary-gradient':
+          'linear-gradient(to bottom, rgba(11, 78, 239, 0.75) 0%, rgba(11, 78, 239, 0.8) 20%, rgba(11, 78, 239, 0.85) 40%, rgba(11, 78, 239, 0.9) 60%, rgba(11, 78, 239, 0.95) 80%, rgba(11, 78, 239, 0.99) 100%)',
+        'primary-gradient-soft':
+          'linear-gradient(to bottom, #93c5fd 0%, #60a5fa 50%, #3b82f6 100%)',
+        'card-gradient': 'linear-gradient(to bottom, #0B4EEF 0%, #0943CF 100%)',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
