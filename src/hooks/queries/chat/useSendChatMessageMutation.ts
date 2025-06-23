@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import { sendChatMessage } from '@/apis/chatbot';
+import { postSendChatMessage } from '@/apis/chatbot';
 
 export const useSendChatMessageMutation = () => {
   return useMutation({
-    mutationFn: (message: string) => sendChatMessage(message),
+    mutationFn: (message: string) => postSendChatMessage(message),
   });
 };

@@ -1,11 +1,15 @@
 import React, { useEffect, useRef, useReducer, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { END_POINTS } from '@/constants/api';
+import { PATH } from '@/constants/path';
+import { SmartChoicePlanDto } from '@/types/smartChoicePlan';
+import { makeToast } from '@/utils/makeToast';
 import { useSse } from '@/hooks/sse/useSse';
 import { useSseListener } from '@/hooks/sse/useSseListener';
 import { useSpeechRecognition } from '@/hooks/chat/useSpeechRecognition';
-import { END_POINTS } from '@/constants/api';
-import { SmartChoicePlanDto } from '@/types/smartChoicePlan';
-import useCreatePlanGuideMutation from '@/hooks/queries/template/useCreatePlanGuideMutation';
 import { useSendChatMessageMutation } from '@/hooks/queries/chat/useSendChatMessageMutation';
+import useCreatePlanGuideMutation from '@/hooks/queries/template/useCreatePlanGuideMutation';
+import { chatReducer, initialChatState, ChatActionType } from '@/hooks/chat/useChatReducer';
 import ChatHeader from '@/components/chat/ChatHeader';
 import ChatMessageList from '@/components/chat/ChatMessageList';
 import VoiceMicButton from '@/components/chat/VoiceMicButton';
@@ -14,10 +18,6 @@ import ListeningOverlay from '@/components/chat/overlay/ListeningOverlay';
 import MicGuideOverlay from '@/components/chat/overlay/MicGuideOverlay';
 import WaitingIndicator from '@/components/chat/WaitingIndicator';
 import ConsultationEndCard from '@/components/chat/ConsultationEndCard';
-import { chatReducer, initialChatState, ChatActionType } from '@/hooks/chat/useChatReducer';
-import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
-import { PATH } from '@/constants/path';
 
 const PlanChatBotPage = () => {
   const [state, dispatch] = useReducer(chatReducer, initialChatState);
@@ -56,7 +56,7 @@ const PlanChatBotPage = () => {
           dispatch({ type: ChatActionType.SET_INPUT, payload: '' });
         },
         onError: () => {
-          toast.error('음성 메시지 전송에 실패했어요. 다시 시도해주세요.');
+          makeToast('음성 메시지 전송에 실패했어요. 마이크를 눌러 다시 시도해주세요.', 'warning');
           dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'idle' });
         },
       });
@@ -149,7 +149,7 @@ const PlanChatBotPage = () => {
     sendChat(state.input, {
       onSuccess: () => dispatch({ type: ChatActionType.SET_INPUT, payload: '' }),
       onError: () => {
-        toast.error('메시지 전송에 실패했어요. 로그인 후 다시 시도해주세요.');
+        makeToast('메시지 전송에 실패했어요. 로그인 후 다시 시도해주세요.', 'warning');
         dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'idle' });
       },
     });
@@ -172,7 +172,7 @@ const PlanChatBotPage = () => {
         dispatch({ type: ChatActionType.SET_SHOW_CONSULTATION_END, payload: true });
       },
       onError: () => {
-        toast.error('안내서 생성에 실패했어요. 다시 시도해주세요.');
+        makeToast('안내서 생성에 실패했어요. 다시 시도해주세요.', 'warning');
       },
     });
   };

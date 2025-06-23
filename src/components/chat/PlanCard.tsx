@@ -1,10 +1,9 @@
-import { SmartChoicePlanDto } from '@/types/smartChoicePlan';
+import type { SmartChoicePlanDto } from '@/types/smartChoicePlan';
+import { Button } from '@/components/ui/button';
 
 interface PlanCardProps {
   plan: SmartChoicePlanDto;
 }
-
-import { Button } from '../ui/button';
 
 const PlanCard = ({ plan }: PlanCardProps) => {
   const infoItems = [

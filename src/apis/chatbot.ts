@@ -1,7 +1,7 @@
 import { axiosInstance } from '@/apis/axiosInstance';
 import { END_POINTS } from '@/constants/api';
 
-export const sendChatMessage = (content: string) => {
+export const postSendChatMessage = (content: string) => {
   return axiosInstance.post(END_POINTS.CHAT_MESSAGE, { content });
 };
 

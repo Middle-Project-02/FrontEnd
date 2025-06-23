@@ -12,7 +12,6 @@ const useCreatePlanGuideMutation = () => {
   return {
     mutateCreatePlanGuide: createPlanGuideMutation.mutate,
     isCreatingPlanGuide: createPlanGuideMutation.isPending,
-    createPlanGuideError: createPlanGuideMutation.error,
   };
 };
 
