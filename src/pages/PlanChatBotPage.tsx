@@ -4,6 +4,7 @@ import { END_POINTS } from '@/constants/api';
 import { PATH } from '@/constants/path';
 import { SmartChoicePlanDto } from '@/types/smartChoicePlan';
 import { makeToast } from '@/utils/makeToast';
+import { useTemplateAutoSave } from '@/hooks/useTemplateAutoSave';
 import { useSse } from '@/hooks/sse/useSse';
 import { useSseListener } from '@/hooks/sse/useSseListener';
 import { useSpeechRecognition } from '@/hooks/chat/useSpeechRecognition';
@@ -25,6 +26,8 @@ const PlanChatBotPage = () => {
   const { mutate: sendChat } = useSendChatMessageMutation();
   const bottomRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
+  useTemplateAutoSave();
 
   const {
     isListening,
