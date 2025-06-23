@@ -4,7 +4,8 @@ import BaseLayout from '@/components/layout/base/BaseLayout';
 import LoginPage from '@/pages/LoginPage';
 import LandingPage from '@/pages/LandingPage';
 import SmishingPage from '@/pages/smishing/SmishingPage';
-import RankingPage from '@/pages/RankingPage';
+import RankingPage from '@/pages/ranking/RankingPage';
+import RankingDetailPage from '@/pages/ranking/RankingDetailPage';
 import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
 import PlanChatBotPage from '@/pages/PlanChatBotPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
@@ -84,8 +85,12 @@ const AppRouter = () => {
         { path: PATH.TEMPLATES, element: <TemplatesPage /> },
         { path: PATH.TEMPLATE_DETAIL, element: <TemplateDetailPage /> },
         {
-          path: PATH.RANKING,
+          path: PATH.RANKING.MAIN,
           element: <RankingPage />,
+        },
+        {
+          path: PATH.RANKING.DETAIL,
+          element: <RankingDetailPage />,
         },
         {
           path: PATH.HOME,
