@@ -82,7 +82,7 @@ const HomePage = () => {
           <Button
             variant="default"
             size={fontMode ? 'md' : 'sm'}
-            onClick={() => handleClick('요금제 추천 챗봇')}
+            onClick={() => handleClick(CATEGORY_LIST[0].title)}
           >
             챗봇에게 추천받기
           </Button>
