@@ -34,9 +34,13 @@ export const useSaveTemplateMutation = ({ onSuccess, onError }: MutationHandler)
     mutationFn: (data: TemplateSaveRequest) => postSaveTemplate(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['templates'] });
+      makeToast('안내서가 저장되었습니다.', 'success');
       onSuccess?.();
     },
-    onError,
+    onError: () => {
+      makeToast('안내서 저장에 실패했습니다. 다시 시도해주세요.', 'warning');
+      onError?.();
+    },
   });
 };
 
@@ -47,12 +51,8 @@ export const useDeleteTemplateMutation = ({ onSuccess, onError }: MutationHandle
     mutationFn: (id: number) => deleteTemplate(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['templates'] });
-      makeToast('안내서가 저장되었습니다.', 'success');
       onSuccess?.();
     },
-    onError: () => {
-      makeToast('안내서 저장에 실패했습니다. 다시 시도해주세요.', 'warning');
-      onError?.();
-    },
+    onError,
   });
 };
