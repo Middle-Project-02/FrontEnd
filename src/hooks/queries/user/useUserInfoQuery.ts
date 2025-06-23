@@ -3,14 +3,14 @@ import { getUserInformation, patchUpdateUserInfo, deleteUser } from '@/apis/user
 import type { UserInformation } from '@/types/user';
 
 export const useUserInfoQuery = () => {
-  const { data: userInformation, refetch } = useQuery<UserInformation>({
+  const { data: userInformation, refetch, isLoading } = useQuery<UserInformation>({
     queryKey: ['userInformation'],
     queryFn: getUserInformation,
     gcTime: 24 * 60 * 60 * 1000,
     staleTime: 24 * 60 * 60 * 1000,
   });
 
-  return { userInformation, refetch };
+  return { userInformation, refetch, isLoading };
 };
 
 export const useUpdateUserMutation = () => {
@@ -33,6 +33,8 @@ export const useDeleteUserMutation = () => {
       queryClient.removeQueries({ queryKey: ['userInformation'] });
     },
   });
+
+  return { userInformation, isLoading };
 };
 
 export default useUserInfoQuery;
