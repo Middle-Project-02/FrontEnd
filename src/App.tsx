@@ -1,30 +1,15 @@
 import AppRouter from './AppRouter';
+import { FirebaseProvider } from '@/components/providers/FirebaseProvider';
 import ModalContainer from '@/components/common/ModalContainer';
 import { Toaster } from '@/components/ui/sonner';
-import { useEffect } from 'react';
-import { requestPermissionAndGetToken } from './utils/requestPermissionAndGetToken';
-import { onMessage } from 'firebase/messaging';
-import { messaging } from './utils/firebase';
 
 function App() {
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/firebase-messaging-sw.js');
-    }
-
-    requestPermissionAndGetToken();
-
-    onMessage(messaging, (payload) => {
-      console.log('Foreground 알림 수신:', payload);
-    });
-  }, []);
-
   return (
-    <>
+    <FirebaseProvider>
       <AppRouter />
       <ModalContainer />
       <Toaster />
-    </>
+    </FirebaseProvider>
   );
 }
 
