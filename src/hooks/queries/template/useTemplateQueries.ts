@@ -2,10 +2,11 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteTemplate, getTemplateDetail, getTemplates, postSaveTemplate } from '@/apis/template';
 import { Template, TemplateSaveRequest } from '@/types/template';
 
-export const useTemplatesQuery = () => {
+export const useTemplatesQuery = (enabled: boolean = true) => {
   const { data: templates, isLoading } = useQuery<Template[]>({
     queryKey: ['templates'],
     queryFn: getTemplates,
+    enabled,
   });
 
   return { templates, isLoading };

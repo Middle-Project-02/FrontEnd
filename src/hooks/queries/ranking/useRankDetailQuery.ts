@@ -6,7 +6,7 @@ const useRankDetailQuery = (rankId: number | null) => {
   const { data: rankDetailResponse, isLoading } = useQuery<RankingPlanDetailResponse>({
     queryKey: ['rankingDetail', rankId],
     queryFn: () => getRankingDetail(rankId!),
-    enabled: !!rankId,
+    enabled: !!rankId, // rankId가 있을 때만 쿼리 실행
   });
 
   return { rankDetailResponse, isLoading };

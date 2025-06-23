@@ -18,9 +18,15 @@ export const END_POINTS = {
     CONNECT: '/smishing/connect',
     MESSAGE: '/smishing/message',
   },
-  RANKING: {
-    AGE_GROUP: (ageGroup: number) => `ranking?ageGroup=${ageGroup}`,
-    DETAIL: (id: number) => `ranking/${id}`,
+  CHAT: {
+    CONNECT: 'chat/connect',
+  },
+  CHAT_MESSAGE: 'chat/message',
+  CHAT_TEMPLATE: 'chat/template',
+  QUIZ: {
+    RANDOM: '/quiz/random',
+    SUBMIT: '/quiz/submit',
+    SCORE: '/quiz/score',
   },
   KAKAOLOGIN: 'auth/login/kakao',
   REGISTER: 'auth/register',

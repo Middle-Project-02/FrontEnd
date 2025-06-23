@@ -11,7 +11,7 @@ export function useSse(path: string) {
       withCredentials: true,
     });
 
-    const sseEvents = ['question', 'answer', 'summary', 'stream_chat', 'done'];
+    const sseEvents = ["question", "answer", "summary", "stream_chat", "recommend_result", "done"];
 
     sseEvents.forEach((event) => {
       eventSource.addEventListener(event, (e) => {

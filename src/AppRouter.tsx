@@ -7,6 +7,8 @@ import LandingPage from '@/pages/LandingPage';
 import SmishingPage from '@/pages/smishing/SmishingPage';
 import RankingPage from '@/pages/RankingPage';
 import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
+import PlanChatBotPage from '@/pages/PlanChatBotPage';
+import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
 import RedirectPage from '@/pages/RedirectPage';
@@ -16,6 +18,9 @@ import TemplateDetailPage from '@/pages/TemplateDetailPage';
 import FontModePage from '@/pages/FontModePage';
 import HomePage from '@/pages/HomePage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
+import QuizPage from '@/pages/quiz/QuizPage';
+import QuizIntroPage from '@/pages/quiz/QuizIntroPage';
+
 
 const AppRouter = () => {
   const router = createBrowserRouter([
@@ -48,12 +53,18 @@ const AppRouter = () => {
         {
           path: PATH.SMISHING.INTRO,
           element: <SmishingIntroPage />,
-          loader: requireAuth,
         },
         {
           path: PATH.SMISHING.PAGE,
           element: <SmishingPage />,
-          loader: requireAuth,
+        },
+        {
+          path: PATH.QUIZ.PAGE,
+          element: <QuizPage />,
+        },
+        {
+          path: PATH.QUIZ.INTRO,
+          element: <QuizIntroPage />,
         },
         {
           path: PATH.NOTIFICATIONS,
@@ -64,8 +75,8 @@ const AppRouter = () => {
           element: <NotificationDetailPage />,
         },
         {
-          path: PATH.MAIN,
-          element: <MainPage />,
+          path: PATH.CHAT,
+          element: <PlanChatBotPage />,
           loader: requireAuth,
         },
         { path: PATH.TEMPLATES, element: <TemplatesPage /> },
