@@ -36,7 +36,7 @@ export const getNewToken = async () => {
 };
 
 export const postRegister = async (props: RegisterProps) => {
-  const response = await axiosInstance.post(`${END_POINTS.REGISTER}`, {
+  await axiosInstance.post(`${END_POINTS.REGISTER}`, {
     memberId: props.memberId,
     nickname: props.nickname,
     password: props.password,

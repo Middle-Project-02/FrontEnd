@@ -31,6 +31,10 @@ export const END_POINTS = {
   KAKAOLOGIN: 'auth/login/kakao',
   REGISTER: 'auth/register',
   ADDITIONALINFORMATION: 'auth/firstLogin',
+  RANKING: {
+    AGE_GROUP: (ageGroup: number) => `ranking?ageGroup=${ageGroup}`,
+    DETAIL: (id: number) => `ranking/${id}`,
+  },
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;

@@ -1,7 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import BaseLayout from '@/components/layout/base/BaseLayout';
-import MainPage from '@/pages/MainPage';
 import LoginPage from '@/pages/LoginPage';
 import LandingPage from '@/pages/LandingPage';
 import SmishingPage from '@/pages/smishing/SmishingPage';
@@ -18,10 +17,8 @@ import TemplatesPage from '@/pages/TemplatesPage';
 import TemplateDetailPage from '@/pages/TemplateDetailPage';
 import FontModePage from '@/pages/FontModePage';
 import HomePage from '@/pages/HomePage';
-import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 import QuizPage from '@/pages/quiz/QuizPage';
 import QuizIntroPage from '@/pages/quiz/QuizIntroPage';
-
 
 const AppRouter = () => {
   const router = createBrowserRouter([
