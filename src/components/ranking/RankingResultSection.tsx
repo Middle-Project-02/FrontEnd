@@ -20,8 +20,38 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
     setSelectedPlanId(planId);
   };
 
-  const handleBackToList = () => {
-    setSelectedPlanId(null);
+  // 로딩 중 스켈레톤 UI 렌더링
+  const renderSkeletonItems = () => {
+    return Array.from({ length: 10 }, (_, index) => <PlanItemSkeleton key={index} />);
+  };
+
+  // 개별 요금제 아이템 렌더링
+  const renderPlanItem = (plan: RankingPlanSummary) => {
+    // 1위 요금제라면 큰 카드와 함께 표시
+    if (plan.rank === 1) {
+      return (
+        <div className="flex gap-20 h-full py-12">
+          <div className="flex-[5]">
+            <FirstPlanCard plan={plan} />
+          </div>
+          <div className="flex-[4] h-full">
+            <PlanItem plan={plan} onClick={handlePlanClick} />
+          </div>
+        </div>
+      );
+    }
+
+    // 일반 요금제는 기본 아이템만 표시
+    return (
+      <div className="flex gap-20 mb-12 h-full">
+        <div className="flex-[1]">
+          <RegulerPlanCard plan={plan} />
+        </div>
+        <div className="flex-[2] h-full">
+          <PlanItem plan={plan} onClick={handlePlanClick} />
+        </div>
+      </div>
+    );
   };
 
   return (
