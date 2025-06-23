@@ -3,12 +3,12 @@ import { getRankingByAgeGroup } from '@/apis/ranking';
 import type { RankingPlanListResponse } from '@/types/ranking';
 
 const useRankAgeGroupQuery = (ageGroup: number) => {
-  const { data: rankingListResponse } = useQuery<RankingPlanListResponse>({
+  const { data: RankingPlanListResponse, isLoading } = useQuery<RankingPlanListResponse>({
     queryKey: ['ranking', ageGroup],
     queryFn: () => getRankingByAgeGroup(ageGroup),
   });
 
-  return { rankingListResponse };
+  return { RankingPlanListResponse, isLoading };
 };
 
 export default useRankAgeGroupQuery;
