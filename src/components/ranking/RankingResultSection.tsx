@@ -35,7 +35,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
       return (
         <div className="flex gap-20 h-full py-12">
           <div className="flex-[5]">
-            <FirstPlanCard />
+            <FirstPlanCard plan={plan} />
           </div>
           <div className="flex-[4] h-full">
             <PlanItem plan={plan} onClick={handlePlanClick} />
@@ -48,7 +48,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
     return (
       <div className="flex gap-20 mb-12 h-full">
         <div className="flex-[1]">
-          <RegulerPlanCard />
+          <RegulerPlanCard plan={plan} />
         </div>
         <div className="flex-[2] h-full">
           <PlanItem plan={plan} onClick={handlePlanClick} />
