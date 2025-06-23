@@ -12,6 +12,7 @@ import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
 import RedirectPage from '@/pages/RedirectPage';
+import MyPage from '@/pages/MyPage';
 import SignUpPage from '@/pages/SignUp/SignUpPage';
 import TemplatesPage from '@/pages/TemplatesPage';
 import TemplateDetailPage from '@/pages/TemplateDetailPage';
@@ -78,6 +79,10 @@ const AppRouter = () => {
           path: PATH.CHAT,
           element: <PlanChatBotPage />,
           loader: requireAuth,
+        },
+        {
+          path: PATH.MYPAGE,
+          element: <MyPage />,
         },
         { path: PATH.TEMPLATES, element: <TemplatesPage /> },
         { path: PATH.TEMPLATE_DETAIL, element: <TemplateDetailPage /> },

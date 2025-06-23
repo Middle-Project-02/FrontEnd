@@ -5,7 +5,7 @@ import { ConfirmModalIcon } from '@/assets/svg';
 
 interface ConfirmModalProps {
   title: string;
-  description: string;
+  description: React.ReactNode;
   primaryText: string;
   secondaryText: string;
   onPrimary: () => void;
