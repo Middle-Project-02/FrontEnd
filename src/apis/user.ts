@@ -7,3 +7,7 @@ export const getUserInformation = async (): Promise<UserInformation> => {
 
   return response.data.content;
 };
+
+export const sendFcmToken = async (token: string) => {
+  await axiosInstance.post('/api/members/fcm-token', { fcmToken: token });
+};

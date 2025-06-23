@@ -1,3 +1,4 @@
+import { sendFcmToken } from '@/apis/user';
 import { messaging } from './firebase';
 import { getToken } from 'firebase/messaging';
 
@@ -6,9 +7,13 @@ export const requestPermissionAndGetToken = async () => {
 
   if (permission === 'granted') {
     const registration = await navigator.serviceWorker.ready;
-    await getToken(messaging, {
+    const token = await getToken(messaging, {
       vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
       serviceWorkerRegistration: registration,
     });
+
+    if (token) {
+      await sendFcmToken(token);
+    }
   }
 };

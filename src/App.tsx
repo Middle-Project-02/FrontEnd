@@ -2,7 +2,7 @@ import AppRouter from './AppRouter';
 import ModalContainer from '@/components/common/ModalContainer';
 import { Toaster } from '@/components/ui/sonner';
 import { useEffect } from 'react';
-import { requestPermissionAndGetToken } from './utils/notification';
+import { requestPermissionAndGetToken } from './utils/requestPermissionAndGetToken';
 import { onMessage } from 'firebase/messaging';
 import { messaging } from './utils/firebase';
 
