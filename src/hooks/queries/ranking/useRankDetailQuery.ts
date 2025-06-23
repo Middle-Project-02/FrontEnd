@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getRankingDetail } from '@/apis/ranking';
-import { RankingPlanDetailResponse } from '@/types/ranking';
+import type { RankingPlanDetailResponse } from '@/types/ranking';
 
 const useRankDetailQuery = (rankId: number | null) => {
   const { data: rankDetailResponse, isLoading } = useQuery<RankingPlanDetailResponse>({

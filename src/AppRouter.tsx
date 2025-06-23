@@ -16,6 +16,7 @@ import SignUpPage from '@/pages/SignUp/SignUpPage';
 import TemplatesPage from '@/pages/TemplatesPage';
 import TemplateDetailPage from '@/pages/TemplateDetailPage';
 import FontModePage from '@/pages/FontModePage';
+import HomePage from '@/pages/HomePage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 import QuizPage from '@/pages/quiz/QuizPage';
 import QuizIntroPage from '@/pages/quiz/QuizIntroPage';
@@ -83,6 +84,10 @@ const AppRouter = () => {
         {
           path: PATH.RANKING,
           element: <RankingPage />,
+        },
+        {
+          path: PATH.HOME,
+          element: <HomePage />,
         },
       ],
     },
