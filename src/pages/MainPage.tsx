@@ -11,6 +11,9 @@ const MainPage = () => {
       <Button size="lg" onClick={() => navigate(PATH.SMISHING.INTRO)}>
         스미싱 챗봇 페이지 가기
       </Button>
+      <Button size="lg" onClick={() => navigate(PATH.QUIZ.INTRO)}>
+        퀴즈 풀러가기
+      </Button>
     </div>
   );
 };

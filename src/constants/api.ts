@@ -22,6 +22,11 @@ export const END_POINTS = {
     AGE_GROUP: (ageGroup: number) => `ranking?ageGroup=${ageGroup}`,
     DETAIL: (id: number) => `ranking/${id}`,
   },
+  QUIZ: {
+    RANDOM: '/quiz/random',
+    SUBMIT: '/quiz/submit',
+    SCORE: '/quiz/score',
+  },
   KAKAOLOGIN: 'auth/login/kakao',
   REGISTER: 'auth/register',
   ADDITIONALINFORMATION: 'auth/firstLogin',
