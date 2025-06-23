@@ -30,7 +30,11 @@ const CategoryButton = ({ fontMode, title, iconName, fullWidth, onClick }: Categ
           <p className="absolute top-16 left-16 right-16 text-body-md font-bold text-black leading-[1.1] ">
             {title}
           </p>
-          <img src={iconSrc} alt="icon" className="absolute bottom-12 right-16 w-[30px] h-[30px]" />
+          <img
+            src={iconSrc}
+            alt="icon"
+            className={`absolute bottom-12 right-16  ${fullWidth ? 'w-[68px] h-[68px]' : 'w-[30px] h-[30px]'}`}
+          />
         </>
       )}
     </button>
