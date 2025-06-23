@@ -21,7 +21,11 @@ export const PATH = {
     PAGE: '/quiz',
     INTRO: '/quiz/intro',
   },
-  RANKING: '/ranking',
+  RANKING: {
+    MAIN: '/ranking',
+    DETAIL: '/ranking/:id',
+    DETAIL_PATH: (id: number) => `/ranking/${id}`,
+  },
   FONTMODE: '/fontmode',
   REDIRECT: '/redirect',
   SIGNUP: '/signup',
