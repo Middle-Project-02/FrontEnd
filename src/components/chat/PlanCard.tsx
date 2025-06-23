@@ -32,7 +32,6 @@ const PlanCard = ({ plan }: PlanCardProps) => {
       </footer>
 
       <Button variant="outline" outlineColor="primary" className="w-full">
-        {' '}
         요금제 공유하기
       </Button>
     </div>

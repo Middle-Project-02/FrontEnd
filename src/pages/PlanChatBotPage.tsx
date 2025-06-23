@@ -12,14 +12,19 @@ import VoiceMicButton from '@/components/chat/VoiceMicButton';
 import InputForm from '@/components/chat/InputForm';
 import ListeningOverlay from '@/components/chat/overlay/ListeningOverlay';
 import MicGuideOverlay from '@/components/chat/overlay/MicGuideOverlay';
+import WaitingIndicator from '@/components/chat/WaitingIndicator';
+import ConsultationEndCard from '@/components/chat/ConsultationEndCard';
 import { chatReducer, initialChatState, ChatActionType } from '@/hooks/chat/useChatReducer';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/constants/path';
 
 const PlanChatBotPage = () => {
   const [state, dispatch] = useReducer(chatReducer, initialChatState);
   const { mutateCreatePlanGuide, isCreatingPlanGuide } = useCreatePlanGuideMutation();
   const { mutate: sendChat } = useSendChatMessageMutation();
   const bottomRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const {
     isListening,
@@ -162,13 +167,24 @@ const PlanChatBotPage = () => {
       : '요금제 변경 가이드 템플릿을 생성해주세요.';
     dispatch({ type: ChatActionType.ADD_MESSAGE, payload: { sender: 'user', text } });
     dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'waiting' });
-    mutateCreatePlanGuide();
+    mutateCreatePlanGuide(undefined, {
+      onSuccess: () => {
+        dispatch({ type: ChatActionType.SET_SHOW_CONSULTATION_END, payload: true });
+      },
+      onError: () => {
+        toast.error('안내서 생성에 실패했어요. 다시 시도해주세요.');
+      },
+    });
+  };
+
+  const handleEndConsultation = () => {
+    navigate(PATH.HOME, { replace: true });
   };
 
   const isAiResponding = state.aiResponseState !== 'idle';
 
   return (
-    <div className="relative flex flex-col justify-between h-full mx-auto rounded bg-white px-6 pt-6 pb-4">
+    <div className="relative flex flex-col justify-between h-full mx-auto rounded-8 bg-white px-30 pt-40 pb-24">
       {isListening && <ListeningOverlay />}
       {state.showMicGuide && !isListening && (
         <MicGuideOverlay
@@ -185,6 +201,10 @@ const PlanChatBotPage = () => {
           onCreatePlanGuide={handleCreatePlanGuide}
         />
         {state.aiResponseState === 'waiting' && <WaitingIndicator />}
+        {state.showConsultationEnd && (
+          <ConsultationEndCard onEndConsultation={handleEndConsultation} />
+        )}
+
         <div ref={bottomRef} />
       </div>
       <div className="flex flex-col gap-3">
@@ -207,17 +227,3 @@ const PlanChatBotPage = () => {
 };
 
 export default PlanChatBotPage;
-
-const WaitingIndicator = () => (
-  <div className="flex items-center justify-start">
-    <div className="bg-gray-100 rounded-2xl px-4 py-3 max-w-xs">
-      <div className="flex items-center gap-2">
-        <div className="flex gap-1">
-          <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-pulse [animation-delay:0s]" />
-          <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-pulse [animation-delay:0.2s]" />
-          <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-pulse [animation-delay:0.4s]" />
-        </div>
-      </div>
-    </div>
-  </div>
-);

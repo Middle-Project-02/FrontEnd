@@ -18,6 +18,7 @@ export interface ChatState {
   aiResponseState: 'idle' | 'waiting' | 'streaming' | 'done';
   lastUserMessage: string | null;
   showMicGuide: boolean;
+  showConsultationEnd: boolean;
 }
 
 export const initialChatState: ChatState = {
@@ -28,6 +29,7 @@ export const initialChatState: ChatState = {
   aiResponseState: 'idle',
   lastUserMessage: null,
   showMicGuide: true,
+  showConsultationEnd: false,
 };
 
 export enum ChatActionType {
@@ -40,6 +42,7 @@ export enum ChatActionType {
   ADD_RECOMMEND_CARDS,
   SET_SHOW_MIC_GUIDE,
   RESET_STREAMING,
+  SET_SHOW_CONSULTATION_END,
 }
 
 export type ChatAction =
@@ -51,7 +54,8 @@ export type ChatAction =
   | { type: ChatActionType.ADD_SUMMARY; payload: SummaryMessage }
   | { type: ChatActionType.ADD_RECOMMEND_CARDS; payload: SmartChoicePlanDto[] }
   | { type: ChatActionType.SET_SHOW_MIC_GUIDE; payload: boolean }
-  | { type: ChatActionType.RESET_STREAMING };
+  | { type: ChatActionType.RESET_STREAMING }
+  | { type: ChatActionType.SET_SHOW_CONSULTATION_END; payload: boolean };
 
 export function chatReducer(state: ChatState, action: ChatAction): ChatState {
   switch (action.type) {
@@ -82,7 +86,10 @@ export function chatReducer(state: ChatState, action: ChatAction): ChatState {
       return { ...state, showMicGuide: action.payload };
     case ChatActionType.RESET_STREAMING:
       return { ...state, streamingMessage: null };
+    case ChatActionType.SET_SHOW_CONSULTATION_END:
+      return { ...state, showConsultationEnd: action.payload };
     default:
       return state;
+      
   }
 }

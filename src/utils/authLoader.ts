@@ -7,7 +7,6 @@ export const requireAuth = () => {
 
   if (!isLoggedIn) {
     return redirect(PATH.UNAUTHORIZED);
-    // return redirect(PATH.CHAT);
   }
 
   return null;

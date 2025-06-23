@@ -15,7 +15,7 @@ const VoiceMicButton = ({ isListening, isDisabled, onClick }: VoiceMicButtonProp
         onClick={onClick}
         disabled={isDisabled}
         className={`
-          w-28 h-28 rounded-full flex items-center justify-center z-10 shadow-xl
+          w-40 h-40 rounded-full flex items-center justify-center z-10 shadow-xl
           transition-all duration-300
           ${isDisabled ? 'bg-gray-300 text-gray-400 cursor-not-allowed' : ''}
           ${isListening ? 'bg-gradient-to-br from-blue-600 to-blue-400 text-white' : 'bg-gradient-to-br from-blue-500 to-blue-600 text-white hover:scale-105'}

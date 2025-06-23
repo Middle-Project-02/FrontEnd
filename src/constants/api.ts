@@ -8,6 +8,12 @@ export const END_POINTS = {
     GET_ALL: 'notifications',
     GET_DETAIL: (id: string) => `notifications/${id}`,
   },
+  TEMPLATE: {
+    GET_ALL: 'templates',
+    GET_DETAIL: (id: number) => `templates/detail/${id}`,
+    SAVE: 'templates',
+    DELETE: (id: number) => `templates/${id}`,
+  },
   SMISHING: {
     CONNECT: '/smishing/connect',
     MESSAGE: '/smishing/message',
@@ -30,3 +36,5 @@ export const AUTH_ERROR_CODE = {
   EXPIRED_ACCESS_TOKEN: 40116,
   EXPIRED_REFRESH_TOKEN: 40118,
 } as const;
+
+export const KAKAO_API_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${import.meta.env.VITE_KAKAO_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URL}`;
