@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import PlanDetailItem from '@/components/ranking/PlanDetailItem';
 import PlanItem from '@/components/ranking/PlanItem';
@@ -6,6 +6,8 @@ import PlanItemSkeleton from '@/components/skeleton/ranking/PlanItemSkeleton';
 import { Button } from '@/components/ui/button';
 import { getAgeGroupLabel } from '@/utils/ranking/getAgeGroupLabel';
 import useRankAgeGroupQuery from '@/hooks/queries/ranking/useRankAgeGroupQuery';
+import type { RankingPlanSummary } from '@/types/ranking';
+import { PATH } from '@/constants/path';
 
 interface Props {
   ageGroup: number;
@@ -14,10 +16,10 @@ interface Props {
 
 const RankingResultSection = ({ ageGroup, onBack }: Props) => {
   const { RankingPlanListResponse, isLoading } = useRankAgeGroupQuery(ageGroup);
-  const [selectedPlanId, setSelectedPlanId] = useState<number | null>(null);
-
+  const navigate = useNavigate();
+  // 요금제 클릭 시 상세 페이지로 이동 (navigate 사용 예정)
   const handlePlanClick = (planId: number) => {
-    setSelectedPlanId(planId);
+    navigate(`${PATH.RANKING.MAIN}/${planId}`);
   };
 
   // 로딩 중 스켈레톤 UI 렌더링

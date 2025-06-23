@@ -122,16 +122,15 @@ const HomePage = () => {
 
       {!fontMode && (
         <div className="flex flex-col gap-8">
-          <div className="flex justify-between items-center">
-            <Button
-              className="flex items-center py-8 px-8 gap-8 w-fit"
-              variant="ghost"
-              size="md"
-              onClick={() => navigate(PATH.RANKING)}
-            >
-              <h4 className="text-heading-h4 font-semibold">인기 요금제 순위</h4>
-              <ChevronRight />
-            </Button>
+          <Button
+            className="flex items-center py-8 px-8 gap-8 w-fit"
+            variant="ghost"
+            size="md"
+            onClick={() => navigate(PATH.RANKING.MAIN)}
+          >
+            <h4 className="text-heading-h4 font-semibold">요금제 랭킹</h4>
+            <ChevronRight />
+          </Button>
 
             <button
               onClick={() => setIsAutoSliding((prev) => !prev)}
