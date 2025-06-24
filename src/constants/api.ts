@@ -35,6 +35,7 @@ export const END_POINTS = {
     AGE_GROUP: (ageGroup: number) => `ranking?ageGroup=${ageGroup}`,
     DETAIL: (id: number) => `ranking/${id}`,
   },
+  CHECK_PHONE_NUMBER: 'auth/memberId',
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;

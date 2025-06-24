@@ -50,3 +50,11 @@ export const patchFontMode = async (fontMode: boolean) => {
 
   return response.data.content;
 };
+
+export const postCheckPhoneNumber = async (phoneNumber: string) => {
+  const response = await axiosInstance.post(END_POINTS.CHECK_PHONE_NUMBER, {
+    memberId: phoneNumber,
+  });
+
+  return response.data.content;
+};
