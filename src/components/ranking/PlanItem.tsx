@@ -19,7 +19,7 @@ const PlanItem = ({ plan, onClick }: PlanItemProps) => {
           <div className="flex flex-col h-full justify-evenly">
             <p className="font-semibold text-heading-h4">{plan.rank}위</p>
             <p className="text-body-lg">{plan.regularPrice}</p>
-            <Button size="lg" onClick={handlePlanClick}>
+            <Button size="md" onClick={handlePlanClick}>
               요금제 보기
             </Button>
           </div>

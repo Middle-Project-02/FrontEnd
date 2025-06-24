@@ -1,7 +1,7 @@
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 
-const PlanDetailItemSkeleton = ({ onBack }: { onBack: () => void }) => {
+const PlanDetailItemSkeleton = () => {
   return (
     <div className="flex flex-col bg-white border-primary border-2 rounded-16 px-12 py-16 gap-[12px]">
       {/* 제목 및 가격 스켈레톤 */}
@@ -29,7 +29,7 @@ const PlanDetailItemSkeleton = ({ onBack }: { onBack: () => void }) => {
       </div>
 
       {/* 뒤로가기 버튼은 실제 버튼으로 유지 */}
-      <Button variant="secondary" size="sm" onClick={onBack}>
+      <Button variant="secondary" size="sm">
         닫기
       </Button>
     </div>
