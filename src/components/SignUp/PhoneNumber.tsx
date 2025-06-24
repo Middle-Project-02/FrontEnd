@@ -4,10 +4,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useSignUpContext } from '@/pages/SignUp/context/SignUpContext';
+import usePhoneNumberMutation from '@/hooks/queries/auth/usePhoneNumberMutation';
 
 const PhoneNumber = () => {
   const { phoneNumber, setPhoneNumber, setStep } = useSignUpContext();
   const [errorText, setErrorText] = useState('');
+  const { mutatePostCheckPhoneNumber } = usePhoneNumberMutation();
 
   const checkPhoneNumber = () => {
     const number = phoneNumber.replace(/-/g, '').trim();
@@ -32,8 +34,9 @@ const PhoneNumber = () => {
     setPhoneNumber(e.target.value);
   };
 
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     if (checkPhoneNumber()) {
+      await mutatePostCheckPhoneNumber(phoneNumber);
       setStep('password');
     }
   };
