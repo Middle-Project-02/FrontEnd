@@ -1,6 +1,6 @@
-// pages/RankingDetailPage.tsx
 import { useParams, useNavigate } from 'react-router-dom';
 import PlanDetailItem from '@/components/ranking/PlanDetailItem';
+import BackButton from '@/components/common/BackButton';
 
 const RankingDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -17,8 +17,9 @@ const RankingDetailPage = () => {
   }
 
   return (
-    <div className="flex flex-col w-full h-full pt-44">
-      <div className="px-30 h-full overflow-y-auto">
+    <div className="flex flex-col w-full h-full pt-44 px-30">
+      <BackButton />
+      <div className="h-full overflow-y-auto no-scrollbar">
         <PlanDetailItem planId={planId} onBack={handleBack} />
       </div>
     </div>
