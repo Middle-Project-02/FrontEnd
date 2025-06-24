@@ -22,9 +22,12 @@ export const PATH = {
     INTRO: '/quiz/intro',
   },
   RANKING: {
-    MAIN: '/ranking',
-    DETAIL: '/ranking/:id',
-    DETAIL_PATH: (id: number) => `/ranking/${id}`,
+    AGE_SELECT: '/ranking',
+    LIST: '/ranking/:ageGroup',
+    DETAIL: '/ranking/:ageGroup/:id',
+
+    LIST_PATH: (ageGroup: number) => `/ranking/${ageGroup}`,
+    DETAIL_PATH: (ageGroup: number, id: number) => `/ranking/${ageGroup}/${id}`,
   },
   FONTMODE: '/fontmode',
   REDIRECT: '/redirect',
