@@ -126,7 +126,7 @@ const HomePage = () => {
             className="flex items-center py-8 px-8 gap-8 w-fit"
             variant="ghost"
             size="md"
-            onClick={() => navigate(PATH.RANKING.MAIN)}
+            onClick={() => navigate(PATH.RANKING.AGE_SELECT)}
           >
             <h4 className="text-heading-h4 font-semibold">요금제 랭킹</h4>
             <ChevronRight />

@@ -21,7 +21,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
   const navigate = useNavigate();
   // 요금제 클릭 시 상세 페이지로 이동 (navigate 사용 예정)
   const handlePlanClick = (planId: number) => {
-    navigate(`${PATH.RANKING.MAIN}/${planId}`);
+    navigate(PATH.RANKING.DETAIL_PATH(ageGroup, planId));
   };
 
   // 로딩 중 스켈레톤 UI 렌더링

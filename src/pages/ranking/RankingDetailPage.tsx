@@ -1,7 +1,6 @@
 // pages/RankingDetailPage.tsx
 import { useParams, useNavigate } from 'react-router-dom';
 import PlanDetailItem from '@/components/ranking/PlanDetailItem';
-import { PATH } from '@/constants/path';
 
 const RankingDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -10,7 +9,7 @@ const RankingDetailPage = () => {
   const planId = id ? parseInt(id, 10) : null;
 
   const handleBack = () => {
-    navigate(`${PATH.RANKING.MAIN}`); // 목록 페이지로 돌아가기
+    navigate(-1);
   };
 
   if (!planId) {
