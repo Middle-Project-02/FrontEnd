@@ -1,20 +1,22 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import BaseLayout from '@/components/layout/base/BaseLayout';
-import MainPage from '@/pages/MainPage';
 import LoginPage from '@/pages/LoginPage';
 import LandingPage from '@/pages/LandingPage';
 import SmishingPage from '@/pages/smishing/SmishingPage';
 import RankingPage from '@/pages/RankingPage';
 import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
+import PlanChatBotPage from '@/pages/PlanChatBotPage';
+import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
 import NotificationPage from '@/pages/NotificationPage';
 import NotificationDetailPage from '@/pages/NotificationDetailPage';
 import RedirectPage from '@/pages/RedirectPage';
+import MyPage from '@/pages/MyPage';
 import SignUpPage from '@/pages/SignUp/SignUpPage';
 import TemplatesPage from '@/pages/TemplatesPage';
 import TemplateDetailPage from '@/pages/TemplateDetailPage';
 import FontModePage from '@/pages/FontModePage';
-import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
+import HomePage from '@/pages/HomePage';
 import QuizPage from '@/pages/quiz/QuizPage';
 import QuizIntroPage from '@/pages/quiz/QuizIntroPage';
 
@@ -71,14 +73,23 @@ const AppRouter = () => {
           element: <NotificationDetailPage />,
         },
         {
-          path: PATH.MAIN,
-          element: <MainPage />,
+          path: PATH.CHAT,
+          element: <PlanChatBotPage />,
+          loader: requireAuth,
+        },
+        {
+          path: PATH.MYPAGE,
+          element: <MyPage />,
         },
         { path: PATH.TEMPLATES, element: <TemplatesPage /> },
         { path: PATH.TEMPLATE_DETAIL, element: <TemplateDetailPage /> },
         {
           path: PATH.RANKING,
           element: <RankingPage />,
+        },
+        {
+          path: PATH.HOME,
+          element: <HomePage />,
         },
       ],
     },

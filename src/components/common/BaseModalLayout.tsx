@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 interface BaseModalLayoutProps {
   icon: string;
   title: string;
-  description?: string;
+  description?: React.ReactNode;
   children: ReactNode;
 }
 
