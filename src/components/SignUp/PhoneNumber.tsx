@@ -22,6 +22,12 @@ const PhoneNumber = () => {
     return true;
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleNextClick();
+    }
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPhoneNumber(e.target.value);
   };
@@ -50,6 +56,7 @@ const PhoneNumber = () => {
           placeholder="전화번호"
           value={phoneNumber}
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
         />
         <p className="h-[16px] text-body-sm text-error">{errorText}</p>
       </div>
