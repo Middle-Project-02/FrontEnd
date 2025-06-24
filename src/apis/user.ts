@@ -13,7 +13,7 @@ export const patchUpdateUserInfo = async (data: UserInfoUpdate): Promise<MyPageU
 };
 
 export const sendFcmToken = async (token: string) => {
-  await axiosInstance.post('/api/members/fcm-token', { fcmToken: token });
+  await axiosInstance.post(END_POINTS.FCM_TOKEN, { fcmToken: token });
 };
 
 export const deleteUser = async (): Promise<void> => {
