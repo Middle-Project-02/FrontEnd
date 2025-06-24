@@ -7,7 +7,7 @@ import { QUIZ_STATES, ANSWER_LABELS } from '@/constants/quiz';
 import { PATH } from '@/constants/path';
 import { useRandomQuizQuery, useSubmitQuizAnswerMutation } from '@/hooks/queries/quiz/useQuizQuery';
 import { makeToast } from '@/utils/makeToast';
-import { Circle, X, AlertCircle, CircleCheck, LoaderCircle } from 'lucide-react'; // 추가
+import { Circle, X, AlertCircle, CircleCheck, LoaderCircle } from 'lucide-react';
 
 const QuizPage = () => {
   const { data: quiz, refetch, isFetching } = useRandomQuizQuery();
