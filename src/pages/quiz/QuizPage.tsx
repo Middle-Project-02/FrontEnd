@@ -1,11 +1,13 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ChatBubble from '@/components/chat/ChatBubble';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/common/BackButton';
 import { QUIZ_STATES, ANSWER_LABELS } from '@/constants/quiz';
+import { PATH } from '@/constants/path';
 import { useRandomQuizQuery, useSubmitQuizAnswerMutation } from '@/hooks/queries/quiz/useQuizQuery';
 import { makeToast } from '@/utils/makeToast';
-import { Circle, X, AlertCircle, CheckCircle } from 'lucide-react';
+import { Circle, X, AlertCircle, CircleCheck, LoaderCircle } from 'lucide-react'; // 추가
 
 const QuizPage = () => {
   const { data: quiz, refetch, isFetching } = useRandomQuizQuery();
@@ -30,6 +32,8 @@ const QuizPage = () => {
     }
     return { status: QUIZ_STATES.READY };
   }, [quiz, localState]);
+
+  const navigate = useNavigate();
 
   const handleSubmit = useCallback(
     (userAnswer: boolean) => {
@@ -70,7 +74,7 @@ const QuizPage = () => {
     if (quizState.status !== QUIZ_STATES.SUBMITTED) return null;
 
     const { isCorrect } = quizState;
-    const Icon = isCorrect ? CheckCircle : AlertCircle;
+    const Icon = isCorrect ? CircleCheck : AlertCircle;
     const colorClass = isCorrect ? 'text-success' : 'text-error';
     const text = isCorrect ? '정답이에요!' : '오답이에요!';
 
@@ -139,7 +143,7 @@ const QuizPage = () => {
   return (
     <div className="flex flex-col h-full mx-auto rounded-8 bg-white px-30 pt-32 pb-16">
       <header className="flex items-center justify-between px-4 py-3 text-body-md font-medium">
-        <BackButton />
+        <BackButton onClick={() => navigate(PATH.HOME)} />
       </header>
 
       <div className="mb-12">
@@ -149,7 +153,7 @@ const QuizPage = () => {
         </p>
       </div>
 
-      <main className="flex-1 overflow-y-auto flex flex-col gap-12 text-body-lg w-[300px] mb-12">
+      <main className="flex-1 overflow-y-auto no-scrollbar flex flex-col gap-12 text-body-lg w-[300px] mb-12">
         {isFetching ? (
           <ChatBubble role="ai">
             <span className="ml-1 animate-pulse">문제를 불러오는 중입니다...</span>
@@ -157,6 +161,13 @@ const QuizPage = () => {
         ) : quiz ? (
           <ChatBubble role="ai">{quiz.message}</ChatBubble>
         ) : null}
+
+        {isSubmitting && (
+          <div className="flex items-center justify-center gap-8 text-body-md text-textSecondary">
+            <LoaderCircle className="animate-spin w-20 h-20" />
+            <span>채점 중입니다...</span>
+          </div>
+        )}
 
         <JudgementResult />
 

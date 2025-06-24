@@ -1,7 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSse } from '@/hooks/sse/useSse';
 import { useSseListener } from '@/hooks/sse/useSseListener';
 import { END_POINTS } from '@/constants/api';
+import { PATH } from '@/constants/path';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/common/BackButton';
 import { Textarea, TextareaHandle } from '@/components/chat/Textarea';
@@ -48,6 +50,8 @@ const SmishingPage = () => {
       setIsLoading(false);
     },
   );
+
+  const navigate = useNavigate();
 
   const resetAiResponse = () => {
     setAiResponse('');
@@ -100,18 +104,16 @@ const SmishingPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between h-full mx-auto rounded-8 bg-white px-30 pt-40 pb-24">
+    <div className="flex flex-col justify-between h-full mx-auto rounded-8 bg-white px-30 pt-44 pb-12">
       <div className="flex items-center justify-between px-4 py-3 text-body-md font-medium">
-        <BackButton />
+        <BackButton onClick={() => navigate(PATH.HOME)} />
         <ConnectBadge connected={!error} />
       </div>
 
       <h2 className="text-heading-h3 font-semibold text-black">
         받으신 문자를 여기에 붙여넣어 주세요. 확인해드릴게요!
       </h2>
-      <div className="flex items-center gap-8"></div>
-
-      <div className="flex-1 overflow-y-auto flex flex-col gap-12 text-body-lg w-[300px] mt-12 mb-12">
+      <div className="flex-1 overflow-y-auto no-scrollbar flex flex-col gap-12 text-body-lg w-[300px] mt-12">
         <button
           className="px-16 py-12 rounded-24 whitespace-pre-wrap break-words leading-snug max-w-[268px] bg-bgSecondary text-black rounded-tl-4"
           onClick={handlePaste}
@@ -141,8 +143,7 @@ const SmishingPage = () => {
       </div>
 
       {error && <div className="text-center text-error text-body-sm py-4">{error}</div>}
-
-      <div className="flex items-end gap-12 mt-auto border-borderSecondary">
+      <div className="flex items-end gap-12 mt-12 border-borderSecondary">
         <Textarea
           ref={textareaRef}
           value={input}
