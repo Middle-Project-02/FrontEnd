@@ -12,18 +12,15 @@ const PlanItem = ({ plan, onClick }: PlanItemProps) => {
     }
   };
   return (
-    <li>
-      <button
-        onClick={handlePlanClick}
-        className="w-full bg-white shadow-shadow2 rounded-16 px-12 py-16 flex justify-between items-center"
-      >
-        <div className="w-full h-full text-left">
-          <p className="font-semibold text-body-md">
-            {plan.rank}위 : {plan.name}
-          </p>
-          <div className="flex text-body-sm">
-            <p>{plan.dataAmount}</p>
-            {plan.speedLimit && <p>+ {plan.speedLimit}</p>}
+    <li className="h-full">
+      <div onClick={handlePlanClick} className="w-full h-full bg-white flex flex-col">
+        {plan.rank === 1 ? (
+          <div className="flex flex-col h-full justify-evenly">
+            <p className="font-semibold text-heading-h4">{plan.rank}위</p>
+            <p className="text-body-lg">{plan.regularPrice}</p>
+            <Button size="md" onClick={handlePlanClick}>
+              요금제 보기
+            </Button>
           </div>
           {plan.sharedData && <p className="text-body-sm">{plan.sharedData}</p>}
           {plan.targetTypes && <p className="text-body-sm">{plan.targetTypes}</p>}
