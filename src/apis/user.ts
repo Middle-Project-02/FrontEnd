@@ -12,6 +12,10 @@ export const patchUpdateUserInfo = async (data: UserInfoUpdate): Promise<MyPageU
   return response.data.content;
 };
 
+export const sendFcmToken = async (token: string) => {
+  await axiosInstance.post('/api/members/fcm-token', { fcmToken: token });
+};
+
 export const deleteUser = async (): Promise<void> => {
   await axiosInstance.delete(END_POINTS.USERINFORMATION);
 };
