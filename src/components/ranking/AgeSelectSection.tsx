@@ -12,11 +12,11 @@ interface AgeSelectSectionProps {
 const AgeSelectSection = ({ selectedAge, onSelectAge, onNext }: AgeSelectSectionProps) => {
   return (
     <div className="flex flex-col px-30 h-full">
-      <div className="flex flex-col w-full h-[125px] mb-12">
+      <div className="flex flex-col w-full mb-12">
         <BackButton />
         <div className="flex flex-col">
-          <h1 className="text-heading-h2 font-bold">연령대별 인기 요금제</h1>
-          <h2 className="text-heading-h3 text-textSecondary">연령대를 선택해주세요!</h2>
+          <h1 className="text-heading-h3 font-bold">연령대별 인기 요금제</h1>
+          <h2 className="text-heading-h4 text-textSecondary">연령대를 선택해주세요!</h2>
         </div>
       </div>
 
