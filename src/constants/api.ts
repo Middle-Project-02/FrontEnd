@@ -15,8 +15,8 @@ export const END_POINTS = {
     DELETE: (id: number) => `templates/${id}`,
   },
   SMISHING: {
-    CONNECT: '/smishing/connect',
-    MESSAGE: '/smishing/message',
+    CONNECT: 'smishing/connect',
+    MESSAGE: 'smishing/message',
   },
   CHAT: {
     CONNECT: 'chat/connect',
@@ -24,9 +24,9 @@ export const END_POINTS = {
   CHAT_MESSAGE: 'chat/message',
   CHAT_TEMPLATE: 'chat/template',
   QUIZ: {
-    RANDOM: '/quiz/random',
-    SUBMIT: '/quiz/submit',
-    SCORE: '/quiz/score',
+    RANDOM: 'quiz/random',
+    SUBMIT: 'quiz/submit',
+    SCORE: 'quiz/score',
   },
   KAKAOLOGIN: 'auth/login/kakao',
   REGISTER: 'auth/register',
