@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { PATH } from '@/constants/path';
 import { AUTH_ERROR_CODE, KAKAO_API_URL } from '@/constants/api';
 import useLoginMutation from '@/hooks/queries/auth/useLoginMutation';
+import useFixedFontSize from '@/hooks/useFixedFontSize';
 import { HTTPError } from '@/apis/HTTPError';
 import { KakaoLogin } from '@/assets/svg';
 
@@ -18,6 +19,8 @@ const LoginPage = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const { mutatePostLogin } = useLoginMutation();
+
+  useFixedFontSize();
 
   const checkFormData = () => {
     if (!formData.memberId.trim()) {
