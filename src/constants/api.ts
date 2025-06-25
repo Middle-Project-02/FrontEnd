@@ -4,6 +4,7 @@ export const END_POINTS = {
   LOGIN: 'auth/login',
   REISSUE: 'auth/reissue',
   USERINFORMATION: 'members/me',
+  FCM_TOKEN: 'members/fcm-token',
   NOTIFICATION: {
     GET_ALL: 'notifications',
     GET_DETAIL: (id: string) => `notifications/${id}`,
