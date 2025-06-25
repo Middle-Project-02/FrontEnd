@@ -1,13 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import { Button } from '@/components/ui/button';
+import useFixedFontSize from '@/hooks/useFixedFontSize';
 import { LandingDog } from '@/assets/svg';
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  useFixedFontSize();
 
   return (
-    <div className="flex flex-col min-h-screen w-full max-w-[360px] items-center px-30 pt-84 gap-40">
+    <div className="flex flex-col min-h-screen w-full max-w-[360px] items-center px-30 pt-84 pb-24 gap-40">
       <div className="w-[300px] h-[300px]">
         <img src={LandingDog} alt="LandingDog" />
       </div>

@@ -29,7 +29,7 @@ const SmishingIntroPage = () => {
     if (step > 1) {
       animateAndRun(() => setSearchParams({ step: '1' }));
     } else {
-      navigate(PATH.ROOT);
+      navigate(PATH.HOME);
     }
   };
 

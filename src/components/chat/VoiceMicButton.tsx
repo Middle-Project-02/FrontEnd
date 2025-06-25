@@ -8,7 +8,12 @@ const VoiceMicButton = ({ isListening, isDisabled, onClick }: VoiceMicButtonProp
   return (
     <div className="relative flex items-center justify-center">
       {isListening && (
-        <div className="absolute w-52 h-52 rounded-full bg-blue-400 opacity-30 animate-ping" />
+        <div
+          className={`
+            absolute w-52 h-52 rounded-full bg-blue-400 opacity-30
+            animate-ping
+          `}
+        />
       )}
 
       <button
@@ -16,9 +21,13 @@ const VoiceMicButton = ({ isListening, isDisabled, onClick }: VoiceMicButtonProp
         disabled={isDisabled}
         className={`
           w-40 h-40 rounded-full flex items-center justify-center z-10 shadow-xl
-          transition-all duration-300
+          transition-transform duration-300 ease-in-out
           ${isDisabled ? 'bg-gray-300 text-gray-400 cursor-not-allowed' : ''}
-          ${isListening ? 'bg-gradient-to-br from-blue-600 to-blue-400 text-white' : 'bg-gradient-to-br from-blue-500 to-blue-600 text-white hover:scale-105'}
+          ${
+            isListening
+              ? 'bg-gradient-to-br from-blue-600 to-blue-400 text-white scale-150'
+              : 'bg-gradient-to-br from-blue-500 to-blue-600 text-white scale-100 hover:scale-105'
+          }
         `}
       >
         <svg

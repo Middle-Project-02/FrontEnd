@@ -8,7 +8,7 @@ interface TemplateCardProps {
 
 const TemplateCard: React.FC<TemplateCardProps> = ({ title, content, onDetailClick }) => {
   return (
-    <div className="bg-white rounded-16 border shadow4 py-20 px-16 mb-5 max-w-[300px]">
+    <div className="bg-white rounded-16 border shadow-shadow2 py-20 px-16 mb-5 max-w-[300px]">
       <h2 className="font-semibold text-heading-h4 mb-1">{title}</h2>
 
       <p className="text-body-md text-textSecondary mb-3 line-clamp-2">{content}</p>

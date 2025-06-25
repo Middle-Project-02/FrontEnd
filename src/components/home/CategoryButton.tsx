@@ -16,9 +16,10 @@ const CategoryButton = ({ fontMode, title, iconName, fullWidth, onClick }: Categ
     <button
       type="button"
       onClick={onClick}
-      className={`relative w-full ${heightClass} rounded-16 border border-borderSecondary p-16 shadow-shadow2 text-left ${
-        fontMode && 'flex flex-col items-center justify-center'
-      }`}
+      className={`relative w-full ${heightClass} rounded-16 border border-borderSecondary p-16 shadow-shadow2 text-left
+        ${fontMode && 'flex flex-col items-center justify-center'}
+        active:scale-95 active:opacity-60 transition-all duration-100 ease-in-out
+      `}
     >
       {fontMode ? (
         <>

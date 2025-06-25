@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { PATH } from '@/constants/path';
-import { KAKAO_API_URL } from '@/constants/api';
+import { AUTH_ERROR_CODE, KAKAO_API_URL } from '@/constants/api';
 import useLoginMutation from '@/hooks/queries/auth/useLoginMutation';
+import useFixedFontSize from '@/hooks/useFixedFontSize';
+import { HTTPError } from '@/apis/HTTPError';
 import { KakaoLogin } from '@/assets/svg';
 
 const LoginPage = () => {
@@ -17,6 +19,8 @@ const LoginPage = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const { mutatePostLogin } = useLoginMutation();
+
+  useFixedFontSize();
 
   const checkFormData = () => {
     if (!formData.memberId.trim()) {
@@ -41,7 +45,11 @@ const LoginPage = () => {
     try {
       await mutatePostLogin(formData);
     } catch (error) {
-      setErrorText('전화번호 또는 비밀번호가 일치하지 않습니다.');
+      if (error instanceof HTTPError && error.code === AUTH_ERROR_CODE.DELETED_USER) {
+        setErrorText('이미 탈퇴한 사용자입니다.');
+      } else {
+        setErrorText('전화번호 또는 비밀번호가 일치하지 않습니다.');
+      }
     }
   };
 
@@ -73,7 +81,7 @@ const LoginPage = () => {
             onChange={handleChange}
             ref={passwordRef}
           />
-          <div className="h-[16px] text-body-sm text-error">{errorText}</div>
+          <div className="flex items-center h-[16px] text-body-sm text-error">{errorText}</div>
           <Button type="submit" variant="default" size="md">
             시작하기
           </Button>
