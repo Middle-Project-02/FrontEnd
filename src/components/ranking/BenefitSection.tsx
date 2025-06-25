@@ -81,21 +81,18 @@ const BenefitSection = ({ title, content, icon, dataType, dataAmountGb }: Benefi
   const descriptions = getDetailedDescriptions();
 
   return (
-    <div className="py-20">
-      <div className="flex items-center gap-12 mb-16">
-        {icon}
-        <h3 className="text-body-md font-semibold text-textPrimary">{title}</h3>
+    <div className="benefit-section flex px-2 py-12 gap-12">
+      <div className="w-[30px] flex flex-col items-center gap-8">
+        <div className="">{icon}</div>
+        <div className="h-full border-bgSecondaryHover border-1 justify-center items-center" />
       </div>
-
-      <div className="pl-32">
-        {/* 기본 내용 */}
-        <p className="text-body-md font-medium text-textPrimary mb-12">{content}</p>
-
-        {/* 상세 설명 */}
+      <div className="flex-1 flex flex-col gap-8">
+        <p className="text-body-lg leading-tight  text-textSecondary font-semibold">{title}?</p>
+        <p className="text-body-lg leading-tight text-primary font-bold">{content}</p>
         {descriptions.length > 0 && (
-          <div className="space-y-8">
+          <div className="">
             {descriptions.map((desc, index) => (
-              <p key={index} className="text-body-sm text-textSecondary leading-relaxed">
+              <p key={index} className="text-body-md text-black leading-relaxed">
                 {desc}
               </p>
             ))}

@@ -1,21 +1,19 @@
-import useRankDetailQuery from '@/hooks/queries/ranking/useRankDetailQuery';
-import { getDataComment } from '@/utils/ranking/dataUsage';
+import BenefitSection from '@/components/ranking/BenefitSection';
 import PlanDetailItemSkeleton from '@/components/skeleton/ranking/PlanDetailItemSkeleton';
-
-import { Zap, Gift, Phone, Share2, Smartphone, Mails, CirclePercent, Baby } from 'lucide-react';
-import BenefitSection from './BenefitSection';
+import useRankDetailQuery from '@/hooks/queries/ranking/useRankDetailQuery';
+import { CirclePercent, Gift, Mails, Phone, Share2, TabletSmartphone, Zap } from 'lucide-react';
 
 const getBenefitIcon = (key: string) => {
   const iconMap = {
-    데이터: <Zap className="w-25 h-25 text-primary" />,
-    기본혜택: <Gift className="w-25 h-25 text-primary" />,
-    음성통화: <Phone className="w-25 h-25 text-primary" />,
-    문자메시지: <Mails className="w-25 h-25 text-primary" />,
-    '공유 데이터': <Share2 className="w-25 h-25 text-primary" />,
-    '5G 시그니처 가족 할인': <CirclePercent className="w-25 h-25 text-primary" />,
-    스마트기기: <Baby className="w-25 h-25 text-primary" />,
+    데이터: <Zap className="w-24 h-24 text-yellow-400" />,
+    기본혜택: <Gift className="w-24 h-24 text-purple-400" />,
+    음성통화: <Phone className="w-24 h-24 text-green-500" />,
+    문자메시지: <Mails className="w-24 h-24 text-teal-500" />,
+    '공유 데이터': <Share2 className="w-24 h-24 text-cyan-500" />,
+    '5G 시그니처 가족할인': <CirclePercent className="w-24 h-24 text-red-500" />,
+    스마트기기: <TabletSmartphone className="w-24 h-24 text-orange-400" />,
   };
-  return iconMap[key as keyof typeof iconMap] || <Smartphone className="w-20 h-20 text-primary" />;
+  return iconMap[key as keyof typeof iconMap];
 };
 
 interface PlanDetailItemProps {
@@ -30,31 +28,23 @@ const PlanDetailItem = ({ planId }: PlanDetailItemProps) => {
     return <PlanDetailItemSkeleton />;
   }
 
-  const dataComment = rankDetailResponse
-    ? getDataComment({
-        dataType: rankDetailResponse.dataType,
-        dataAmountGb: rankDetailResponse.dataAmountGb,
-      })
-    : '';
-
   const benefitEntries = rankDetailResponse?.allBenefits
     ? Object.entries(rankDetailResponse.allBenefits).filter(([_, value]) => value)
     : [];
 
   return (
-    <div id="container" className="h-full flex flex-col gap-30">
-      <div className="plan-name bg-primary-gradient rounded-16 shadow-shadowP2 text-white px-30 py-16 flex flex-col gap-8">
+    <div id="container" className="h-full flex flex-col gap-30 py-12 mx-2">
+      <div className="plan-name bg-primary-gradient rounded-16 shadow-shadowP2 text-white px-24 py-16 flex flex-col gap-8">
         <p className="text-body-lg">요금제명</p>
         <p className="text-body-lg font-semibold">{rankDetailResponse?.name}</p>
+        <p className="text-body-lg font-semibold text-right">{rankDetailResponse?.regularPrice}</p>
       </div>
 
       <div className="plan-price flex flex-col">
-        <p className="text-body-lg font-semibold">{rankDetailResponse?.regularPrice}</p>
-        <div className="flex flex-col bg-bgSecondary rounded-16 p-12 gap-12">
+        <div className="flex flex-col bg-bgSecondary rounded-16 px-20 py-16 gap-12 shadow-">
           <div className="flex-1">
             <p className="text-body-md">데이터</p>
             <p className="text-body-md font-semibold">{rankDetailResponse?.allBenefits.데이터}</p>
-            <p className="text-body-sm text-textSecondary mt-8">{dataComment}</p>
           </div>
           <hr className="border-bgSecondaryHover rounded-16 border-1" />
           <div className="flex-1">
@@ -69,12 +59,13 @@ const PlanDetailItem = ({ planId }: PlanDetailItemProps) => {
       </div>
 
       <div className="plan-description">
-        <p className="text-body-md">{rankDetailResponse?.description}</p>
+        <p className="text-body-md px-12">{rankDetailResponse?.description}</p>
       </div>
 
-      <div className="plan-details">
-        <h1 className="text-body-lg font-semibold mb-20">요금제 안내</h1>
-        <div className="bg-white rounded-16 divide-y divide-borderLight">
+      <div className="plan-details flex flex-col ">
+        <h1 className="text-body-lg font-semibold mb-12">요금제 안내</h1>
+        <hr className="border-bgSecondaryHover rounded-16 border-1" />
+        <div className="flex flex-col divide-y divide-borderLight">
           {benefitEntries.map(([key, value]) => (
             <BenefitSection
               key={key}
