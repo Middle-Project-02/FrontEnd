@@ -21,17 +21,16 @@ const NotificationDetailPage = () => {
         <h3 className="text-heading-h3 text-black font-semibold mt-16">
           {notificationDetail.title}
         </h3>
-        <div className="flex flex-wrap gap-8 mt-8">
-          <div className="flex flex-wrap gap-8 mt-6">
-            {notificationDetail.tags?.map((tag, idx) => (
-              <span
-                key={idx}
-                className="px-8 py-2 text-body-sm text-textSecondary border border-borderSecondary bg-bgSecondary rounded-16"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+
+        <div className="flex flex-wrap gap-8 mt-6">
+          {notificationDetail.tags?.map((tag, idx) => (
+            <span
+              key={idx}
+              className="px-8 py-2 text-body-sm text-textSecondary border border-borderSecondary bg-bgSecondary rounded-16"
+            >
+              {tag}
+            </span>
+          ))}
         </div>
       </header>
 

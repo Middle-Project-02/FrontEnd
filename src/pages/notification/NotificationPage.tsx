@@ -3,7 +3,7 @@ import { PATH } from '@/constants/path';
 import { useAllNotificationsQuery } from '@/hooks/queries/notification/useNotificationQuery';
 import NotificationCard from '@/components/notification/NotificationCard';
 import BackButton from '@/components/common/BackButton';
-import NotificationCardSkeleton from '@/components/skeleton/notification/NotificationSkeleton';
+import NotificationCardSkeleton from '@/components/skeleton/notification/NotificationCardSkeleton';
 
 const NotificationPage = () => {
   const { notifications, isLoading } = useAllNotificationsQuery();

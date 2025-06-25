@@ -1,9 +1,9 @@
 import { Skeleton } from '@/components/ui/skeleton';
 
 const NotificationSectionSkeleton = () => (
-  <section className="mb-[16px] w-full max-w-[500px]">
+  <section className="w-full max-w-[320px] space-y-12">
     {/* icon + title */}
-    <div className="flex items-center gap-[6px] mb-[12px]">
+    <div className="flex items-center gap-8">
       <Skeleton className="h-[30px] w-[30px] rounded-full bg-bgSecondary" />
       <Skeleton className="h-[30px] w-[180px] bg-bgSecondary" />
     </div>
