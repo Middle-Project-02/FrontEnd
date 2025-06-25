@@ -1,7 +1,7 @@
 import BenefitSection from '@/components/ranking/BenefitSection';
-import PlanDetailItemSkeleton from '@/components/skeleton/ranking/PlanDetailItemSkeleton';
 import useRankDetailQuery from '@/hooks/queries/ranking/useRankDetailQuery';
 import { CirclePercent, Gift, Mails, Phone, Share2, TabletSmartphone, Zap } from 'lucide-react';
+import RankingDetailSkeleton from '@/components/skeleton/ranking/RankingDetailSkeleton';
 
 const getBenefitIcon = (key: string) => {
   const iconMap = {
@@ -24,7 +24,7 @@ const PlanDetailItem = ({ planId }: PlanDetailItemProps) => {
   const { rankDetailResponse, isLoading } = useRankDetailQuery(planId);
 
   if (isLoading) {
-    return <PlanDetailItemSkeleton />;
+    return <RankingDetailSkeleton />;
   }
 
   const benefitEntries = rankDetailResponse?.allBenefits
@@ -40,7 +40,7 @@ const PlanDetailItem = ({ planId }: PlanDetailItemProps) => {
       </div>
 
       <div className="plan-price flex flex-col">
-        <div className="flex flex-col bg-bgSecondary rounded-16 px-20 py-16 gap-12 shadow-">
+        <div className="flex flex-col bg-bgSecondary rounded-16 px-20 py-16 gap-12 shadow-shadow4">
           <div className="flex-1">
             <p className="text-body-md">데이터</p>
             <p className="text-body-md font-semibold">{rankDetailResponse?.allBenefits.데이터}</p>
