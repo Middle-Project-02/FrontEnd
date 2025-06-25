@@ -1,7 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import BackButton from '@/components/common/BackButton';
 import { Skeleton } from '@/components/ui/skeleton';
 import { PATH } from '@/constants/path';
-import { useNavigate } from 'react-router-dom';
 
 const RankingListSkeleton = () => {
   const navigate = useNavigate();

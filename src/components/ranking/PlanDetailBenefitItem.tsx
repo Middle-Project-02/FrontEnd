@@ -1,8 +1,7 @@
-// components/plan/PlanDetailBenefitItem.tsx
 import type { DataType } from '@/types/ranking';
+import { getBenefitDescription } from '@/utils/ranking/benefitDescription';
 import { getDataComment } from '@/utils/ranking/dataUsage';
 import { getSpeedLimitDescription } from '@/utils/ranking/speedLimit';
-import { getBenefitDescription } from '@/utils/ranking/benefitDescription';
 
 interface PlanDetailBenefitItemProps {
   title: string;
