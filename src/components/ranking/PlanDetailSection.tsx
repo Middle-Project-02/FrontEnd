@@ -1,4 +1,4 @@
-import BenefitSection from '@/components/ranking/BenefitSection';
+import PlanDetailBenefitItem from '@/components/ranking/PlanDetailBenefitItem';
 import useRankDetailQuery from '@/hooks/queries/ranking/useRankDetailQuery';
 import { CirclePercent, Gift, Mails, Phone, Share2, TabletSmartphone, Zap } from 'lucide-react';
 import RankingDetailSkeleton from '@/components/skeleton/ranking/RankingDetailSkeleton';
@@ -16,11 +16,11 @@ const getBenefitIcon = (key: string) => {
   return iconMap[key as keyof typeof iconMap];
 };
 
-interface PlanDetailItemProps {
+interface PlanDetailSectionProps {
   planId: number;
 }
 
-const PlanDetailItem = ({ planId }: PlanDetailItemProps) => {
+const PlanDetailSection = ({ planId }: PlanDetailSectionProps) => {
   const { rankDetailResponse, isLoading } = useRankDetailQuery(planId);
 
   if (isLoading) {
@@ -66,7 +66,7 @@ const PlanDetailItem = ({ planId }: PlanDetailItemProps) => {
         <hr className="border-bgSecondaryHover rounded-16 border-1" />
         <div className="flex flex-col divide-y divide-borderLight">
           {benefitEntries.map(([key, value]) => (
-            <BenefitSection
+            <PlanDetailBenefitItem
               key={key}
               title={key}
               content={value}
@@ -86,4 +86,4 @@ const PlanDetailItem = ({ planId }: PlanDetailItemProps) => {
   );
 };
 
-export default PlanDetailItem;
+export default PlanDetailSection;

@@ -1,6 +1,6 @@
 // pages/ranking/RankingDetailPage.tsx
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import PlanDetailItem from '@/components/ranking/PlanDetailItem';
+import PlanDetailSection from '@/components/ranking/PlanDetailSection';
 import BackButton from '@/components/common/BackButton';
 import { PATH } from '@/constants/path';
 
@@ -36,7 +36,7 @@ const RankingDetailPage = () => {
     <div className="flex flex-col w-full h-full pt-44 px-30">
       <BackButton onClick={handleBack} />
       <div className="h-full overflow-y-auto no-scrollbar pt-16">
-        <PlanDetailItem planId={planId} />
+        <PlanDetailSection planId={planId} />
       </div>
     </div>
   );
