@@ -9,7 +9,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icon.png'],
+      includeAssets: ['favicon.ico'],
       manifest: {
         name: 'together',
         short_name: 'together',
@@ -20,14 +20,16 @@ export default defineConfig({
         start_url: '/',
         icons: [
           {
-            src: 'icon.png',
+            src: 'icon-192x192.png',
             sizes: '192x192',
             type: 'image/png',
+            purpose: 'any maskable',
           },
           {
-            src: 'icon.png',
+            src: 'icon-512x512.png',
             sizes: '512x512',
             type: 'image/png',
+            purpose: 'any maskable',
           },
         ],
       },
