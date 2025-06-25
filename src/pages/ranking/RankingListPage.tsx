@@ -1,6 +1,6 @@
 // pages/ranking/RankingListPage.tsx
 import { useParams, useNavigate } from 'react-router-dom';
-import RankingResultSection from '@/components/ranking/RankingResultSection';
+import RankingListSection from '@/components/ranking/RankingListSection';
 import { PATH } from '@/constants/path';
 
 const RankingListPage = () => {
@@ -19,7 +19,7 @@ const RankingListPage = () => {
 
   return (
     <div className="flex flex-col w-full h-full pt-44">
-      <RankingResultSection ageGroup={ageGroupNum} onBack={handleBack} />
+      <RankingListSection ageGroup={ageGroupNum} onBack={handleBack} />
     </div>
   );
 };

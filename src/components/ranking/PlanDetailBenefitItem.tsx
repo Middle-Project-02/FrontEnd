@@ -1,10 +1,10 @@
-// components/plan/BenefitSection.tsx
+// components/plan/PlanDetailBenefitItem.tsx
 import type { DataType } from '@/types/ranking';
 import { getDataComment } from '@/utils/ranking/dataUsage';
 import { getSpeedLimitDescription } from '@/utils/ranking/speedLimit';
 import { getBenefitDescription } from '@/utils/ranking/benefitDescription';
 
-interface BenefitSectionProps {
+interface PlanDetailBenefitItemProps {
   title: string;
   content: string;
   icon: React.ReactNode;
@@ -13,14 +13,14 @@ interface BenefitSectionProps {
   speedLimit: string | null;
 }
 
-const BenefitSection = ({
+const PlanDetailBenefitItem = ({
   title,
   content,
   icon,
   dataType,
   speedLimit,
   dataAmountGb,
-}: BenefitSectionProps) => {
+}: PlanDetailBenefitItemProps) => {
   // 상세 설명 가져오기
   const getDetailedDescriptions = () => {
     // getBenefitDescription 유틸 함수 사용
@@ -97,4 +97,4 @@ const BenefitSection = ({
   );
 };
 
-export default BenefitSection;
+export default PlanDetailBenefitItem;
