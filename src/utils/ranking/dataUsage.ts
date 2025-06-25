@@ -29,7 +29,7 @@ export function getDataComment(planData: PlanData): string {
 
   switch (dataType) {
     case 'UNLIMITED':
-      return '데이터 걱정 없이 사용할 수 있어요!';
+      return '데이터를 마음껏 사용할 수 있어요!';
     case 'DAILY':
       return '매일 5GB씩! 넉넉하게 사용 가능해요';
     case 'CHARGED_PER_KB':

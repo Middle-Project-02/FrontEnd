@@ -1,15 +1,31 @@
-import { useParams, useNavigate } from 'react-router-dom';
+// pages/ranking/RankingDetailPage.tsx
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import PlanDetailItem from '@/components/ranking/PlanDetailItem';
 import BackButton from '@/components/common/BackButton';
+import { PATH } from '@/constants/path';
 
 const RankingDetailPage = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id, ageGroup } = useParams<{ id: string; ageGroup: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const planId = id ? parseInt(id, 10) : null;
+  const ageGroupNum = ageGroup ? parseInt(ageGroup, 10) : null;
 
   const handleBack = () => {
-    navigate(-1);
+    if (ageGroupNum) {
+      // 명시적으로 리스트 페이지로 이동
+      navigate(PATH.RANKING.LIST_PATH(ageGroupNum));
+    } else {
+      // ageGroup을 찾을 수 없으면 state에서 확인
+      const state = location.state as { ageGroup?: number } | null;
+      if (state?.ageGroup) {
+        navigate(PATH.RANKING.LIST_PATH(state.ageGroup));
+      } else {
+        // fallback: 연령대 선택 페이지로
+        navigate(PATH.RANKING.AGE_SELECT);
+      }
+    }
   };
 
   if (!planId) {
@@ -18,9 +34,9 @@ const RankingDetailPage = () => {
 
   return (
     <div className="flex flex-col w-full h-full pt-44 px-30">
-      <BackButton />
-      <div className="h-full overflow-y-auto no-scrollbar">
-        <PlanDetailItem planId={planId} onBack={handleBack} />
+      <BackButton onClick={handleBack} />
+      <div className="h-full overflow-y-auto no-scrollbar pt-16">
+        <PlanDetailItem planId={planId} />
       </div>
     </div>
   );
