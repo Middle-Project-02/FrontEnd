@@ -8,7 +8,7 @@ export default {
         black: '#17171B',
         white: '#FFFFFF',
         primary: '#4169E1',
-        primaryHover: '#0943CF',
+        primaryHover: '#2E4BC7',
         error: '#ED2124',
         errorHover: '#CF1E20',
         success: '#2DB745',
