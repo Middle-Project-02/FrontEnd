@@ -6,6 +6,7 @@ export function useSse(path: string) {
 
   useEffect(() => {
     const fullPath = `${import.meta.env.VITE_API_URL}/${path}`;
+    console.log(fullPath);
     const eventSource = new EventSource(fullPath, {
       withCredentials: true,
     });
