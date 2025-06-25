@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import PlanItem from '@/components/ranking/PlanItem';
+import RankingListInfo from '@/components/ranking/RankingListInfo';
 import RankingListSkeleton from '@/components/skeleton/ranking/RankingListSkeleton';
 import FirstPlanCard from '@/components/ranking/FirstPlanCard';
 import RegulerPlanCard from '@/components/ranking/RegulerPlanCard';
@@ -15,7 +15,7 @@ interface Props {
   onBack: () => void;
 }
 
-const RankingResultSection = ({ ageGroup, onBack }: Props) => {
+const RankingListSection = ({ ageGroup, onBack }: Props) => {
   const { RankingPlanListResponse, isLoading } = useRankAgeGroupQuery(ageGroup);
   const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
             <FirstPlanCard plan={plan} />
           </div>
           <div className="flex-[4] h-full">
-            <PlanItem plan={plan} onClick={handlePlanClick} />
+            <RankingListInfo plan={plan} onClick={handlePlanClick} />
           </div>
         </div>
       );
@@ -52,7 +52,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
             <RegulerPlanCard plan={plan} />
           </div>
           <div className="flex-[3] h-full">
-            <PlanItem plan={plan} onClick={handlePlanClick} />
+            <RankingListInfo plan={plan} onClick={handlePlanClick} />
           </div>
         </div>
       );
@@ -65,7 +65,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
           <RegulerPlanCard plan={plan} />
         </div>
         <div className="flex-[3] h-full">
-          <PlanItem plan={plan} onClick={handlePlanClick} />
+          <RankingListInfo plan={plan} onClick={handlePlanClick} />
         </div>
       </div>
     );
@@ -96,4 +96,4 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
   );
 };
 
-export default RankingResultSection;
+export default RankingListSection;
