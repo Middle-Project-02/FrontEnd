@@ -3,13 +3,16 @@ import { useMutation } from '@tanstack/react-query';
 import { patchFontMode } from '@/apis/auth';
 import { PATH } from '@/constants/path';
 import { makeToast } from '@/utils/makeToast';
+import useFontModeStore from '@/stores/fontModeStore';
 
 const useFontModeMutation = () => {
   const navigate = useNavigate();
+  const { setFontMode } = useFontModeStore();
 
   const patchFontModeMutation = useMutation({
     mutationFn: patchFontMode,
-    onSuccess: () => {
+    onSuccess: (_, newFontMode) => {
+      setFontMode(newFontMode);
       navigate(PATH.HOME, { replace: true });
     },
     onError: () => {

@@ -7,7 +7,7 @@ export default {
       colors: {
         black: '#17171B',
         white: '#FFFFFF',
-        primary: '#0B4EEF',
+        primary: '		#4169E1',
         primaryHover: '#0943CF',
         error: '#ED2124',
         errorHover: '#CF1E20',
@@ -88,6 +88,31 @@ export default {
 
       fontFamily: {
         sans: ['Pretendard Variable', 'Pretendard', 'sans-serif'],
+      },
+      animation: {
+        'soft-ping': 'softPing 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        fadeIn: 'fadeIn 0.5s ease-out forwards',
+        fadeInSlow: 'fadeIn 1.5s ease-out forwards',
+        slideUpGuide: 'slideUp 0.6s ease-out forwards',
+      },
+      keyframes: {
+        softPing: {
+          '0%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { transform: 'scale(1.15)', opacity: '0.6' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeInSlow: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
       },
     },
   },

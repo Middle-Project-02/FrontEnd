@@ -9,7 +9,7 @@ export const PATH = {
   },
   SMISHING: {
     PAGE: '/smishing',
-    INTRO: '/intro',
+    INTRO: '/smishing/intro',
   },
   HOME: '/home',
   CHAT: '/chat',
@@ -17,6 +17,10 @@ export const PATH = {
   TEMPLATES: '/templates',
   TEMPLATE_DETAIL: '/templates/detail/:id',
   MAIN: '/main',
+  QUIZ: {
+    PAGE: '/quiz',
+    INTRO: '/quiz/intro',
+  },
   RANKING: '/ranking',
   FONTMODE: '/fontmode',
   REDIRECT: '/redirect',

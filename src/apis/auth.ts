@@ -36,15 +36,24 @@ export const getNewToken = async () => {
 };
 
 export const postRegister = async (props: RegisterProps) => {
-  const response = await axiosInstance.post(`${END_POINTS.REGISTER}`, {
+  await axiosInstance.post(`${END_POINTS.REGISTER}`, {
     memberId: props.memberId,
     nickname: props.nickname,
     password: props.password,
   });
-  
+};
+
 export const patchFontMode = async (fontMode: boolean) => {
   const response = await axiosInstance.patch(`${END_POINTS.ADDITIONALINFORMATION}`, {
     fontMode,
+  });
+
+  return response.data.content;
+};
+
+export const postCheckPhoneNumber = async (phoneNumber: string) => {
+  const response = await axiosInstance.post(END_POINTS.CHECK_PHONE_NUMBER, {
+    memberId: phoneNumber,
   });
 
   return response.data.content;
