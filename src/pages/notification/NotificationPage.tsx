@@ -15,7 +15,7 @@ const NotificationPage = () => {
 
   return (
     <div className="flex flex-col h-full min-h-screen bg-white">
-      <header className="sticky top-0 px-30 pt-44 pb-24 shadow-shadow2">
+      <header className="sticky top-0 px-30 pt-44 pb-24">
         <BackButton />
         <h3 className="text-heading-h3 font-semibold mt-16">알림장</h3>
         <p className="text-body-md text-textSecondary mt-8">

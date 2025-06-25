@@ -21,7 +21,7 @@ const NotificationCard: React.FC<NotificationCardProps> = ({
     <button
       type="button"
       onClick={handleClick}
-      className="w-full text-left bg-white rounded-20 shadow-shadow4 border border-borderSecondary p-24 space-y-12 hover:shadow-shadow8 transition-shadow"
+      className="w-full text-left bg-white rounded-20 shadow-shadow2 border border-borderSecondary p-24 space-y-12 hover:shadow-shadow8 transition-shadow"
     >
       <div className="flex items-center gap-8">
         <h4 className="font-semibold text-heading-h4 leading-tight">{title}</h4>

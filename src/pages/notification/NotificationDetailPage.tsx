@@ -16,7 +16,7 @@ const NotificationDetailPage = () => {
 
   return (
     <div className="flex flex-col h-full min-h-screen bg-white break-keep">
-      <header className="sticky top-0 px-30 pt-44 pb-20 shadow-shadow2">
+      <header className="sticky top-0 px-30 pt-44 pb-20">
         <BackButton />
         <h3 className="text-heading-h3 text-black font-semibold mt-16">
           {notificationDetail.title}

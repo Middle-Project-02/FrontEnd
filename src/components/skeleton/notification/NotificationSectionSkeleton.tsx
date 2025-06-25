@@ -9,7 +9,7 @@ const NotificationSectionSkeleton = () => (
     </div>
 
     {/* content */}
-    <div className="bg-white rounded-16 border shadow4 py-20 px-16 text-body-lg">
+    <div className="bg-white rounded-16 border shadow-shadow2 py-20 px-16 text-body-lg">
       <Skeleton className="h-[24px] w-full mb-3 bg-bgSecondary" />
       <Skeleton className="h-[24px] w-[90%] mb-3 bg-bgSecondary" />
       <Skeleton className="h-[24px] w-[80%] bg-bgSecondary" />

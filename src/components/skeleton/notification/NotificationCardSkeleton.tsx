@@ -1,7 +1,7 @@
 import { Skeleton } from '@/components/ui/skeleton';
 
 const NotificationCardSkeleton = () => (
-  <div className="w-full bg-white rounded-20 border shadow-shadow4 p-24 space-y-12">
+  <div className="w-full bg-white rounded-20 border shadow-shadow2 p-24 space-y-12">
     {/* title */}
     <Skeleton className="h-30 w-6/7 mb-3 bg-bgSecondary" />
 
