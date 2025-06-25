@@ -8,7 +8,8 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
+      filename: 'sw.js',
       includeAssets: ['favicon.ico'],
       manifest: {
         name: 'together',
