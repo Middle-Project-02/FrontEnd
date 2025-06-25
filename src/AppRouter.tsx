@@ -49,7 +49,7 @@ const AppRouter = () => {
     {
       path: PATH.UNAUTHORIZED,
       element: <UnauthorizedPage />,
-    }
+    },
     {
       path: PATH.SIGNUP,
       element: <SignUpPage />,
@@ -103,14 +103,8 @@ const AppRouter = () => {
           element: <MyPage />,
           loader: requireAuth,
         },
-        { path: PATH.TEMPLATES, 
-          element: <TemplatesPage />, 
-          loader: requireAuth, 
-        },
-        { path: PATH.TEMPLATE_DETAIL, 
-          element: <TemplateDetailPage /> 
-          loader: requireAuth,
-        },
+        { path: PATH.TEMPLATES, element: <TemplatesPage />, loader: requireAuth },
+        { path: PATH.TEMPLATE_DETAIL, element: <TemplateDetailPage />, loader: requireAuth },
         {
           path: PATH.RANKING,
           element: <RankingPage />,
@@ -122,7 +116,7 @@ const AppRouter = () => {
       ],
     },
     {
-      path: '*', // 잘못된 모든 경로는 404로
+      path: '*',
       element: <NotFoundPage />,
     },
   ]);
