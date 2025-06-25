@@ -19,3 +19,4 @@ export { default as User } from './user.svg';
 export { default as OImage } from './O_image.svg';
 export { default as XImage } from './X_image.svg';
 export { default as WelcomeDog } from './welcome.svg';
+export { default as MicDog } from './mic-dog.svg';
