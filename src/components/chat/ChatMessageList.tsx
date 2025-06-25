@@ -65,7 +65,6 @@ const ChatMessageList = ({
                   
                   {msg.text && (
                     <TTSButton
-                      messageId={messageId}
                       text={msg.text}
                       isSpeaking={isCurrentSpeaking}
                       onSpeak={(text) => speakMessage(messageId, text)}
@@ -92,7 +91,6 @@ const ChatMessageList = ({
               </ChatBubble>
             </div>
             <TTSButton
-              messageId={summaryId}
               text={summaryText}
               isSpeaking={isCurrentSpeaking}
               onSpeak={(text) => speakMessage(summaryId, text)}

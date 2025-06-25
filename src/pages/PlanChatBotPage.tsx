@@ -16,7 +16,6 @@ import ChatHeader from '@/components/chat/ChatHeader';
 import ChatMessageList from '@/components/chat/ChatMessageList';
 import VoiceMicButton from '@/components/chat/VoiceMicButton';
 import InputForm from '@/components/chat/InputForm';
-import ListeningOverlay from '@/components/chat/overlay/ListeningOverlay';
 import MicGuideOverlay from '@/components/chat/overlay/MicGuideOverlay';
 import WaitingIndicator from '@/components/chat/WaitingIndicator';
 import ConsultationEndCard from '@/components/chat/ConsultationEndCard';

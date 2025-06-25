@@ -3,7 +3,6 @@ import { Volume2, VolumeX } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface TTSButtonProps {
-  messageId: string; // 메시지 고유 ID
   text: string;
   isSpeaking: boolean;
   onSpeak: (text: string) => void;
@@ -11,14 +10,9 @@ interface TTSButtonProps {
   className?: string;
 }
 
-const TTSButton: React.FC<TTSButtonProps> = ({
-  messageId,
-  text,
-  isSpeaking,
-  onSpeak,
-  onStop,
-  className
-}) => {
+function TTSButton(props: TTSButtonProps) {
+  const { text, isSpeaking, onSpeak, onStop, className } = props;
+
   const handleClick = () => {
     if (isSpeaking) {
       onStop();
@@ -69,7 +63,7 @@ const TTSButton: React.FC<TTSButtonProps> = ({
           듣기
         </>
       )}
-      <style jsx>{`
+      <style>{`
         @keyframes slow-pulse {
           0%, 100% {
             opacity: 1;
@@ -81,6 +75,6 @@ const TTSButton: React.FC<TTSButtonProps> = ({
       `}</style>
     </Button>
   );
-};
+}
 
 export default TTSButton;

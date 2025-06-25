@@ -17,12 +17,10 @@ type SaveState = 'idle' | 'saving' | 'success';
 
 const FontModeOption = ({
   label,
-  value,
   checked,
   onChange,
 }: {
   label: string;
-  value: boolean;
   checked: boolean;
   onChange: () => void;
 }) => (
@@ -127,7 +125,6 @@ const EditStep = ({ userInfo, onSave, onCancel, onDelete }: EditStepProps) => {
               <label className="text-heading-h3 w-[100px] shrink-0">글씨 크기</label>
               <FontModeOption
                 label="큰 글씨"
-                value={true}
                 checked={editedInfo.fontMode === true}
                 onChange={() => handleInputChange('fontMode', true)}
               />
@@ -137,7 +134,6 @@ const EditStep = ({ userInfo, onSave, onCancel, onDelete }: EditStepProps) => {
               <div className="w-[100px]" />
               <FontModeOption
                 label="보통 글씨"
-                value={false}
                 checked={editedInfo.fontMode === false}
                 onChange={() => handleInputChange('fontMode', false)}
               />
