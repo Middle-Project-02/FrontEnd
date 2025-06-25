@@ -10,6 +10,7 @@ import { useSseListener } from '@/hooks/sse/useSseListener';
 import { useSpeechRecognition } from '@/hooks/chat/useSpeechRecognition';
 import { useSendChatMessageMutation } from '@/hooks/queries/chat/useSendChatMessageMutation';
 import useCreatePlanGuideMutation from '@/hooks/queries/template/useCreatePlanGuideMutation';
+import useFixedFontSize from '@/hooks/useFixedFontSize';
 import { chatReducer, initialChatState, ChatActionType } from '@/hooks/chat/useChatReducer';
 import ChatHeader from '@/components/chat/ChatHeader';
 import ChatMessageList from '@/components/chat/ChatMessageList';
@@ -27,6 +28,8 @@ const PlanChatBotPage = () => {
   const bottomRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
+  useSse(END_POINTS.CHAT.CONNECT);
+  useFixedFontSize();
   useTemplateAutoSave();
 
   const {
@@ -37,8 +40,6 @@ const PlanChatBotPage = () => {
     stopListening,
     resetTranscript,
   } = useSpeechRecognition();
-
-  useSse(END_POINTS.CHAT.CONNECT);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
