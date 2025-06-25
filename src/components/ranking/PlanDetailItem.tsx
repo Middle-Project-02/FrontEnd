@@ -18,7 +18,6 @@ const getBenefitIcon = (key: string) => {
 
 interface PlanDetailItemProps {
   planId: number;
-  onBack: () => void;
 }
 
 const PlanDetailItem = ({ planId }: PlanDetailItemProps) => {
@@ -74,6 +73,11 @@ const PlanDetailItem = ({ planId }: PlanDetailItemProps) => {
               icon={getBenefitIcon(key)}
               dataType={key === '데이터' ? rankDetailResponse?.dataType : undefined}
               dataAmountGb={key === '데이터' ? rankDetailResponse?.dataAmountGb : undefined}
+              speedLimit={
+                key === '데이터' && rankDetailResponse?.speedLimit
+                  ? rankDetailResponse.speedLimit
+                  : null
+              }
             />
           ))}
         </div>

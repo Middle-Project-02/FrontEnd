@@ -1,29 +1,8 @@
 // components/plan/BenefitSection.tsx
-import { DataType } from '@/types/ranking';
+import type { DataType } from '@/types/ranking';
 import { getDataComment } from '@/utils/ranking/dataUsage';
-
-// 혜택별 상세 설명 상수
-const BENEFIT_DESCRIPTIONS: Record<string, string[]> = {
-  데이터: [
-    '인터넷이나 유튜브, 카톡을 쓸 수 있는 데이터 양을 GB(기가바이트)라 해요.',
-    '데이터를 모두 사용하면 속도가 느려져요.',
-  ],
-  '공유 데이터': [
-    '테더링: 데이터 나눠쓰기로, 내 휴대폰에서 와이파이 기능',
-    '쉐어링: 내 명의로 5G 요금제에 가입한 태블릿, 스마트 워치에 데이터 나눠주기',
-  ],
-  스마트기기: [
-    '내 명의의 태블릿/워치 등 휴대폰을 제외한 스마트기기 2대 월정액을 1대당 최대 11,000원 할인 받을 수 있어요.',
-  ],
-  음성통화: [
-    '일반적인 음성 통화 사용 시에는 사용량 제한없이 무제한 무료로 이용해요.',
-    '부가 통화, 영상통화는 300분 제한이 있어요.',
-  ],
-  문자메시지: [
-    'SMS, MMS 문자 무제한 무료 발송 가능해요.',
-    '단, 스팸 문자나 대량 발송은 제한될 수 있어요.',
-  ],
-};
+import { getSpeedLimitDescription } from '@/utils/ranking/speedLimit';
+import { getBenefitDescription } from '@/utils/ranking/benefitDescription';
 
 interface BenefitSectionProps {
   title: string;
@@ -31,12 +10,23 @@ interface BenefitSectionProps {
   icon: React.ReactNode;
   dataType?: DataType;
   dataAmountGb?: number | null;
+  speedLimit: string | null;
 }
 
-const BenefitSection = ({ title, content, icon, dataType, dataAmountGb }: BenefitSectionProps) => {
+const BenefitSection = ({
+  title,
+  content,
+  icon,
+  dataType,
+  speedLimit,
+  dataAmountGb,
+}: BenefitSectionProps) => {
   // 상세 설명 가져오기
   const getDetailedDescriptions = () => {
-    // 데이터인 경우 동적으로 생성
+    // getBenefitDescription 유틸 함수 사용
+    const baseDescriptions = getBenefitDescription(title, content);
+
+    // 데이터인 경우 동적으로 추가 설명 생성
     if (title === '데이터' && dataType && dataAmountGb !== undefined) {
       const dataComment = getDataComment({ dataType, dataAmountGb });
 
@@ -63,21 +53,25 @@ const BenefitSection = ({ title, content, icon, dataType, dataAmountGb }: Benefi
           );
           break;
         case 'FIXED':
+          const speedDescription = getSpeedLimitDescription(speedLimit);
+
           typeSpecificDescriptions.push(
             `${dataAmountGb}GB까지 사용 가능한 정량 요금제예요.`,
-            '데이터를 모두 사용하면 속도가 1Mbps로 제한돼요.',
-            '데이터 모두 테더링에 사용할 수 있어요.',
+            `데이터를 모두 사용하면 ${speedDescription}`,
           );
           break;
       }
 
-      return [dataComment, ...typeSpecificDescriptions];
+      // 기본 설명 + 데이터 코멘트 + 타입별 설명을 모두 합치기
+      // DescriptionLine[] 타입을 string[]로 변환
+      const baseTexts = baseDescriptions.map((desc) => desc.text);
+      return [...baseTexts, dataComment, ...typeSpecificDescriptions];
     }
 
-    // 상수에서 가져오기
-    return BENEFIT_DESCRIPTIONS[title] || [];
+    // 데이터가 아닌 경우 기본 설명만 반환
+    // DescriptionLine[] 타입을 string[]로 변환
+    return baseDescriptions.map((desc) => desc.text);
   };
-
   const descriptions = getDetailedDescriptions();
 
   return (
