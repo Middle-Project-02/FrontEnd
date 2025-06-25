@@ -3,10 +3,3 @@
   to = "https://f649-3-239-33-213.ngrok-free.app/api/:splat"
   status = 200
   force = true
-  headers = { 
-    Access-Control-Allow-Origin = "https://together2.netlify.app",
-    Access-Control-Allow-Headers = "*",
-    Access-Control-Allow-Methods = "GET, POST, OPTIONS, PUT, DELETE",
-    Access-Control-Allow-Credentials = "true",
-    Content-Type = "application/json"
-  }
