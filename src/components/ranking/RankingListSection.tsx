@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 
-import RankingListInfo from '@/components/ranking/RankingListInfo';
-import RankingListSkeleton from '@/components/skeleton/ranking/RankingListSkeleton';
+import BackButton from '@/components/common/BackButton';
 import FirstPlanCard from '@/components/ranking/FirstPlanCard';
+import RankingListInfo from '@/components/ranking/RankingListInfo';
 import RegulerPlanCard from '@/components/ranking/RegulerPlanCard';
-import { getAgeGroupLabel } from '@/utils/ranking/getAgeGroupLabel';
+import RankingListSkeleton from '@/components/skeleton/ranking/RankingListSkeleton';
+import { PATH } from '@/constants/path';
 import useRankAgeGroupQuery from '@/hooks/queries/ranking/useRankAgeGroupQuery';
 import type { RankingPlanSummary } from '@/types/ranking';
-import { PATH } from '@/constants/path';
-import BackButton from '@/components/common/BackButton';
+import { getAgeGroupLabel } from '@/utils/ranking/getAgeGroupLabel';
 
 interface Props {
   ageGroup: number;

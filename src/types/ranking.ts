@@ -78,14 +78,3 @@ export interface PlanData {
   dataType: DataType;
   dataAmountGb: number | null;
 }
-
-/** 혜택 설명 텍스트 스타일 */
-export interface DescriptionLine {
-  text: string;
-  isBold?: boolean;
-  isSecondary?: boolean;
-  className?: string;
-}
-
-/** 버튼 Refs 타입 */
-export type ButtonRefsType = React.RefObject<Record<string, HTMLButtonElement | null>>;

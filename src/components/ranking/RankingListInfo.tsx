@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import type { RankingPlanSummary } from '@/types/ranking';
 
 interface PlanItemProps {
