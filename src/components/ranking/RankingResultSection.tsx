@@ -32,7 +32,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
     // 1위 요금제라면 큰 카드와 함께 표시
     if (plan.rank === 1) {
       return (
-        <div className="flex gap-20 h-full py-12">
+        <div className="flex gap-20 h-full py-24">
           <div className="flex-[5]">
             <FirstPlanCard plan={plan} />
           </div>
@@ -45,11 +45,11 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
 
     // 일반 요금제는 기본 아이템만 표시
     return (
-      <div className="flex gap-20 mb-12 h-full">
-        <div className="flex-[1]">
+      <div className="flex gap-20 pt-8">
+        <div className="flex-[2]">
           <RegulerPlanCard plan={plan} />
         </div>
-        <div className="flex-[2] h-full">
+        <div className="flex-[3] h-full">
           <PlanItem plan={plan} onClick={handlePlanClick} />
         </div>
       </div>
@@ -77,21 +77,15 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
         </div>
       </div>
 
-      {/* 컨텐츠 영역 */}
-      <div className="bg-bgTertiary h-full overflow-y-auto">
-        <ul className="flex flex-col gap-8 px-30 my-16">
+      {/* 요금제 목록 */}
+      <div className="overflow-y-auto no-scrollbar pb-24">
+        <ul className="flex flex-col px-30 gap-16">
           {isLoading
             ? // 스켈레톤 로딩 상태
               Array.from({ length: 10 }, (_, index) => <PlanItemSkeleton key={index} />)
             : // 실제 데이터 렌더링
               RankingPlanListResponse?.plans.map((plan) => (
-                <div key={plan.id}>
-                  {selectedPlanId === plan.id ? (
-                    <PlanDetailItem planId={plan.id} onBack={handleBackToList} />
-                  ) : (
-                    <PlanItem plan={plan} onClick={handlePlanClick} />
-                  )}
-                </div>
+                <div key={plan.id}>{renderPlanItem(plan)}</div>
               ))}
         </ul>
       </div>

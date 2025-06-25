@@ -33,8 +33,8 @@ const PlanDetailItem = ({ planId }: PlanDetailItemProps) => {
     : [];
 
   return (
-    <div id="container" className="h-full flex flex-col gap-30 py-12 mx-2">
-      <div className="plan-name bg-primary-gradient rounded-16 shadow-shadowP2 text-white px-24 py-16 flex flex-col gap-8">
+    <div id="container" className="h-full flex flex-col gap-30">
+      <div className="plan-name bg-primary-gradient rounded-16 shadow-shadowP2 text-white px-24 py-16 flex flex-col gap-8 mx-2">
         <p className="text-body-lg">요금제명</p>
         <p className="text-body-lg font-semibold">{rankDetailResponse?.name}</p>
         <p className="text-body-lg font-semibold text-right">{rankDetailResponse?.regularPrice}</p>
@@ -62,7 +62,7 @@ const PlanDetailItem = ({ planId }: PlanDetailItemProps) => {
         <p className="text-body-md px-12">{rankDetailResponse?.description}</p>
       </div>
 
-      <div className="plan-details flex flex-col ">
+      <div className="plan-details flex flex-col pb-24">
         <h1 className="text-body-lg font-semibold mb-12">요금제 안내</h1>
         <hr className="border-bgSecondaryHover rounded-16 border-1" />
         <div className="flex flex-col divide-y divide-borderLight">
