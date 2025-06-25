@@ -5,6 +5,7 @@ import EditStep from '@/components/mypage/EditStep';
 import InfoStep from '@/components/mypage/InfoStep';
 import ConfirmModal from '@/components/modals/ConfirmModal';
 import SuccessModal from '@/components/modals/SuccessModal';
+import MyPageSkeleton from '@/components/skeleton/mypage/MyPageSkeleton';
 import {
   useUserInfoQuery,
   useUpdateUserMutation,
@@ -12,6 +13,7 @@ import {
 } from '@/hooks/queries/user/useUserInfoQuery';
 import useAuthStore from '@/stores/authStore';
 import useModalStore from '@/stores/modalStore';
+import useFontModeStore from '@/stores/fontModeStore';
 import { makeToast } from '@/utils/makeToast';
 import { PATH } from '@/constants/path';
 import { MyPageStep, MyPageUserInfo } from '@/types/user';
@@ -19,11 +21,12 @@ import { MyPageStep, MyPageUserInfo } from '@/types/user';
 const MyPage = () => {
   const [currentStep, setCurrentStep] = useState<MyPageStep>('info');
   const [userInfo, setUserInfo] = useState<MyPageUserInfo | null>(null);
-  const { userInformation, refetch } = useUserInfoQuery();
+  const { userInformation, refetch, isLoading } = useUserInfoQuery();
   const { mutate: updateUser } = useUpdateUserMutation();
   const { mutate: deleteUser } = useDeleteUserMutation();
   const { setIsLoggedIn } = useAuthStore();
   const { setModal, removeModal } = useModalStore();
+  const { setFontMode } = useFontModeStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,8 +34,9 @@ const MyPage = () => {
     setUserInfo({
       memberId: userInformation.memberId,
       nickname: userInformation.nickname,
-      fontMode: false,
+      fontMode: userInformation.fontMode,
     });
+    setFontMode(userInformation.fontMode);
   }, [userInformation]);
 
   const showSuccessModal = (message: string, onConfirm: () => void) => {
@@ -74,26 +78,24 @@ const MyPage = () => {
     );
   };
 
-  const handleUserUpdate = (newInfo: MyPageUserInfo) => {
-    updateUser(
-      {
-        nickname: newInfo.nickname,
-        fontMode: newInfo.fontMode,
+  const handleUserUpdate = (newInfo: MyPageUserInfo, onDone: () => void) => {
+    updateUser(newInfo, {
+      onSuccess: async () => {
+        await refetch();
+        setUserInfo(newInfo);
+        showSuccessModal('회원정보가 수정되었어요.', () => setCurrentStep('info'));
+        onDone();
       },
-      {
-        onSuccess: async () => {
-          await refetch();
-          setUserInfo(newInfo);
-          showSuccessModal('회원정보가 수정되었어요.', () => setCurrentStep('info'));
-        },
-        onError: () => {
-          makeToast('회원 정보 수정에 실패했어요. 다시 시도해 주세요.', 'warning');
-        },
+      onError: () => {
+        makeToast('회원 정보 수정에 실패했어요.', 'warning');
+        onDone();
       },
-    );
+    });
   };
 
   const renderStepContent = () => {
+    if (isLoading) return <MyPageSkeleton />;
+
     if (!userInfo) return null;
 
     switch (currentStep) {
@@ -111,15 +113,21 @@ const MyPage = () => {
             userInfo={userInfo}
             onSave={handleUserUpdate}
             onCancel={() => setCurrentStep('info')}
+            onDelete={handleUserDelete}
           />
         );
     }
   };
 
   return (
-    <main className="pt-44 px-30 flex flex-col gap-24">
-      <BackButton />
-      {renderStepContent()}
+    <main className="flex flex-col bg-white min-h-screen">
+      <header className="px-[30px] pt-[44px]">
+        <BackButton />
+        <div className="text-heading-h3 font-semibold py-4">내 정보</div>
+      </header>
+      <div className="w-full h-full bg-bgSecondary mt-12 pb-[100px]">
+        <div className="flex flex-col items-center pt-24">{renderStepContent()}</div>
+      </div>
     </main>
   );
 };
