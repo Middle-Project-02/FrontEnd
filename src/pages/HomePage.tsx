@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
+import { useRef, useState, useLayoutEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Play, Pause } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
@@ -13,7 +13,8 @@ import { PATH } from '@/constants/path';
 import useAuthStore from '@/stores/authStore';
 import useModalStore from '@/stores/modalStore';
 import useFontModeStore from '@/stores/fontModeStore';
-import useRankDetailQuery from '@/hooks/queries/ranking/useRankDetailQuery';
+import useRankAgeGroupQuery from '@/hooks/queries/ranking/useRankAgeGroupQuery';
+import useFixedFontSize from '@/hooks/useFixedFontSize';
 import { LandingDog } from '@/assets/svg';
 
 const HomePage = () => {
@@ -21,10 +22,12 @@ const HomePage = () => {
   const { isLoggedIn } = useAuthStore();
   const { setModal, removeModal } = useModalStore();
   const { fontMode, setFontMode } = useFontModeStore();
-  const randomId = useMemo(() => {
-    return Math.floor(Math.random() * 120) + 1;
-  }, []);
-  const { rankDetailResponse, isLoading } = useRankDetailQuery(randomId);
+  const randomAgeGroup = useMemo(() => Math.floor(Math.random() * 6) + 1, []);
+  const { RankingPlanListResponse, isLoading } = useRankAgeGroupQuery(randomAgeGroup);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isAutoSliding, setIsAutoSliding] = useState(true);
+
+  useFixedFontSize();
 
   const handleClick = (title: string) => {
     const path = ROUTE_MAP[title as keyof typeof ROUTE_MAP];
@@ -52,8 +55,34 @@ const HomePage = () => {
     }
   };
 
+  useLayoutEffect(() => {
+    if (!isAutoSliding || !scrollRef.current || !RankingPlanListResponse) return;
+
+    const container = scrollRef.current;
+    const speed = 0.8;
+    let animationFrameId: number;
+
+    const animate = () => {
+      if (!container) return;
+
+      container.scrollLeft += speed;
+
+      if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 1) {
+        container.scrollLeft = 0;
+      }
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isAutoSliding, RankingPlanListResponse, fontMode]);
+
   return (
-    <div className="flex flex-col h-full w-full max-w-[360px] pl-30 pr-30 pt-44 pb-24 gap-24 overflow-y-auto">
+    <div className="flex flex-col h-full w-full max-w-[360px] pl-30 pr-30 pt-44 pb-24 gap-24 overflow-y-auto no-scrollbar">
       <div className="flex justify-between items-center">
         <h2 className="text-heading-h2 text-black font-semibold">투게더</h2>
         <div className="flex items-center gap-8">
@@ -73,7 +102,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="flex border border-borderSecondary bg-bgTertiary rounded-16 px-20 py-30 items-center">
+      <div className="flex border border-borderSecondary bg-bgTertiary rounded-16 px-20 py-30 items-center shadow-shadow2">
         <div className="flex flex-col flex-1 gap-16">
           <p
             className={`font-semibold leading-tight ${fontMode ? 'text-heading-h3' : 'text-heading-h4'}`}
@@ -93,39 +122,62 @@ const HomePage = () => {
 
       {!fontMode && (
         <div className="flex flex-col gap-8">
-          <Button
-            className="flex items-center py-8 px-8 gap-8 w-fit"
-            variant="ghost"
-            size="md"
-            onClick={() => navigate(PATH.RANKING)}
-          >
-            <h4 className="text-heading-h4 font-semibold">요금제 랭킹</h4>
-            <ChevronRight />
-          </Button>
+          <div className="flex justify-between items-center">
+            <Button
+              className="flex items-center py-8 px-8 gap-8 w-fit"
+              variant="ghost"
+              size="md"
+              onClick={() => navigate(PATH.RANKING)}
+            >
+              <h4 className="text-heading-h4 font-semibold">인기 요금제 순위</h4>
+              <ChevronRight />
+            </Button>
 
-          {isLoading || !rankDetailResponse ? (
+            <button
+              onClick={() => setIsAutoSliding((prev) => !prev)}
+              className="flex items-center justify-center bg-primary text-white rounded-full w-24 h-24"
+            >
+              {isAutoSliding ? (
+                <Pause size={12} className="text-white fill-white" />
+              ) : (
+                <Play size={12} className="text-white fill-white" />
+              )}
+            </button>
+          </div>
+
+          {isLoading || !RankingPlanListResponse ? (
             <PlanRankingSkeleton />
           ) : (
-            <div className="flex flex-col px-16 py-20 gap-8 border border-borderSecondary bg-bgTertiary rounded-16 shadow-shadow2 h-[165px]">
-              <p className="text-body-lg font-semibold text-black">{rankDetailResponse.name}</p>
-              <div className="flex flex-col gap-20">
-                <div className="flex flex-col">
-                  <p className="text-body-md font-semibold text-black">
-                    데이터 {rankDetailResponse.dataAmount}
-                  </p>
-                  <div className="flex items-center gap-8">
-                    <p className="text-body-sm font-semibold text-textSecondary">
-                      통화 {rankDetailResponse.allBenefits.음성통화?.split('(')[0].trim()}
-                    </p>
-                    <span className="w-[1px] h-[12px] bg-borderSecondary" />
-                    <p className="text-body-sm font-semibold text-textSecondary">
-                      문자 {rankDetailResponse.allBenefits.문자메시지}
-                    </p>
+            <div
+              ref={scrollRef}
+              className="overflow-x-auto no-scrollbar px-6 h-[170px] whitespace-nowrap"
+            >
+              <div className="flex w-fit gap-20">
+                {RankingPlanListResponse.plans.slice(0, 10).map((plan) => (
+                  <div
+                    key={plan.id}
+                    className="flex flex-col shrink-0 w-[85vw] max-w-[240px] h-[165px] px-16 py-20 gap-8 border border-borderSecondary bg-bgTertiary rounded-16 shadow-shadow2 snap-center"
+                    onClick={() => setIsAutoSliding(false)}
+                    onTouchStart={() => setIsAutoSliding(false)}
+                  >
+                    <p className="text-body-lg font-semibold text-black">{plan.name}</p>
+                    <div className="flex flex-col justify-between flex-1">
+                      <div className="flex flex-col">
+                        <p className="text-body-md font-semibold text-black">
+                          데이터 {plan.dataAmount}
+                        </p>
+                        {plan.sharedData && (
+                          <p className="text-body-sm font-semibold text-textSecondary">
+                            {plan.sharedData}
+                          </p>
+                        )}
+                      </div>
+                      <p className="text-body-md font-semibold text-primary text-right">
+                        {plan.regularPrice}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <p className="text-body-md font-semibold text-primary text-right">
-                  {rankDetailResponse.regularPrice}
-                </p>
+                ))}
               </div>
             </div>
           )}

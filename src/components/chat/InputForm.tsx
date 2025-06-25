@@ -15,13 +15,13 @@ const InputForm = ({ input, onChangeInput, onSubmit, isAiResponding }: InputForm
       <Textarea
         value={input}
         onChange={(e) => onChangeInput(e.target.value)}
-        placeholder="질문을 입력하세요"
+        placeholder="여기에 입력하세요"
         inputSize="lg"
         variant="default"
         className="flex-1"
       />
       <Button type="submit" disabled={!input.trim() || isAiResponding} className="ml-2">
-        {isAiResponding ? '응답중...' : '전송'}
+        전송
       </Button>
     </form>
   );

@@ -10,6 +10,7 @@ import { useSseListener } from '@/hooks/sse/useSseListener';
 import { useSpeechRecognition } from '@/hooks/chat/useSpeechRecognition';
 import { useSendChatMessageMutation } from '@/hooks/queries/chat/useSendChatMessageMutation';
 import useCreatePlanGuideMutation from '@/hooks/queries/template/useCreatePlanGuideMutation';
+import useFixedFontSize from '@/hooks/useFixedFontSize';
 import { chatReducer, initialChatState, ChatActionType } from '@/hooks/chat/useChatReducer';
 import ChatHeader from '@/components/chat/ChatHeader';
 import ChatMessageList from '@/components/chat/ChatMessageList';
@@ -27,6 +28,8 @@ const PlanChatBotPage = () => {
   const bottomRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
+  useSse(END_POINTS.CHAT.CONNECT);
+  useFixedFontSize();
   useTemplateAutoSave();
 
   const {
@@ -38,8 +41,6 @@ const PlanChatBotPage = () => {
     resetTranscript,
   } = useSpeechRecognition();
 
-  useSse(END_POINTS.CHAT.CONNECT);
-
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [state.messages, state.streamingMessage, state.aiResponseState]);
@@ -50,13 +51,13 @@ const PlanChatBotPage = () => {
 
   useEffect(() => {
     if (!isListening && transcript) {
+      dispatch({ type: ChatActionType.SET_INPUT, payload: '' });
       dispatch({ type: ChatActionType.ADD_MESSAGE, payload: { sender: 'user', text: transcript } });
       dispatch({ type: ChatActionType.SET_LAST_USER, payload: transcript });
       dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'waiting' });
       sendChat(transcript, {
         onSuccess: () => {
           resetTranscript();
-          dispatch({ type: ChatActionType.SET_INPUT, payload: '' });
         },
         onError: () => {
           makeToast('음성 메시지 전송에 실패했어요. 마이크를 눌러 다시 시도해주세요.', 'warning');
@@ -146,11 +147,12 @@ const PlanChatBotPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!state.input.trim()) return;
+    dispatch({ type: ChatActionType.SET_INPUT, payload: '' });
     dispatch({ type: ChatActionType.ADD_MESSAGE, payload: { sender: 'user', text: state.input } });
     dispatch({ type: ChatActionType.SET_LAST_USER, payload: state.input });
     dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'waiting' });
     sendChat(state.input, {
-      onSuccess: () => dispatch({ type: ChatActionType.SET_INPUT, payload: '' }),
+      // onSuccess: () => dispatch({ type: ChatActionType.SET_INPUT, payload: '' }),
       onError: () => {
         makeToast('메시지 전송에 실패했어요. 로그인 후 다시 시도해주세요.', 'warning');
         dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'idle' });
@@ -188,14 +190,13 @@ const PlanChatBotPage = () => {
 
   return (
     <div className="relative flex flex-col justify-between h-full mx-auto rounded-8 bg-white px-30 pt-40 pb-24">
-      {isListening && <ListeningOverlay />}
       {state.showMicGuide && !isListening && (
         <MicGuideOverlay
           onClose={() => dispatch({ type: ChatActionType.SET_SHOW_MIC_GUIDE, payload: false })}
         />
       )}
       <ChatHeader />
-      <div className="flex-1 overflow-y-auto flex flex-col gap-12 text-body-lg w-[300px] mt-12 mb-12">
+      <div className="flex-1 overflow-y-auto no-scrollbar flex flex-col gap-12 text-body-lg w-[300px] mt-12 mb-12">
         <ChatMessageList
           messages={state.messages}
           summaryMessages={state.summaryMessages}
@@ -218,6 +219,11 @@ const PlanChatBotPage = () => {
             onClick={handleVoiceToggle}
           />
         </div>
+        {isListening && (
+          <div className="text-center text-blue-600 text-body-sm animate-pulse mt-6">
+            듣고 있어요
+          </div>
+        )}
         <InputForm
           input={state.input}
           onChangeInput={(v) => dispatch({ type: ChatActionType.SET_INPUT, payload: v })}
