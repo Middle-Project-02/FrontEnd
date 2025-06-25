@@ -14,17 +14,17 @@ const NotificationPage = () => {
   };
 
   return (
-    <div className="flex flex-col h-full min-h-screen bg-white break-keep">
-      <header className="sticky top-0 px-[30px] pt-[44px]">
+    <div className="flex flex-col h-full min-h-screen bg-white">
+      <header className="sticky top-0 px-30 pt-44 pb-24 shadow-shadow2">
         <BackButton />
-        <h3 className="text-heading-h3 font-semibold py-4">알림장</h3>
-        <p className="text-body-md text-textSecondary pb-12">
-          요즘 어떤 이슈가 떠오르고 있는지 <br />
-          그리고 어떻게 대응하면 좋을지 알려드릴게요!
+        <h3 className="text-heading-h3 font-semibold mt-16">알림장</h3>
+        <p className="text-body-md text-textSecondary mt-8">
+          꼭 알아두셔야 할 <span className="text-primary font-semibold">디지털 소식</span>과<br />
+          <span className="text-primary font-semibold">대처 방법</span>을 알려드릴게요!
         </p>
       </header>
 
-      <main className="flex flex-col flex-1 pb-[100px] overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
+      <main className="flex flex-col flex-1 overflow-y-auto p-30 pb-[85px] bg-bgTertiary no-scrollbar gap-8 space-y-20">
         {isLoading
           ? [...Array(4)].map((_, i) => <NotificationCardSkeleton key={i} />)
           : notifications?.map((notification) => (

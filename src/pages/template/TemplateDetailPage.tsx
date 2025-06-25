@@ -7,7 +7,6 @@ import {
   CONFIRM_TITLES,
   SUCCESS_TITLES,
 } from '@/constants/modalMessage';
-
 import {
   useDeleteTemplateMutation,
   useTemplateDetailQuery,
