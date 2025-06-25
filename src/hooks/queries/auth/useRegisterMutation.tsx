@@ -6,7 +6,7 @@ const useRegisterMutation = () => {
   const postRegisterMutation = useMutation({
     mutationFn: postRegister,
     onError: () => {
-      makeToast('해당 번호로 이미 가입된 계정이 있어요.', 'warning');
+      makeToast('회원 가입에 실패했어요. 잠시 후 다시 시도해 주세요.', 'warning');
     },
   });
 
