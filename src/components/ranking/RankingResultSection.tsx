@@ -45,7 +45,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
 
     // 일반 요금제는 기본 아이템만 표시
     return (
-      <div className="flex gap-20 pt-8">
+      <div className="flex gap-20 h-full pt-8">
         <div className="flex-[2]">
           <RegulerPlanCard plan={plan} />
         </div>
@@ -79,7 +79,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
 
       {/* 요금제 목록 */}
       <div className="overflow-y-auto no-scrollbar pb-24">
-        <ul className="flex flex-col px-30 gap-16">
+        <ul className="flex flex-col px-30 gap-16 h-full">
           {isLoading
             ? // 스켈레톤 로딩 상태
               Array.from({ length: 10 }, (_, index) => <PlanItemSkeleton key={index} />)

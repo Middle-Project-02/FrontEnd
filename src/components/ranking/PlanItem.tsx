@@ -13,22 +13,22 @@ const PlanItem = ({ plan, onClick }: PlanItemProps) => {
   };
   return (
     <li className="h-full">
-      <div onClick={handlePlanClick} className="w-full h-full bg-white flex flex-col">
+      <div onClick={handlePlanClick} className="w-full h-full flex flex-col justify-evenly">
         {plan.rank === 1 ? (
-          <div className="flex flex-col h-full justify-evenly">
+          <div className="flex flex-col gap-4">
             <p className="font-semibold text-heading-h4">{plan.rank}위</p>
             <p className="text-body-lg">{plan.regularPrice}</p>
             <Button size="md" onClick={handlePlanClick}>
               요금제 보기
             </Button>
           </div>
-          {plan.sharedData && <p className="text-body-sm">{plan.sharedData}</p>}
-          {plan.targetTypes && <p className="text-body-sm">{plan.targetTypes}</p>}
-        </div>
-        <div>
-          <p className="text-primary text-body-xs">{plan.regularPrice}</p>
-        </div>
-      </button>
+        ) : (
+          <div className="flex flex-col gap-6">
+            <p className="font-semibold text-body-lg">{plan.rank}위</p>
+            <p className="text-body-md">{plan.regularPrice}</p>
+          </div>
+        )}
+      </div>
     </li>
   );
 };
