@@ -58,6 +58,7 @@ export interface RankingPlanDetailResponse {
   description: string;
   regularPrice: string;
   dataAmount: string;
+  speedLimit?: string | null;
   dataAmountGb: number | null;
   dataType: DataType;
   allBenefits: PlanBenefits;

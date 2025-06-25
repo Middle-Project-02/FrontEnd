@@ -45,6 +45,19 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
       );
     }
 
+    if (plan.rank === 20) {
+      return (
+        <div className="flex gap-20 h-full pt-8 pb-24">
+          <div className="flex-[2]">
+            <RegulerPlanCard plan={plan} />
+          </div>
+          <div className="flex-[3] h-full">
+            <PlanItem plan={plan} onClick={handlePlanClick} />
+          </div>
+        </div>
+      );
+    }
+
     // 일반 요금제는 기본 아이템만 표시
     return (
       <div className="flex gap-20 h-full pt-8">
