@@ -189,7 +189,6 @@ const PlanChatBotPage = () => {
 
   return (
     <div className="relative flex flex-col justify-between h-full mx-auto rounded-8 bg-white px-30 pt-40 pb-24">
-      {/* {isListening && <ListeningOverlay />} */}
       {state.showMicGuide && !isListening && (
         <MicGuideOverlay
           onClose={() => dispatch({ type: ChatActionType.SET_SHOW_MIC_GUIDE, payload: false })}
