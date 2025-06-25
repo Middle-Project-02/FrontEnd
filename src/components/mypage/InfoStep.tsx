@@ -16,14 +16,14 @@ const InfoStep = ({ userInfo, onEdit }: InfoStepProps) => {
   return (
     <>
       <section className="flex flex-col h-full gap-16">
-        <article className="w-[300px] h-[345px] flex flex-col items-center px-16 py-20 gap-36 rounded-16 bg-white border border-borderSecondary">
+        <article className="w-[300px] h-[345px] flex flex-col items-center px-16 py-20 gap-28 rounded-16 bg-white border border-borderSecondary">
           <img
             src={ProfileDog}
             alt="프로필 이미지"
-            className="w-100 h-100 rounded-full object-cover"
+            className="w-100 h-100 rounded-full object-cover mt-16"
           />
           <h2 className="text-heading-h3 font-bold text-center">{userInfo.nickname}</h2>
-          <div className="text-body-lg flex flex-col gap-30">
+          <div className="text-body-lg flex flex-col gap-28">
             <p>
               <span className="font-semibold">전화번호</span>{' '}
               <span className="ml-8">{userInfo.memberId}</span>
