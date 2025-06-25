@@ -19,6 +19,12 @@ const Name = () => {
     return true;
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleNextClick();
+    }
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
@@ -47,6 +53,7 @@ const Name = () => {
           placeholder="이름"
           value={name}
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
         />
         <p className="h-[16px] text-body-sm text-error">{errorText}</p>
       </div>

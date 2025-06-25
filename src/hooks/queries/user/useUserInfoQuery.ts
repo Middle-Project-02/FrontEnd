@@ -12,6 +12,7 @@ export const useUserInfoQuery = () => {
     queryFn: getUserInformation,
     gcTime: 24 * 60 * 60 * 1000,
     staleTime: 24 * 60 * 60 * 1000,
+    refetchOnMount: true,
   });
 
   return { userInformation, refetch, isLoading };

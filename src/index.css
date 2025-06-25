@@ -17,11 +17,16 @@ main {
 }
 
 html {
-  font-size: 10px;
+  font-size: 9px;
 }
 
 html.large-text {
   font-size: 10px;
+}
+
+html.fixed-text,
+html.fixed-text.large-text {
+  font-size: 10px !important;
 }
 
 .no-scrollbar::-webkit-scrollbar {

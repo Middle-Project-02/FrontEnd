@@ -28,6 +28,12 @@ const Password = () => {
     return true;
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && password.trim() !== '' && passwordConfirm.trim() !== '') {
+      handleNextClick();
+    }
+  };
+
   const handleNextClick = () => {
     if (checkPassword()) {
       setStep('complete');
@@ -54,6 +60,7 @@ const Password = () => {
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <button
             type="button"
@@ -76,6 +83,7 @@ const Password = () => {
             type={showPasswordConfirm ? 'text' : 'password'}
             value={passwordConfirm}
             onChange={(e) => setPasswordConfirm(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <button
             type="button"

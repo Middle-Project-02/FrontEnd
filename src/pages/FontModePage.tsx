@@ -4,12 +4,15 @@ import { Button } from '@/components/ui/button';
 import { PATH } from '@/constants/path';
 import useAuthStore from '@/stores/authStore';
 import useFontModeMutation from '@/hooks/queries/auth/useFontModeMutation';
+import useFixedFontSize from '@/hooks/useFixedFontSize';
 
 const FontModePage = () => {
   const [fontMode, setFontMode] = useState<'normal' | 'large' | null>(null);
   const navigate = useNavigate();
   const { setIsLoggedIn } = useAuthStore();
   const { mutatePatchFontMode } = useFontModeMutation();
+
+  useFixedFontSize();
 
   const handleBackClick = () => {
     setIsLoggedIn(false);

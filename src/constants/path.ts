@@ -32,4 +32,6 @@ export const PATH = {
   FONTMODE: '/fontmode',
   REDIRECT: '/redirect',
   SIGNUP: '/signup',
+  SERVER_ERROR: '/500',
+  NOT_FOUND: '/404',
 } as const;

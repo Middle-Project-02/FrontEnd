@@ -12,8 +12,8 @@ const TemplateDetailSkeleton = () => (
       <Skeleton className="h-[20px] w-2/3 mb-12 bg-bgSecondary" />
     </header>
 
-    <main className="flex flex-col flex-1 overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
-      <div className="bg-white rounded-16 border shadow4 py-20 px-16 mb-5 w-full max-w-[300px]">
+    <main className="flex flex-col flex-1 overflow-y-auto shadow-shadow2 p-[30px] bg-bgTertiary no-scrollbar">
+      <div className="bg-white rounded-16 border py-20 px-16 mb-5 w-full max-w-[300px]">
         {/* title */}
         <Skeleton className="h-[30px] w-2/3 mb-4 bg-bgSecondary" />
         {/* content */}

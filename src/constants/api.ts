@@ -4,6 +4,7 @@ export const END_POINTS = {
   LOGIN: 'auth/login',
   REISSUE: 'auth/reissue',
   USERINFORMATION: 'members/me',
+  FCM_TOKEN: 'members/fcm-token',
   NOTIFICATION: {
     GET_ALL: 'notifications',
     GET_DETAIL: (id: string) => `notifications/${id}`,
@@ -15,8 +16,8 @@ export const END_POINTS = {
     DELETE: (id: number) => `templates/${id}`,
   },
   SMISHING: {
-    CONNECT: '/smishing/connect',
-    MESSAGE: '/smishing/message',
+    CONNECT: 'smishing/connect',
+    MESSAGE: 'smishing/message',
   },
   CHAT: {
     CONNECT: 'chat/connect',
@@ -24,9 +25,9 @@ export const END_POINTS = {
   CHAT_MESSAGE: 'chat/message',
   CHAT_TEMPLATE: 'chat/template',
   QUIZ: {
-    RANDOM: '/quiz/random',
-    SUBMIT: '/quiz/submit',
-    SCORE: '/quiz/score',
+    RANDOM: 'quiz/random',
+    SUBMIT: 'quiz/submit',
+    SCORE: 'quiz/score',
   },
   KAKAOLOGIN: 'auth/login/kakao',
   REGISTER: 'auth/register',
@@ -35,6 +36,7 @@ export const END_POINTS = {
     AGE_GROUP: (ageGroup: number) => `ranking?ageGroup=${ageGroup}`,
     DETAIL: (id: number) => `ranking/${id}`,
   },
+  CHECK_PHONE_NUMBER: 'auth/memberId',
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
@@ -47,6 +49,7 @@ export const HTTP_STATUS_CODE = {
 export const AUTH_ERROR_CODE = {
   EXPIRED_ACCESS_TOKEN: 40116,
   EXPIRED_REFRESH_TOKEN: 40118,
+  DELETED_USER: 40125,
 } as const;
 
 export const KAKAO_API_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${import.meta.env.VITE_KAKAO_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URL}`;

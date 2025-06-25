@@ -10,13 +10,16 @@ import RankingDetailPage from '@/pages/ranking/RankingDetailPage';
 import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
 import PlanChatBotPage from '@/pages/PlanChatBotPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
-import NotificationPage from '@/pages/NotificationPage';
-import NotificationDetailPage from '@/pages/NotificationDetailPage';
+import NotificationPage from '@/pages/notification/NotificationPage';
+import NotificationDetailPage from '@/pages/notification/NotificationDetailPage';
 import RedirectPage from '@/pages/RedirectPage';
+import ServerErrorPage from '@/pages/errorBoundary/ServerErrorPage';
+import NotFoundPage from '@/pages/errorBoundary/NotFoundPage';
+import UnauthorizedPage from '@/pages/errorBoundary/UnauthorizedPage';
 import MyPage from '@/pages/MyPage';
 import SignUpPage from '@/pages/SignUp/SignUpPage';
-import TemplatesPage from '@/pages/TemplatesPage';
-import TemplateDetailPage from '@/pages/TemplateDetailPage';
+import TemplatesPage from '@/pages/template/TemplatesPage';
+import TemplateDetailPage from '@/pages/template/TemplateDetailPage';
 import FontModePage from '@/pages/FontModePage';
 import HomePage from '@/pages/HomePage';
 import QuizPage from '@/pages/quiz/QuizPage';
@@ -38,6 +41,18 @@ const AppRouter = () => {
       element: <RedirectPage />,
     },
     {
+      path: PATH.SERVER_ERROR,
+      element: <ServerErrorPage />,
+    },
+    {
+      path: PATH.NOT_FOUND,
+      element: <NotFoundPage />,
+    },
+    {
+      path: PATH.UNAUTHORIZED,
+      element: <UnauthorizedPage />,
+    },
+    {
       path: PATH.SIGNUP,
       element: <SignUpPage />,
     },
@@ -53,26 +68,32 @@ const AppRouter = () => {
         {
           path: PATH.SMISHING.INTRO,
           element: <SmishingIntroPage />,
+          loader: requireAuth,
         },
         {
           path: PATH.SMISHING.PAGE,
           element: <SmishingPage />,
+          loader: requireAuth,
         },
         {
           path: PATH.QUIZ.PAGE,
           element: <QuizPage />,
+          loader: requireAuth,
         },
         {
           path: PATH.QUIZ.INTRO,
           element: <QuizIntroPage />,
+          loader: requireAuth,
         },
         {
           path: PATH.NOTIFICATIONS,
           element: <NotificationPage />,
+          loader: requireAuth,
         },
         {
           path: PATH.NOTIFICATION_DETAIL,
           element: <NotificationDetailPage />,
+          loader: requireAuth,
         },
         {
           path: PATH.CHAT,
@@ -82,9 +103,10 @@ const AppRouter = () => {
         {
           path: PATH.MYPAGE,
           element: <MyPage />,
+          loader: requireAuth,
         },
-        { path: PATH.TEMPLATES, element: <TemplatesPage /> },
-        { path: PATH.TEMPLATE_DETAIL, element: <TemplateDetailPage /> },
+        { path: PATH.TEMPLATES, element: <TemplatesPage />, loader: requireAuth },
+        { path: PATH.TEMPLATE_DETAIL, element: <TemplateDetailPage />, loader: requireAuth },
         {
           path: PATH.RANKING.AGE_SELECT,
           element: <RankingAgeSelectPage />,
@@ -102,6 +124,10 @@ const AppRouter = () => {
           element: <HomePage />,
         },
       ],
+    },
+    {
+      path: '*',
+      element: <NotFoundPage />,
     },
   ]);
 

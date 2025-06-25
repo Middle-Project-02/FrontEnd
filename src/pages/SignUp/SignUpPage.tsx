@@ -4,6 +4,7 @@ import Password from '@/components/SignUp/Password';
 import Complete from '@/components/SignUp/Complete';
 import Welcome from '@/components/SignUp/Welcome';
 import { SignUpProvider, useSignUpContext } from '@/pages/SignUp/context/SignUpContext';
+import useFixedFontSize from '@/hooks/useFixedFontSize';
 
 const SignUpContent = () => {
   const { step } = useSignUpContext();
@@ -25,6 +26,8 @@ const SignUpContent = () => {
 };
 
 const SignUpPage = () => {
+  useFixedFontSize();
+
   return (
     <SignUpProvider>
       <div className="flex flex-col min-h-screen w-full max-w-[360px] items-center px-30">

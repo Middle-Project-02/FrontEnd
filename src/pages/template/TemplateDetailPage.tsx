@@ -7,7 +7,6 @@ import {
   CONFIRM_TITLES,
   SUCCESS_TITLES,
 } from '@/constants/modalMessage';
-
 import {
   useDeleteTemplateMutation,
   useTemplateDetailQuery,
@@ -88,7 +87,7 @@ const TemplateDetailPage = () => {
           ))}
         </div>
         <div className="flex flex-row justify-end">
-          <Button variant="destructive" onClick={handleDeleteClick}>
+          <Button variant="secondary" onClick={handleDeleteClick}>
             이 안내서 지우기
           </Button>
         </div>
