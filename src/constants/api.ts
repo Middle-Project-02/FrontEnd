@@ -1,4 +1,4 @@
-export const BASE_URL = import.meta.env.VITE_BASE_URL;
+export const BASE_URL = "https://f649-3-239-33-213.ngrok-free.app/api";
 
 export const END_POINTS = {
   LOGIN: 'auth/login',
