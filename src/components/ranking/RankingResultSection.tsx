@@ -34,7 +34,7 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
     // 1위 요금제라면 큰 카드와 함께 표시
     if (plan.rank === 1) {
       return (
-        <div className="flex gap-20 h-full py-12">
+        <div className="flex gap-20 h-full py-24">
           <div className="flex-[5]">
             <FirstPlanCard plan={plan} />
           </div>
@@ -47,11 +47,11 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
 
     // 일반 요금제는 기본 아이템만 표시
     return (
-      <div className="flex gap-20 mb-12 h-full">
-        <div className="flex-[1]">
+      <div className="flex gap-20 pt-8">
+        <div className="flex-[2]">
           <RegulerPlanCard plan={plan} />
         </div>
-        <div className="flex-[2] h-full">
+        <div className="flex-[3] h-full">
           <PlanItem plan={plan} onClick={handlePlanClick} />
         </div>
       </div>
@@ -81,16 +81,14 @@ const RankingResultSection = ({ ageGroup, onBack }: Props) => {
       </div>
 
       {/* 요금제 목록 */}
-      <div className="h-full overflow-y-auto">
-        <ul className="flex flex-col px-30 h-full">
+      <div className="overflow-y-auto no-scrollbar pb-24">
+        <ul className="flex flex-col px-30 gap-16">
           {isLoading
             ? // 로딩 상태
               renderSkeletonItems()
             : // 데이터 로드 완료 상태
               RankingPlanListResponse?.plans.map((plan) => (
-                <div key={plan.id} className="mb-28">
-                  {renderPlanItem(plan)}
-                </div>
+                <div key={plan.id}>{renderPlanItem(plan)}</div>
               ))}
         </ul>
       </div>

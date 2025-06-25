@@ -31,7 +31,7 @@ const AgeSelectSection = ({ selectedAge, onSelectAge, onNext }: AgeSelectSection
         ))}
       </div>
 
-      <div className="flex-shrink-0 my-12">
+      <div className="flex-shrink-0 mt-12">
         <Button
           variant={selectedAge ? 'default' : 'secondary'}
           size="lg"
