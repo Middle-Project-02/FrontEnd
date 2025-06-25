@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import useModalStore from '@/stores/modalStore';
 
 const ModalContainer = () => {
@@ -17,13 +18,29 @@ const ModalContainer = () => {
   }, [removeModal]);
 
   return (
-    modal && (
-      <div className="fixed inset-0 z-[1000] bg-black/40 flex items-center justify-center">
-        <div className="bg-white px-20 py-30 rounded-16 w-[300px]" ref={modalRef}>
-          {modal}
-        </div>
-      </div>
-    )
+    <AnimatePresence mode="wait">
+      {modal && (
+        <motion.div
+          key="modal-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[1000] bg-black/40 flex items-center justify-center"
+        >
+          <motion.div
+            key="modal-card"
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 100 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="bg-white px-20 py-30 rounded-16 w-[300px]"
+            ref={modalRef}
+          >
+            {modal}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
