@@ -5,7 +5,7 @@ export function useSse(path: string) {
   const emit = useSseEventBusStore((state) => state.emit);
 
   useEffect(() => {
-    const fullPath = `${import.meta.env.VITE_API_URL}/${path}`;
+    const fullPath = `${import.meta.env.VITE_BASE_URL}/${path}`;
     console.log(fullPath);
     const eventSource = new EventSource(fullPath, {
       withCredentials: true,
