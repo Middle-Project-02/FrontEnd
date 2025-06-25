@@ -1,7 +1,7 @@
 import PlanDetailBenefitItem from '@/components/ranking/PlanDetailBenefitItem';
+import RankingDetailSkeleton from '@/components/skeleton/ranking/RankingDetailSkeleton';
 import useRankDetailQuery from '@/hooks/queries/ranking/useRankDetailQuery';
 import { CirclePercent, Gift, Mails, Phone, Share2, TabletSmartphone, Zap } from 'lucide-react';
-import RankingDetailSkeleton from '@/components/skeleton/ranking/RankingDetailSkeleton';
 
 const getBenefitIcon = (key: string) => {
   const iconMap = {

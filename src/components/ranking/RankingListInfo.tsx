@@ -1,5 +1,5 @@
-import type { RankingPlanSummary } from '@/types/ranking';
 import { Button } from '@/components/ui/button';
+import type { RankingPlanSummary } from '@/types/ranking';
 
 interface PlanItemProps {
   plan: RankingPlanSummary;

@@ -1,9 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import BackButton from '@/components/common/BackButton';
 import AgeSelectButton from '@/components/ranking/AgeSelectButton';
 import { Button } from '@/components/ui/button';
 import { PATH } from '@/constants/path';
 import { AGE_GROUPS } from '@/constants/ranking/ageGroups';
-import { useNavigate } from 'react-router-dom';
 
 interface AgeSelectSectionProps {
   selectedAge: number | null;
