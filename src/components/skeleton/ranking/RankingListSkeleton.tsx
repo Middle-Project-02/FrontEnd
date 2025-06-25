@@ -10,7 +10,7 @@ const RankingListSkeleton = () => {
   };
 
   return (
-    <div className="flex flex-col pt-44 px-30 gap-12">
+    <div className="flex flex-col px-30 gap-12">
       {/* 페이지 헤더 */}
       <BackButton onClick={handleBack} />
       <div className="flex flex-col gap-28">
