@@ -7,7 +7,7 @@ export default {
       colors: {
         black: '#17171B',
         white: '#FFFFFF',
-        primary: '#0B4EEF',
+        primary: '#4169E1',
         primaryHover: '#0943CF',
         error: '#ED2124',
         errorHover: '#CF1E20',
