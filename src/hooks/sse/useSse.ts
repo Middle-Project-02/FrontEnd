@@ -2,11 +2,12 @@ import { useEffect } from 'react';
 import useSseEventBusStore from '@/stores/useSseEventBusStore';
 
 export function useSse(path: string) {
+  console.log(${import.meta.env.VITE_BASE_URL}/${path});
   const emit = useSseEventBusStore((state) => state.emit);
 
   useEffect(() => {
     const fullPath = `${import.meta.env.VITE_BASE_URL}/${path}`;
-    console.log(fullPath);
+    
     const eventSource = new EventSource(fullPath, {
       withCredentials: true,
     });
