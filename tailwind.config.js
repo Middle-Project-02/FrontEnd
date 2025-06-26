@@ -7,8 +7,8 @@ export default {
       colors: {
         black: '#17171B',
         white: '#FFFFFF',
-        primary: '		#4169E1',
-        primaryHover: '#0943CF',
+        primary: '#4169E1',
+        primaryHover: '#2E4BC7',
         error: '#ED2124',
         errorHover: '#CF1E20',
         success: '#2DB745',
@@ -113,6 +113,12 @@ export default {
           '0%': { opacity: '0', transform: 'translateY(20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+      },
+      backgroundImage: {
+        'primary-gradient':
+          'linear-gradient(to bottom, rgba(11, 78, 239, 0.75) 0%, rgba(11, 78, 239, 0.8) 20%, rgba(11, 78, 239, 0.85) 40%, rgba(11, 78, 239, 0.9) 60%, rgba(11, 78, 239, 0.95) 80%, rgba(11, 78, 239, 0.99) 100%)',
+        'card-gradient':
+          'linear-gradient(to bottom,  rgba(148, 163, 184, 0.75) 0%,  rgba(148, 163, 184, 0.8) 20%,  rgba(148, 163, 184, 0.85) 40%,  rgba(148, 163, 184, 0.9) 60%,  rgba(148, 163, 184, 0.95) 80%,  rgba(148, 163, 184, 0.99) 100%)',
       },
     },
   },

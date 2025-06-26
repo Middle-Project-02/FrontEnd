@@ -67,7 +67,7 @@ const QuizPage = () => {
   }, [refetch]);
 
   const handleExit = useCallback(() => {
-    history.back();
+    navigate(PATH.HOME);
   }, []);
 
   const JudgementResult = () => {
