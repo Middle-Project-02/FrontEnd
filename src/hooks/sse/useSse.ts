@@ -4,10 +4,12 @@ import { BASE_URL } from '@/constants/api';
 import { SseEvent, SseEventType, SseEventPayloadMap } from '@/types/sseEventType';
 
 export function useSse(path: string) {
+  console.log(`${import.meta.env.VITE_BASE_URL}/${path}`);
   const emit = useSseEventBusStore((state) => state.emit);
 
   useEffect(() => {
-    const fullPath = `${BASE_URL}${path}`;
+    const fullPath = `${import.meta.env.VITE_BASE_URL}/${path}`;
+    
     const eventSource = new EventSource(fullPath, {
       withCredentials: true,
     });
