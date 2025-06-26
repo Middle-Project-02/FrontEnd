@@ -7,6 +7,8 @@ const useRankDetailQuery = (rankId: number | null) => {
     queryKey: ['rankingDetail', rankId],
     queryFn: () => getRankingDetail(rankId!),
     enabled: !!rankId, // rankId가 있을 때만 쿼리 실행
+    gcTime: 5 * 60 * 1000,
+    staleTime: 5 * 60 * 1000,
   });
 
   return { rankDetailResponse, isLoading };

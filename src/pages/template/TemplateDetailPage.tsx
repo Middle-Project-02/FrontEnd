@@ -69,7 +69,7 @@ const TemplateDetailPage = () => {
   const paragraphs = templateDetail.content.split(/(?<=\.)\s+/);
 
   return (
-    <div className="flex flex-col h-full min-h-screen bg-white break-keep">
+    <div className="flex flex-col h-full bg-white break-keep">
       <header className="sticky top-0 px-[30px] pt-[44px]">
         <BackButton />
         <h3 className="text-heading-h3 text-primary font-semibold py-4">{templateDetail.title}</h3>
@@ -77,7 +77,7 @@ const TemplateDetailPage = () => {
           이 안내서는 대리점에 보여주기 위해 만들어졌어요.
         </p>
       </header>
-      <main className="flex flex-col mb-24 flex-1 overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
+      <main className="flex flex-col pb-24 flex-1 overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
         <div className="bg-white rounded-16 border shadow4 py-20 px-16 mb-5 max-w-[300px]">
           <h4 className="text-heading-h4 font-semibold mb-4">요금제 변경 안내서</h4>
           {paragraphs.map((para, idx) => (

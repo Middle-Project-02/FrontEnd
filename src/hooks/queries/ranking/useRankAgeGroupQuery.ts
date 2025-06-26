@@ -6,6 +6,8 @@ const useRankAgeGroupQuery = (ageGroup: number) => {
   const { data: RankingPlanListResponse, isLoading } = useQuery<RankingPlanListResponse>({
     queryKey: ['ranking', ageGroup],
     queryFn: () => getRankingByAgeGroup(ageGroup),
+    gcTime: 5 * 60 * 1000,
+    staleTime: 5 * 60 * 1000,
   });
 
   return { RankingPlanListResponse, isLoading };

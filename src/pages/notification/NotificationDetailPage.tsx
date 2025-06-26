@@ -15,7 +15,7 @@ const NotificationDetailPage = () => {
   if (!notificationDetail) return <NotFoundPage />;
 
   return (
-    <div className="flex flex-col h-full min-h-screen bg-white break-keep">
+    <div className="flex flex-col h-full bg-white break-keep">
       <header className="sticky top-0 px-30 pt-44 pb-20">
         <BackButton />
         <h3 className="text-heading-h3 text-black font-semibold mt-16">
@@ -34,7 +34,7 @@ const NotificationDetailPage = () => {
         </div>
       </header>
 
-      <main className="flex flex-col flex-1 overflow-y-auto p-30 bg-bgTertiary mb-24 no-scrollbar space-y-24">
+      <main className="flex flex-col flex-1 overflow-y-auto p-30 bg-bgTertiary pb-24 no-scrollbar space-y-24">
         {NOTIFICATION_DETAIL_SECTIONS.map((section) => (
           <NotificationSection
             key={section.key}

@@ -8,6 +8,8 @@ export const useTemplatesQuery = (enabled: boolean = true) => {
     queryKey: ['templates'],
     queryFn: getTemplates,
     enabled,
+    gcTime: 5 * 60 * 1000,
+    staleTime: 5 * 60 * 1000,
   });
 
   return { templates, isLoading };
@@ -18,6 +20,8 @@ export const useTemplateDetailQuery = (templateId: number) => {
     queryKey: ['template', templateId],
     queryFn: () => getTemplateDetail(templateId),
     enabled: !!templateId,
+    gcTime: 5 * 60 * 1000,
+    staleTime: 5 * 60 * 1000,
   });
 
   return { templateDetail, isLoading };
