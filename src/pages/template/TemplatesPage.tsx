@@ -40,8 +40,8 @@ const TemplatesPage = () => {
   };
 
   return (
-    <div className="flex flex-col h-full max-w-[360px] pt-44 overflow-y-auto bg-white">
-      <header className="sticky top-0 px-30 pb-12">
+    <div className="flex flex-col h-full min-h-screen bg-white break-keep">
+      <header className="sticky top-0 px-[30px] pt-[44px]">
         <BackButton />
         <h3 className="text-heading-h3 font-semibold py-4">
           <span className="text-primary">{userInformation?.nickname}</span> 님이 만들었던
@@ -53,7 +53,7 @@ const TemplatesPage = () => {
         </p>
       </header>
 
-      <main className="flex flex-col flex-1 overflow-y-auto px-30 pt-20 pb-24 bg-bgTertiary no-scrollbar space-y-20">
+      <main className="flex flex-col pb-85 flex-1 overflow-y-auto p-30 bg-bgTertiary no-scrollbar gap-20">
         {renderMainContent()}
       </main>
     </div>

@@ -77,7 +77,7 @@ const TemplateDetailPage = () => {
           이 안내서는 대리점에 보여주기 위해 만들어졌어요.
         </p>
       </header>
-      <main className="flex flex-col mb-24 flex-1 overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
+      <main className="flex flex-col pb-[150px] flex-1 overflow-y-auto p-[30px] bg-bgTertiary no-scrollbar">
         <div className="bg-white rounded-16 border shadow4 py-20 px-16 mb-5 max-w-[300px]">
           <h4 className="text-heading-h4 font-semibold mb-4">요금제 변경 안내서</h4>
           {paragraphs.map((para, idx) => (

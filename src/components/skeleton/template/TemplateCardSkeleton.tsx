@@ -1,7 +1,7 @@
 import { Skeleton } from '@/components/ui/skeleton';
 
 const TemplateCardSkeleton = () => (
-  <div className="w-full max-w-[300px] bg-white rounded-16 border shadow-shadow2 py-20 px-16">
+  <div className="w-full max-w-[300px] bg-white rounded-16 border shadow-shadow2 py-20 px-16 mb-5">
     {/* title */}
     <Skeleton className="h-[30px] w-4/5 mb-4 bg-bgSecondary" />
 

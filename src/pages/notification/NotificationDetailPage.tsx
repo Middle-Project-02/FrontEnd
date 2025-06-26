@@ -34,7 +34,7 @@ const NotificationDetailPage = () => {
         </div>
       </header>
 
-      <main className="flex flex-col flex-1 overflow-y-auto p-30 bg-bgTertiary mb-24 no-scrollbar space-y-24">
+      <main className="flex flex-col flex-1 overflow-y-auto p-30 bg-bgTertiary pb-85 no-scrollbar space-y-24">
         {NOTIFICATION_DETAIL_SECTIONS.map((section) => (
           <NotificationSection
             key={section.key}
