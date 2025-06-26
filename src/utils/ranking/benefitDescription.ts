@@ -1,8 +1,4 @@
-// constants/ranking/benefitDescriptions.ts
-import type { DescriptionLine } from '@/types/ranking';
-
-export const BENEFIT_DESCRIPTIONS: Record<string, DescriptionLine[]> = {
-  // 데이터: [{ text: '인터넷이나 유튜브, 카톡을 쓸 수 있는 데이터 양을 GB(기가바이트)라 해요.' }],
+export const BENEFIT_DESCRIPTIONS: Record<string, { text: string }[]> = {
   '공유 데이터': [
     { text: '테더링이란?' },
     { text: '내 휴대폰 데이터를 써서 다른 기기에서도 와이파이를 쓸 수 있어요.' },
@@ -25,7 +21,7 @@ export const BENEFIT_DESCRIPTIONS: Record<string, DescriptionLine[]> = {
 };
 
 // 기본혜택 처리 함수 (기존 로직 유지)
-const getBasicBenefitDescription = (benefitValue: string): DescriptionLine[] => {
+const getBasicBenefitDescription = (benefitValue: string): { text: string }[] => {
   if (benefitValue.includes('실버지킴이')) {
     return [{ text: '1~3시간 마다 문자메시지로 내 위치를 보호자에게 알려주는 서비스' }];
   } else if (
@@ -41,7 +37,7 @@ const getBasicBenefitDescription = (benefitValue: string): DescriptionLine[] => 
 };
 
 // 통합된 혜택 설명 함수
-export const getBenefitDescription = (key: string, value: string): DescriptionLine[] => {
+export const getBenefitDescription = (key: string, value: string): { text: string }[] => {
   if (key === '기본혜택') {
     return getBasicBenefitDescription(value);
   }
