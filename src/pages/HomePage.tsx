@@ -15,7 +15,7 @@ import useModalStore from '@/stores/modalStore';
 import useFontModeStore from '@/stores/fontModeStore';
 import useRankAgeGroupQuery from '@/hooks/queries/ranking/useRankAgeGroupQuery';
 import useFixedFontSize from '@/hooks/useFixedFontSize';
-import { LandingDog } from '@/assets/svg';
+import { LandingDog, Logo1 } from '@/assets/svg';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -84,7 +84,11 @@ const HomePage = () => {
   return (
     <div className="flex flex-col h-full w-full max-w-[360px] pl-30 pr-30 pt-44 pb-24 gap-24 overflow-y-auto no-scrollbar">
       <div className="flex justify-between items-center">
-        <h2 className="text-heading-h2 text-black font-semibold">투게더</h2>
+        <img
+          src={Logo1}
+          className="h-[53px]
+        "
+        />
         <div className="flex items-center gap-8">
           <Switch
             id="font-mode"
