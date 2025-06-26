@@ -24,7 +24,7 @@ const NotificationPage = () => {
         </p>
       </header>
 
-      <main className="flex flex-col flex-1 overflow-y-auto px-30 pt-12 pb-24 bg-bgTertiary no-scrollbar gap-8 space-y-20">
+      <main className="flex flex-col flex-1 overflow-y-auto px-30 pt-20 pb-24 bg-bgTertiary no-scrollbar gap-8 space-y-20">
         {isLoading
           ? [...Array(4)].map((_, i) => <NotificationCardSkeleton key={i} />)
           : notifications?.map((notification) => (

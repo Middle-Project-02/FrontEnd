@@ -53,7 +53,7 @@ const TemplatesPage = () => {
         </p>
       </header>
 
-      <main className="flex flex-col flex-1 overflow-y-auto px-30 pt-12 pb-24 bg-bgTertiary no-scrollbar space-y-16">
+      <main className="flex flex-col flex-1 overflow-y-auto px-30 pt-20 pb-24 bg-bgTertiary no-scrollbar space-y-20">
         {renderMainContent()}
       </main>
     </div>
