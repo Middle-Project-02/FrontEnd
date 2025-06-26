@@ -4,7 +4,9 @@ import BaseLayout from '@/components/layout/base/BaseLayout';
 import LoginPage from '@/pages/LoginPage';
 import LandingPage from '@/pages/LandingPage';
 import SmishingPage from '@/pages/smishing/SmishingPage';
-import RankingPage from '@/pages/RankingPage';
+import RankingAgeSelectPage from '@/pages/ranking/RankingAgeSelectPage';
+import RankingListPage from '@/pages/ranking/RankingListPage';
+import RankingDetailPage from '@/pages/ranking/RankingDetailPage';
 import SmishingIntroPage from '@/pages/smishing/SmishingIntroPage';
 import PlanChatBotPage from '@/pages/PlanChatBotPage';
 import { requireAuth, redirectIfAuthenticated } from '@/utils/authLoader';
@@ -106,8 +108,16 @@ const AppRouter = () => {
         { path: PATH.TEMPLATES, element: <TemplatesPage />, loader: requireAuth },
         { path: PATH.TEMPLATE_DETAIL, element: <TemplateDetailPage />, loader: requireAuth },
         {
-          path: PATH.RANKING,
-          element: <RankingPage />,
+          path: PATH.RANKING.AGE_SELECT,
+          element: <RankingAgeSelectPage />,
+        },
+        {
+          path: PATH.RANKING.LIST,
+          element: <RankingListPage />,
+        },
+        {
+          path: PATH.RANKING.DETAIL,
+          element: <RankingDetailPage />,
         },
         {
           path: PATH.HOME,

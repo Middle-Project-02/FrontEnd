@@ -121,15 +121,15 @@ const HomePage = () => {
       </div>
 
       {!fontMode && (
-        <div className="flex flex-col gap-8">
-          <div className="flex justify-between items-center">
+        <>
+          <div className="flex flex-col gap-8">
             <Button
               className="flex items-center py-8 px-8 gap-8 w-fit"
               variant="ghost"
               size="md"
-              onClick={() => navigate(PATH.RANKING)}
+              onClick={() => navigate(PATH.RANKING.AGE_SELECT)}
             >
-              <h4 className="text-heading-h4 font-semibold">인기 요금제 순위</h4>
+              <h4 className="text-heading-h4 font-semibold">요금제 랭킹</h4>
               <ChevronRight />
             </Button>
 
@@ -181,7 +181,7 @@ const HomePage = () => {
               </div>
             </div>
           )}
-        </div>
+        </>
       )}
 
       <div className="flex flex-col gap-16 w-full">

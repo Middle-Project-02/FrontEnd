@@ -22,7 +22,7 @@ export const REQUIRED_LOGIN = [
 
 export const ROUTE_MAP = {
   '요금제 추천 챗봇': PATH.CHAT,
-  '요금제 순위': PATH.RANKING,
+  '요금제 순위': PATH.RANKING.AGE_SELECT,
   '안내서 보기': PATH.TEMPLATES,
   알림장: PATH.NOTIFICATIONS,
   '스미싱 판별': PATH.SMISHING.INTRO,
