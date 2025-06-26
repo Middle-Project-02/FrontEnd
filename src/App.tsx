@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import AppRouter from './AppRouter';
-import { FirebaseProvider } from '@/components/providers/FirebaseProvider';
+// import { FirebaseProvider } from '@/components/providers/FirebaseProvider';
 import ModalContainer from '@/components/common/ModalContainer';
 import { Toaster } from '@/components/ui/sonner';
 import useFontModeStore from '@/stores/fontModeStore';
@@ -19,11 +19,11 @@ function App() {
   }, [fontMode]);
 
   return (
-    <FirebaseProvider>
+    <>
       <AppRouter />
       <ModalContainer />
       <Toaster />
-    </FirebaseProvider>
+    </>
   );
 }
 

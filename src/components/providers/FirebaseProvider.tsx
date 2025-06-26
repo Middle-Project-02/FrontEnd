@@ -1,6 +1,6 @@
-import { useFirebaseMessaging } from '@/hooks/useFirebaseMessaging';
+// import { useFirebaseMessaging } from '@/hooks/useFirebaseMessaging';
 
-export const FirebaseProvider = ({ children }: { children: React.ReactNode }) => {
-  useFirebaseMessaging();
-  return children;
-};
+// export const FirebaseProvider = ({ children }: { children: React.ReactNode }) => {
+//   useFirebaseMessaging();
+//   return children;
+// };
