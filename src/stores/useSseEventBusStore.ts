@@ -1,21 +1,15 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { enableMapSet } from 'immer';
-import { SseEventType, SseEventPayloadMap } from '@/types/sseEventType';
 
 enableMapSet();
-
-type EventHandler<T extends SseEventType> = (payload: SseEventPayloadMap[T]) => void;
+type EventCallback = (data: string) => void;
 
 interface SseEventBusState {
-  listeners: Map<SseEventType, Set<EventHandler<any>>>;
-
-  emit: <T extends SseEventType>(eventType: T, payload: SseEventPayloadMap[T]) => void;
-
-  on: <T extends SseEventType>(eventType: T, callback: EventHandler<T>) => void;
-
-  off: <T extends SseEventType>(eventType: T, callback: EventHandler<T>) => void;
-
+  listeners: Map<string, Set<EventCallback>>;
+  emit: (event: string, data: string) => void;
+  on: (event: string, callback: EventCallback) => void;
+  off: (event: string, callback: EventCallback) => void;
   clearAll: () => void;
 }
 
@@ -23,29 +17,29 @@ const useSseEventBusStore = create<SseEventBusState>()(
   immer((set, get) => ({
     listeners: new Map(),
 
-    emit(eventType, payload) {
-      const handlers = get().listeners.get(eventType);
-      if (handlers) {
-        handlers.forEach((handler) => handler(payload));
+    emit(event, data) {
+      const cbs = get().listeners.get(event);
+      if (cbs) {
+        cbs.forEach((cb) => cb(data));
       }
     },
 
-    on(eventType, callback) {
+    on(event, callback) {
       set((state) => {
-        if (!state.listeners.has(eventType)) {
-          state.listeners.set(eventType, new Set());
+        if (!state.listeners.has(event)) {
+          state.listeners.set(event, new Set());
         }
-        state.listeners.get(eventType)!.add(callback);
+        state.listeners.get(event)!.add(callback);
       });
     },
 
-    off(eventType, callback) {
+    off(event, callback) {
       set((state) => {
-        const handlers = state.listeners.get(eventType);
-        if (handlers) {
-          handlers.delete(callback);
-          if (handlers.size === 0) {
-            state.listeners.delete(eventType);
+        const cbs = state.listeners.get(event);
+        if (cbs) {
+          cbs.delete(callback);
+          if (cbs.size === 0) {
+            state.listeners.delete(event);
           }
         }
       });

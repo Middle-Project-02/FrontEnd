@@ -1,21 +1,16 @@
-import { useEffect } from 'react';
 import useSseEventBusStore from '@/stores/useSseEventBusStore';
-import { SseEventType, SseEventPayloadMap } from '@/types/sseEventType';
+import { useEffect } from 'react';
 
-export function useSseListener<T extends SseEventType>(
-  eventType: T,
-  callback: (payload: SseEventPayloadMap[T]) => void,
-) {
+export function useSseListener(event: string, callback: (data: string) => void) {
   const on = useSseEventBusStore((state) => state.on);
   const off = useSseEventBusStore((state) => state.off);
 
   useEffect(() => {
-    on(eventType, callback);
-
+    on(event, callback);
     return () => {
-      off(eventType, callback);
+      off(event, callback);
     };
-  }, [eventType, callback, on, off]);
+  }, [event, callback, on, off]);
 }
 
 export default useSseListener;

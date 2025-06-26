@@ -12,7 +12,6 @@ import { useSendChatMessageMutation } from '@/hooks/queries/chat/useSendChatMess
 import useCreatePlanGuideMutation from '@/hooks/queries/template/useCreatePlanGuideMutation';
 import useFixedFontSize from '@/hooks/useFixedFontSize';
 import { chatReducer, initialChatState, ChatActionType } from '@/hooks/chat/useChatReducer';
-import { SseEvent, SummaryCreateEvent } from '@/types/sseEventType';
 import ChatHeader from '@/components/chat/ChatHeader';
 import ChatMessageList from '@/components/chat/ChatMessageList';
 import VoiceMicButton from '@/components/chat/VoiceMicButton';
@@ -74,7 +73,7 @@ const PlanChatBotPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleStreamChat = useCallback(
+  const onStreamChat = useCallback(
     (data: string) => {
       const words = data.split(/(\s+)/);
       let index = 0;
@@ -99,49 +98,50 @@ const PlanChatBotPage = () => {
     [state.messages, state.streamingMessage],
   );
 
-  const handleDone = useCallback(() => {
+  const onDone = () => {
     dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'done' });
     dispatch({ type: ChatActionType.RESET_STREAMING });
     setTimeout(() => {
       dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'idle' });
     }, 100);
-  }, []);
+  };
 
-  const handleQuestion = useCallback(
-    (data: string) => {
-      dispatch({ type: ChatActionType.RESET_STREAMING });
-      if (state.lastUserMessage === data) return;
-      dispatch({ type: ChatActionType.ADD_MESSAGE, payload: { sender: 'user', text: data } });
-      dispatch({ type: ChatActionType.SET_LAST_USER, payload: data });
-    },
-    [state.lastUserMessage],
-  );
-
-  const handleAnswer = useCallback((data: string) => {
+  const onOtherMessages = (data: string, type: string) => {
     dispatch({ type: ChatActionType.RESET_STREAMING });
-    dispatch({ type: ChatActionType.ADD_MESSAGE, payload: { sender: 'ai', text: data } });
-    dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'done' });
-    setTimeout(() => dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'idle' }), 100);
-  }, []);
+    const sender = type === 'question' ? 'user' : 'ai';
+    if (type === 'question' && state.lastUserMessage === data) return;
+    dispatch({ type: ChatActionType.ADD_MESSAGE, payload: { sender, text: data } });
+    if (type === 'question') dispatch({ type: ChatActionType.SET_LAST_USER, payload: data });
+    if (sender === 'ai') {
+      dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'done' });
+      setTimeout(() => dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'idle' }), 100);
+    }
+  };
 
-  const handleSummary = useCallback((summary: SummaryCreateEvent) => {
-    dispatch({ type: ChatActionType.ADD_SUMMARY, payload: summary });
-    dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'done' });
-    setTimeout(() => dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'idle' }), 100);
-  }, []);
-
-  const handleRecommendResult = useCallback((plans: SmartChoicePlanDto[]) => {
-    dispatch({ type: ChatActionType.ADD_RECOMMEND_CARDS, payload: plans });
-    dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'done' });
-    setTimeout(() => dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'idle' }), 100);
-  }, []);
-
-  useSseListener(SseEvent.STREAM_CHAT, handleStreamChat);
-  useSseListener(SseEvent.DONE, handleDone);
-  useSseListener(SseEvent.QUESTION, handleQuestion);
-  useSseListener(SseEvent.ANSWER, handleAnswer);
-  useSseListener(SseEvent.SUMMARY, handleSummary);
-  useSseListener(SseEvent.RECOMMEND_RESULT, handleRecommendResult);
+  useSseListener('stream_chat', onStreamChat);
+  useSseListener('done', onDone);
+  useSseListener('question', (data) => onOtherMessages(data, 'question'));
+  useSseListener('answer', (data) => onOtherMessages(data, 'answer'));
+  useSseListener('summary', (data) => {
+    try {
+      const parsed = typeof data === 'string' ? JSON.parse(data) : data;
+      dispatch({ type: ChatActionType.ADD_SUMMARY, payload: parsed });
+      dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'done' });
+      setTimeout(() => dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'idle' }), 100);
+    } catch (e) {
+      console.error('summary 파싱 오류', e);
+    }
+  });
+  useSseListener('recommend_result', (data) => {
+    try {
+      const parsed: SmartChoicePlanDto[] = typeof data === 'string' ? JSON.parse(data) : data;
+      dispatch({ type: ChatActionType.ADD_RECOMMEND_CARDS, payload: parsed });
+      dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'done' });
+      setTimeout(() => dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'idle' }), 100);
+    } catch (e) {
+      console.error('recommend_result 파싱 오류', e);
+    }
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -151,6 +151,7 @@ const PlanChatBotPage = () => {
     dispatch({ type: ChatActionType.SET_LAST_USER, payload: state.input });
     dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'waiting' });
     sendChat(state.input, {
+      // onSuccess: () => dispatch({ type: ChatActionType.SET_INPUT, payload: '' }),
       onError: () => {
         makeToast('메시지 전송에 실패했어요. 로그인 후 다시 시도해주세요.', 'warning');
         dispatch({ type: ChatActionType.SET_AI_STATE, payload: 'idle' });

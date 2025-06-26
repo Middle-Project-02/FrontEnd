@@ -1,8 +1,7 @@
-import { useCallback, useRef } from 'react';
+import { useRef } from 'react';
 import useSseListener from '@/hooks/sse/useSseListener';
 import { useSaveTemplateMutation } from '@/hooks/queries/template/useTemplateQueries';
 import { TemplateSaveRequest } from '@/types/template';
-import { SseEvent, SummaryCreateEvent } from '@/types/sseEventType';
 
 export function useTemplateAutoSave() {
   const summaryRef = useRef<TemplateSaveRequest | null>(null);
@@ -16,15 +15,13 @@ export function useTemplateAutoSave() {
     onError: resetSummary,
   });
 
-  const handleSummary = useCallback((summary: SummaryCreateEvent) => {
-    summaryRef.current = summary as TemplateSaveRequest;
-  }, []);
+  useSseListener('summary', (data) => {
+    const parsed = JSON.parse(data);
+    summaryRef.current = parsed;
+  });
 
-  const handleDone = useCallback(() => {
+  useSseListener('done', () => {
     if (!summaryRef.current || isPending) return;
     save(summaryRef.current);
-  }, [save, isPending]);
-
-  useSseListener(SseEvent.SUMMARY, handleSummary);
-  useSseListener(SseEvent.DONE, handleDone);
+  });
 }
