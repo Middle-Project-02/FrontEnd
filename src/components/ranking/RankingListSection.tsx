@@ -73,7 +73,6 @@ const RankingListSection = ({ ageGroup, onBack }: Props) => {
 
   return (
     <div className="flex flex-col overflow-y-auto">
-      {/* 헤더는 항상 렌더링 */}
       <div className="flex flex-col w-full px-30 mb-12">
         <BackButton onClick={onBack} />
         <div className="flex flex-col">
