@@ -7,7 +7,7 @@ import { AUTH_ERROR_CODE, KAKAO_API_URL } from '@/constants/api';
 import useLoginMutation from '@/hooks/queries/auth/useLoginMutation';
 import useFixedFontSize from '@/hooks/useFixedFontSize';
 import { HTTPError } from '@/apis/HTTPError';
-import { KakaoLogin } from '@/assets/svg';
+import { KakaoLogin, Logo1 } from '@/assets/svg';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -61,7 +61,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex flex-col min-h-screen w-full max-w-[360px] items-center px-30 pt-84 gap-40">
-      <h2 className="text-heading-h2 text-primary font-semibold text-center">투게더</h2>
+      <img src={Logo1} className="h-[90px]" />
       <div className="flex flex-col w-full gap-12">
         <form onSubmit={handleSubmit} className="flex flex-col gap-12">
           <Input
