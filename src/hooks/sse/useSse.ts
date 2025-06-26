@@ -7,7 +7,7 @@ export function useSse(path: string) {
   const emit = useSseEventBusStore((state) => state.emit);
 
   useEffect(() => {
-    const fullPath = `${BASE_URL}/${path}`;
+    const fullPath = `${BASE_URL}${path}`;
     const eventSource = new EventSource(fullPath, {
       withCredentials: true,
     });
