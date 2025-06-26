@@ -1,6 +1,8 @@
+// utils/ranking/dataUsage.ts
 import type { DataUsageLevel, PlanData } from '@/types/ranking';
 import { DATA_USAGE_MESSAGES } from '@/constants/ranking/dataUsage';
 
+// 데이터 용량에 따른 레벨 계산
 export function calculateDataUsageLevel(dataAmountGb: number | null): DataUsageLevel {
   if (!dataAmountGb || dataAmountGb === null) {
     return 'UNKNOWN';
@@ -21,12 +23,13 @@ export function calculateDataUsageLevel(dataAmountGb: number | null): DataUsageL
   }
 }
 
+// 데이터 타입에 따른 코멘트 생성
 export function getDataComment(planData: PlanData): string {
   const { dataType, dataAmountGb } = planData;
 
   switch (dataType) {
     case 'UNLIMITED':
-      return '데이터 걱정 없이 사용할 수 있어요!';
+      return '데이터를 마음껏 사용할 수 있어요!';
     case 'DAILY':
       return '매일 5GB씩! 넉넉하게 사용 가능해요';
     case 'CHARGED_PER_KB':
